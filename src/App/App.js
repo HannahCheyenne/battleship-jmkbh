@@ -1,13 +1,18 @@
 import React from "react";
+import { Route, Switch } from 'react-router-dom'
+import Login from '../Login/Login'
+import Home from '../Home/Home'
+import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
+
 
 function App() {
   return (
     <div>
       <Switch>
-      <Route component={Login} path="/login">
-          </Route>
-      <Route component={Home} exact path="/">
-          </Route>
+      <PublicOnlyRoute component={Login} path="/login">
+          </PublicOnlyRoute>
+      <PublicOnlyRoute component={Home} exact path="/">
+          </PublicOnlyRoute>
       </Switch>
     </div>
   );

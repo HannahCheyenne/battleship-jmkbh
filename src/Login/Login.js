@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import TokenService from "./services/token-service";
-import AuthApiService from "./services/auth-api-service";
+import TokenService from "../services/token-service";
+import AuthApiService from "../services/auth-api-service";
 import Header from "../Header/Header";
-import "login.css";
+import "./login.css";
 
 class Login extends Component {
   state = {
@@ -27,6 +27,7 @@ class Login extends Component {
       });
   };
   render() {
+    const { error } = this.state;
     return (
       <div>
         <Header />
@@ -55,3 +56,5 @@ class Login extends Component {
     );
   }
 }
+
+export default Login
