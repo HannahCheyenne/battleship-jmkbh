@@ -1,10 +1,15 @@
-import React from 'react';
+import React from "react";
 
 function App() {
   return (
-    <main className='App'>
-      <p>Hello World!</p>
-    </main>
+    <div>
+      <Switch>
+      <Route component={Login} path="/login">
+          </Route>
+      <Route component={Home} exact path="/">
+          </Route>
+      </Switch>
+    </div>
   );
 }
 
