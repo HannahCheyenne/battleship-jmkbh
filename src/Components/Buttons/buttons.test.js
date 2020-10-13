@@ -19,11 +19,6 @@ it('should render CreateAiGame button', () => {
   , div);
   ReactDOM.unmountComponentAtNode(div);
 });
-import React from 'react';
-import ReactDOM from 'react-dom';
-import StatsPage from './StatsPage'
-import { BrowserRouter } from 'react-router-dom';
-
 it('should render createprivategame button', () => {
   const div = document.createElement('div');
   ReactDOM.render(
@@ -33,11 +28,6 @@ it('should render createprivategame button', () => {
   , div);
   ReactDOM.unmountComponentAtNode(div);
 });
-import React from 'react';
-import ReactDOM from 'react-dom';
-import StatsPage from './StatsPage'
-import { BrowserRouter } from 'react-router-dom';
-
 it('should render DemoGame button', () => {
   const div = document.createElement('div');
   ReactDOM.render(
@@ -83,3 +73,4 @@ it('should render Join Random Game button', () => {
     , div);
     ReactDOM.unmountComponentAtNode(div);
   });
+  
