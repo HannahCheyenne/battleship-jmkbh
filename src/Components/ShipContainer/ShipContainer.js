@@ -1,2 +1,2 @@
 import React from 'react';
-import 'shipcontainer.css'
+import './shipcontainer.css'

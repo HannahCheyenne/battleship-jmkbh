@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import 'register.css'
+import AuthApiService from "../../services/auth-api-service";
+import ValidationError from '../../Utils/ValidationError'
+import './register.css'
 
 class Register extends Component{
     state = {
@@ -75,20 +77,17 @@ class Register extends Component{
         return 'Passwords must match'
       }
     }
-    
-    
     render() {
-  
       let serverError = this.state.error
       const nameError = this.validateName();
       const passwordError = this.validatePassword();
       const confirmPasswordError = this.validateConfirmPassword();
       return (
-        <div className="newAccount_page">
+        <div>
           <header>
             <h1>BlackJack</h1>
           </header>
-          <form className="newAccount_page_form" onSubmit={this.handleSubmitNewUser}>
+          <form onSubmit={this.handleSubmitNewUser}>
             <label className="user_name">Name:</label>
             {this.state.user_name.touched && <ValidationError message={nameError} />}
             <input className="name" name='user_name'
@@ -110,12 +109,11 @@ class Register extends Component{
                 this.validateConfirmPassword()
               } 
               >Submit</button>
-              <Link to="/">
-                <button className="goback">Go Back</button>
-              </Link>
             </span>
           </form>
         </div>
       );
     }
 }
+
+export default Register
