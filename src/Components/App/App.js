@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from 'react-router-dom'
 import Login from '../Login/Login'
 import Home from '../Home/Home'
-import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
+import PublicOnlyRoute from '../../Utils/PublicOnlyRoute'
 
 
 function App() {
