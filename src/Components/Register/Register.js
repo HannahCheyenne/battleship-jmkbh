@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AuthApiService from "../../services/auth-api-service";
+import Header from '../Header/Header'
 import ValidationError from '../../Utils/ValidationError'
 import './register.css'
 
@@ -83,10 +84,9 @@ class Register extends Component{
       const passwordError = this.validatePassword();
       const confirmPasswordError = this.validateConfirmPassword();
       return (
+        <>
+        <Header />
         <div>
-          <header>
-            <h1>BlackJack</h1>
-          </header>
           <form onSubmit={this.handleSubmitNewUser}>
             <label className="user_name">Name:</label>
             {this.state.user_name.touched && <ValidationError message={nameError} />}
@@ -112,6 +112,7 @@ class Register extends Component{
             </span>
           </form>
         </div>
+        </>
       );
     }
 }

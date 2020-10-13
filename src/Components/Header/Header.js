@@ -1,14 +1,40 @@
-import React from "react";
+import React, { Component } from "react";
+import TokenService from "../../services/token-service";
 import { Link } from "react-router-dom";
 import "./header.css";
 
-function Header() {
-  return (
-  <div>
-      <h1>Header goes here</h1>
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
-      </div>);
+class Header extends Component {
+  renderLoginLink() {
+    return (
+      <nav>
+        <Link to="/login">Login</Link> <Link to="/register">Register</Link>
+      </nav>
+    );
+  }
+  renderLogoutLink() {
+    return (
+      <div>
+        <nav>
+          <Link onClick={this.handleLogoutClick} to="/login">
+            Logout
+          </Link>
+        </nav>
+      </div>
+    );
+  }
+  render() {
+    return (
+      <div>
+        <header>
+          <h1>Header goes here</h1>
+          <span>
+            {TokenService.hasAuthToken()
+              ? this.renderLogoutLink()
+              : this.renderLoginLink()}
+          </span>
+        </header>
+      </div>
+    );
+  }
 }
-
 export default Header;

@@ -7,6 +7,14 @@ import "./login.css";
 class Login extends Component {
   state = {
     error: "",
+    user_name: {
+      value: "",
+      touched: false,
+    },
+    password: {
+      value: "",
+      touched: false,
+    },
   };
   handleSubmitJwtAuth = (ev) => {
     ev.preventDefault();
@@ -20,7 +28,7 @@ class Login extends Component {
         user_name.value = "";
         password.value = "";
         TokenService.saveAuthToken(res.authToken);
-        this.props.history.push("/welcome");
+        this.props.history.push("/user");
       })
       .catch((res) => {
         this.setState({ error: res.error });
@@ -31,13 +39,12 @@ class Login extends Component {
     return (
       <div>
         <Header />
-        <form className="login_page_form" onSubmit={this.handleSubmitJwtAuth}>
+        <form  onSubmit={this.handleSubmitJwtAuth}>
           <label className="name">Name:</label>
           <input
             className="name"
             required
             name="user_name"
-            id="Login__user_name"
           ></input>
           <label className="password">Password:</label>
           <input
@@ -57,4 +64,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default Login;
