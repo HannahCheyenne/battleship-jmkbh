@@ -26,7 +26,7 @@ class Header extends Component {
     return (
       <div>
         <header>
-          <h1>Header goes here</h1>
+          <Link to='/'><h1>Header goes here</h1></Link>
           <span>
             {TokenService.hasAuthToken()
               ? this.renderLogoutLink()

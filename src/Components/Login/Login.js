@@ -28,7 +28,7 @@ class Login extends Component {
         user_name.value = "";
         password.value = "";
         TokenService.saveAuthToken(res.authToken);
-        this.props.history.push("/user");
+        this.props.history.push("/dashboard");
       })
       .catch((res) => {
         this.setState({ error: res.error });
