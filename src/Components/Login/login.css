@@ -1,0 +1,21 @@
+.loginPage{
+    text-align: center;
+    padding: 80px;
+}
+.name,
+.password {
+  height: 30px;
+  margin: 5px;
+}
+.loginForm{
+    display: inline-flex;
+}
+.inputsLabels{
+    text-align: left;
+}
+.loginForm input{
+    display:grid;  
+}
+.loginButtonContainer{
+    text-align: right;
+}

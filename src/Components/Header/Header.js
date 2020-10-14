@@ -7,7 +7,9 @@ class Header extends Component {
   renderLoginLink() {
     return (
       <nav>
-        <Link to="/login">Login</Link> <Link to="/register">Register</Link>
+        <Link to="/login">Login</Link> 
+        <Link to="/register">Register</Link>
+        <Link to="/demo">Demo</Link>
       </nav>
     );
   }
@@ -26,7 +28,7 @@ class Header extends Component {
     return (
       <div>
         <header>
-          <Link to='/'><h1>Header goes here</h1></Link>
+          <h1><Link to='/'>Space Battleship</Link></h1>
           <span>
             {TokenService.hasAuthToken()
               ? this.renderLogoutLink()

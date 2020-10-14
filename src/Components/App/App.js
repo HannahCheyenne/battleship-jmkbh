@@ -3,9 +3,11 @@ import { Route, Switch } from 'react-router-dom'
 import Login from '../Login/Login'
 import Home from '../Home/Home'
 import Dashboard from '../Dashboard/Dashboard'
+import Demo from '../Demo/Demo'
 import Register from '../Register/Register'
 import PublicOnlyRoute from '../../Utils/PublicOnlyRoute'
 import StatsPage from "../StatsPage/StatsPage";
+import './app.css'
 
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
           </PublicOnlyRoute>
           <Route component={StatsPage} path='/stats'></Route>
           <Route component={Dashboard} path='/dashboard'></Route>
+          <Route component={Demo} path='/demo'></Route>
       </Switch>
     </div>
   );

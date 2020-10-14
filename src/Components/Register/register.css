@@ -1,0 +1,21 @@
+.registrationPage{
+    text-align: center;
+    padding: 80px;
+}
+.user_name,
+.password {
+  height: 30px;
+  margin: 5px;
+}
+.registrationForm{
+    display: inline-flex;
+}
+.regInputsLables{
+    text-align: left;
+}
+.registrationForm input{
+    display: grid;
+}
+.registrationSubmit{
+    text-align: right;
+}

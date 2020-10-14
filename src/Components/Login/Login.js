@@ -39,26 +39,27 @@ class Login extends Component {
     return (
       <div>
         <Header />
-        <form  onSubmit={this.handleSubmitJwtAuth}>
-          <label className="name">Name:</label>
-          <input
-            className="name"
-            required
-            name="user_name"
-          ></input>
-          <label className="password">Password:</label>
-          <input
-            className="password"
-            required
-            name="password"
-            type="password"
-            id="Login__password"
-          ></input>
-          <h3>{error}</h3>
-          <span>
-            <button type="submit">Log In</button>
-          </span>
-        </form>
+        <div className="loginPage">
+          <fieldset className="loginForm">
+            <form onSubmit={this.handleSubmitJwtAuth}>
+              <div className="inputsLabels">
+              <label className="name">Name:</label>
+              <input className="name" required name="user_name"></input>
+              <label className="password">Password:</label>
+              <input
+                className="password"
+                required
+                name="password"
+                type="password"
+              ></input>
+              </div>
+              <h3>{error}</h3>
+              <div className="loginButtonContainer">
+                <button className="loginButton" type="submit">Log In</button>
+              </div>
+            </form>
+          </fieldset>
+        </div>
       </div>
     );
   }
