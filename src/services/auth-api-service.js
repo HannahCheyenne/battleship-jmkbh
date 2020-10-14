@@ -16,19 +16,16 @@ const AuthApiService = {
       )
   },
   postNewUser(user) {
-    return fetch(`${config.API_ENDPOINT}/auth`, {
+    return fetch(`${config.API_ENDPOINT}/user`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
       body: JSON.stringify(user),
     })
-      .then(res => {
-        if(!res.ok){
-          Promise.reject(res)
-        }
-      }
-        
+      .then(res => (!res.ok)
+      ? res.json().then(e => Promise.reject(e))
+      : res.json()
       )
   },
 }

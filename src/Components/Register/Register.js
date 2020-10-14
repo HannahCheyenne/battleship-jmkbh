@@ -11,7 +11,7 @@ class Register extends Component {
       value: "",
       touched: false,
     },
-    user_name: {
+    username: {
       value: "",
       touched: false,
     },
@@ -28,15 +28,17 @@ class Register extends Component {
 
   handleSubmitNewUser = (ev) => {
     ev.preventDefault();
-    const { user_name, password } = ev.target;
+    const { username, password, name } = ev.target;
 
     this.setState({ error: null });
     AuthApiService.postNewUser({
-      user_name: user_name.value,
+      name: name.value,
+      username: username.value,
       password: password.value,
     })
       .then((user) => {
-        user_name.value = "";
+        name.value = "";
+        username.value = "";
         password.value = "";
         this.props.history.push("/login");
       })
@@ -50,9 +52,9 @@ class Register extends Component {
       name: { value: name, touched: true },
     });
   }
-  checkUserName(user_name) {
+  checkUserName(username) {
     this.setState({
-      user_name: { value: user_name, touched: true },
+      username: { value: username, touched: true },
     });
   }
   checkPassword(password) {
@@ -76,11 +78,11 @@ class Register extends Component {
     }
   }
   validateUserName() {
-    const user_name = this.state.user_name;
-    if (user_name.value.length < 3) {
+    const username = this.state.username;
+    if (username.value.length < 3) {
       return "Must be at least three letters long";
     }
-    if (user_name.value.match(/[$-/:-?{-~!"^_`[\]]/)) {
+    if (username.value.match(/[$-/:-?{-~!"^_`[\]]/)) {
       return "Must contain only letters or numbers";
     }
   }
@@ -120,12 +122,12 @@ class Register extends Component {
                   onChange={(e) => this.checkName(e.target.value)}
                 ></input>
                 <label className="name">User Name:</label>
-                {this.state.user_name.touched && (
+                {this.state.username.touched && (
                   <ValidationError message={usernameError} />
                 )}
                 <input
                   className="name"
-                  name="user_name"
+                  name="username"
                   onChange={(e) => this.checkUserName(e.target.value)}
                 ></input>
                 <label className="password">Password:</label>

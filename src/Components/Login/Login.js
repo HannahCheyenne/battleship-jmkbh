@@ -7,7 +7,7 @@ import "./login.css";
 class Login extends Component {
   state = {
     error: "",
-    user_name: {
+    username: {
       value: "",
       touched: false,
     },
@@ -19,13 +19,13 @@ class Login extends Component {
   handleSubmitJwtAuth = (ev) => {
     ev.preventDefault();
     this.setState({ error: null });
-    const { user_name, password } = ev.target;
+    const { username, password } = ev.target;
     AuthApiService.postLogin({
-      user_name: user_name.value,
+      username: username.value,
       password: password.value,
     })
       .then((res) => {
-        user_name.value = "";
+        username.value = "";
         password.value = "";
         TokenService.saveAuthToken(res.authToken);
         this.props.history.push("/dashboard");
@@ -44,7 +44,7 @@ class Login extends Component {
             <form onSubmit={this.handleSubmitJwtAuth}>
               <div className="inputsLabels">
               <label className="name">Name:</label>
-              <input className="name" required name="user_name"></input>
+              <input className="name" required name="username"></input>
               <label className="password">Password:</label>
               <input
                 className="password"
