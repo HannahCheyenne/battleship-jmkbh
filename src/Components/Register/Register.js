@@ -6,6 +6,10 @@ import "./register.css";
 
 class Register extends Component {
   state = {
+    name: {
+      value: "",
+      touched: false,
+    },
     user_name: {
       value: "",
       touched: false,
@@ -40,7 +44,12 @@ class Register extends Component {
       });
   };
 
-  checkName(user_name) {
+  checkName(name) {
+    this.setState({
+      name: { value: name, touched: true },
+    });
+  }
+  checkUserName(user_name) {
     this.setState({
       user_name: { value: user_name, touched: true },
     });
@@ -57,11 +66,20 @@ class Register extends Component {
   }
 
   validateName() {
-    const name = this.state.user_name;
+    const name = this.state.name;
     if (name.value.length < 3) {
       return "Must be at least three letters long";
     }
     if (name.value.match(/[$-/:-?{-~!"^_`[\]]/)) {
+      return "Must contain only letters or numbers";
+    }
+  }
+  validateUserName() {
+    const user_name = this.state.user_name;
+    if (user_name.value.length < 3) {
+      return "Must be at least three letters long";
+    }
+    if (user_name.value.match(/[$-/:-?{-~!"^_`[\]]/)) {
       return "Must contain only letters or numbers";
     }
   }
@@ -81,6 +99,7 @@ class Register extends Component {
   render() {
     let serverError = this.state.error;
     const nameError = this.validateName();
+    const usernameError = this.validateUserName();
     const passwordError = this.validatePassword();
     const confirmPasswordError = this.validateConfirmPassword();
     return (
@@ -90,14 +109,23 @@ class Register extends Component {
           <fieldset className="registrationForm">
             <form onSubmit={this.handleSubmitNewUser}>
               <div className="regInputsLables">
-                <label className="user_name">Name:</label>
+                <label className="name">Name:</label>
                 {this.state.user_name.touched && (
                   <ValidationError message={nameError} />
                 )}
                 <input
                   className="name"
-                  name="user_name"
+                  name="name"
                   onChange={(e) => this.checkName(e.target.value)}
+                ></input>
+                <label className="name">Name:</label>
+                {this.state.user_name.touched && (
+                  <ValidationError message={usernameError} />
+                )}
+                <input
+                  className="name"
+                  name="user_name"
+                  onChange={(e) => this.checkUserName(e.target.value)}
                 ></input>
                 <label className="password">Password:</label>
                 {this.state.password.touched && (
