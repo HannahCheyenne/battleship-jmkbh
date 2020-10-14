@@ -6,7 +6,7 @@ const Audio = {
 
     async laser(){
         const sound = new Tone.Player(
-            process.env.PUBLIC_URL + 'mp3s/laser.mp3'
+            process.env.PUBLIC_URL + 'mp3/laser.mp3'
         )
         .toDestination()
         try {
@@ -21,7 +21,7 @@ const Audio = {
 
     async hit(){
         const sound = new Tone.Player(
-            process.env.PUBLIC_URL + 'mp3s/hit.mp3'
+            process.env.PUBLIC_URL + 'mp3/hit.mp3'
         )
         .toDestination()
         try {
@@ -36,7 +36,7 @@ const Audio = {
 
     async miss(){
         const sound = new Tone.Player(
-            process.env.PUBLIC_URL + 'mp3s/miss.mp3'
+            process.env.PUBLIC_URL + 'mp3/miss.mp3'
         )
         .toDestination()
         try {
@@ -51,7 +51,7 @@ const Audio = {
 
     async destroyed(){
         const sound = new Tone.Player(
-            process.env.PUBLIC_URL + 'mp3s/destroyed.mp3'
+            process.env.PUBLIC_URL + 'mp3/destroyed.mp3'
         )
         .toDestination()
         try {
@@ -67,10 +67,11 @@ const Audio = {
     async playTheme(file) {
         this.music && await this.music.stop()
         this.music = new Tone.Player({
-            url: process.env.PUBLIC_URL + 'mp3s/' + file,
+            url: process.env.PUBLIC_URL + file,
             loop: true
             })
             .toDestination()
+        this.music.context._latencyHint = 'playback'
         try {
             await Tone.loaded()
         }
