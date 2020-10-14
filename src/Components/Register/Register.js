@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AuthApiService from "../../services/auth-api-service";
 import Header from "../Header/Header";
+import { Link } from "react-router-dom";
 import ValidationError from "../../Utils/ValidationError";
 import "./register.css";
 
@@ -161,6 +162,7 @@ class Register extends Component {
               </div>
             </form>
           </fieldset>
+         <div><Link to="/login">Already registered?</Link></div>
         </div>
       </>
     );

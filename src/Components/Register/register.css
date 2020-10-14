@@ -2,20 +2,38 @@
     text-align: center;
     padding: 80px;
 }
+.name,
 .user_name,
 .password {
   height: 30px;
+  width: 200px;
   margin: 5px;
+  border: none;
 }
 .registrationForm{
     display: inline-flex;
+    background: #d8d8d8;
+    border: none;
+    padding:15px;
+    margin-bottom: 5px;
 }
 .regInputsLables{
     text-align: left;
 }
 .registrationForm input{
     display: grid;
+    box-shadow:2px 2px 2px #bbbbbb;
 }
 .registrationSubmit{
     text-align: right;
+}
+.registrationPage a{
+    color:#dbdbdb;
+    text-decoration: none;
+}
+.submit{
+    width: 75px;
+    height: 30px;
+    border: none;
+    box-shadow:2px 2px 2px #bbbbbb;
 }
