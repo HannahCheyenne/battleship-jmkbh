@@ -5,9 +5,9 @@ import './demo.css'
 class Demo extends Component{
     render(){
         return(
-            <div>
+            <div className=" demoPage">
                 <Header />
-                demo page
+                <h2>Demo Page</h2>
             </div>
         )
     }
