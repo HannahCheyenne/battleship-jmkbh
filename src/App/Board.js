@@ -4,7 +4,7 @@ export default class Board extends Component {
   render() {
 
     return (
-      <div>
+      <div className="board">
         {this.props.board[0]}
         <br/>
         {this.props.board[1]}

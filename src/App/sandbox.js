@@ -1,68 +1,106 @@
 import React, { Component } from "react";
 import Board from "./Board";
+import "./sandbox.css";
 
 export default class sandbox extends Component {
   state = {
-    player1Board: [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 3, 3, 3, 0],
-      [0, 0, 2, 2, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 3, 3, 3, 0, 0, 5, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 5, 0],
-      [0, 0, 0, 4, 4, 4, 4, 0, 5, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 5, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 5, 4],
-      [0, 0, 0, 0, 0, 0, 0, 0, 5, 4],
+    board: [
+      [
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 3, 3],
+        [1, 1, 2, 2, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 3, 3, 3, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 4, 4, 4, 4, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+      ],
+      [
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 3, 3],
+        [1, 1, 2, 2, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 3, 3, 3, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 4, 4, 4, 4, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+      ],
     ],
-    player2Board: [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 4, 4, 4, 4, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 2, 0, 0, 0],
-      [0, 5, 5, 5, 5, 5, 2, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 3, 3, 3, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 3, 3, 3, 0, 0, 5],
-    ],
+    player: 1,
+    ships: [{
+      s: 1,
+      m1: 2,
+      m2: 2,
+      lg: 3,
+      bs: 4
+    },
+    {
+      s: 1,
+      m1: 2,
+      m2: 2,
+      lg: 3,
+      bs: 4
+    }],
+
   };
+
+
+// sm med1 med2 lg battleship
+
+
+  checkHit(x, y) {
+    if (this.state.player === 0) {
+      if (this.state.board[0][y][x] > 1) return 8;//hit
+      else return 0; //miss
+    } else {
+      if (this.state.board[1][y][x] > 1) return 8;//hit
+      else return 0; //miss
+    }
+  }
+
+  changePlayer(){
+    if (this.state.player===1) {this.setState({player: 0})}
+    else {this.setState({player: 1})}
+
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let p1Board = this.state.player1Board;
+    let x = document.getElementById("x").value;
+    let y = document.getElementById("y").value;
+    let p1Board = this.state.board[this.state.player];
 
-    for (let x = 0; x < 10; x++) {
-      for (let y = 0; y < 10; y++) {
-        p1Board[x][y] = 2;
-      }
-    }
+    p1Board[y][x] = this.checkHit(x, y);
 
     this.setState({
-      player1Board: p1Board,
+      player1Board: p1Board
     });
+
+    this.changePlayer()
+
   };
 
   componentDidMount() {}
 
   render() {
-
     const p1Board = this.state.player1Board;
-    console.log("sandbox -> render -> p1Board ", p1Board )
+    console.log("sandbox -> render -> p1Board ", p1Board);
 
     return (
-      <div>
+      <div className="sandbox">
+        {" "}
+        Player 0 board:
+        <Board board={this.state.board[0]} key={this.state.board[0]}></Board>
         Player 1 board:
-        <Board board={this.state.player1Board}  key={this.state.player1Board}></Board>
-        Player 1 board:
-        <Board board={this.state.player2Board}  key={this.state.player2Board}></Board>
+        <Board board={this.state.board[1]} key={this.state.board[1]}></Board>
         <form>
           <label>
-            input x, y:
+          Attacking Player: {this.state.player}
             <br />
-            <input type="text" name="x" />
-            <input type="text" name="y" />
+            x:
+            <input type="text" name="x" id="x" />
+            y:
+            <input type="text" name="y" id="y" />
           </label>
           <input type="submit" value="Submit" onClick={this.handleSubmit} />
         </form>
