@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import StatsButton from './StatsButton'
-import CreateAiGame from './CreateAiGame'
-import CreatePrivateGame from './CreatePrivateGame'
-import DemoGame from './DemoGame'
-import JoinRandomGame from './JoinRandomGame'
-import PlayAgain from './PlayAgain'
-import StartGame from './StatsButton'
+import StatsButton from './StataButton/StatsButton'
+import CreateAiGame from './CreateAiGame/CreateAiGame'
+import CreatePrivateGame from './CreatePrivateGame/CreatePrivateGame'
+import DemoGame from './DemoGame/DemoGame'
+import JoinRandomGame from './JoinRandomGame/JoinRandomGame'
+import PlayAgain from './PlayAgain/PlayAgain'
+import StartGame from './StatsButton/StatsButton'
 
 import { BrowserRouter } from 'react-router-dom';
 

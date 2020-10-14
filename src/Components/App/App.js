@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Login from "../Login/Login";
 import Home from "../Home/Home";
 import Dashboard from "../Dashboard/Dashboard";
+import QuickGame from '../QuickGame/QuickGame'
 import Demo from "../Demo/Demo";
 import Register from "../Register/Register";
 import PublicOnlyRoute from "../../Utils/PublicOnlyRoute";
@@ -23,6 +24,7 @@ class App extends Component {
           <Route component={StatsPage} path="/stats"></Route>
           <Route component={Dashboard} path="/dashboard"></Route>
           <Route component={Demo} path="/demo"></Route>
+          <Route component={QuickGame} path="/quickgame"></Route>
         </Switch>
       </div>
     );

@@ -7,9 +7,9 @@ class Header extends Component {
   renderLoginLink() {
     return (
       <nav>
+        <Link to="/quickgame">Quick Game</Link>
         <Link to="/login">Login</Link> 
         <Link to="/register">Register</Link>
-        <Link to="/demo">Demo</Link>
       </nav>
     );
   }

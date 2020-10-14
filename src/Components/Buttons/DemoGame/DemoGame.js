@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './demogame'
+import './demogame.css'
 //this component will join the demo version of the game against the ai
 class DemoGame extends Component{
     render(){
