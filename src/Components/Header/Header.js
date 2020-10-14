@@ -13,6 +13,9 @@ class Header extends Component {
       </nav>
     );
   }
+  handleLogoutClick = () => {
+    TokenService.clearAuthToken()
+  }
   renderLogoutLink() {
     return (
       <div>
