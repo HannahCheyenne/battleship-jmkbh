@@ -15,7 +15,6 @@ export default class App extends Component {
   state = {
     currentTheme: null
   }
-
   //These will eventually be refactored into one function
   //that takes a file name parameter.
   handleGameTheme = async (e) => {
