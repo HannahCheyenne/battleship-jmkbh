@@ -31,7 +31,7 @@ class Register extends Component {
     const { user_name, password } = ev.target;
 
     this.setState({ error: null });
-    AuthApiService.postUser({
+    AuthApiService.postNewUser({
       user_name: user_name.value,
       password: password.value,
     })
@@ -111,7 +111,7 @@ class Register extends Component {
             <form onSubmit={this.handleSubmitNewUser}>
               <div className="regInputsLables">
                 <label className="name">Name:</label>
-                {this.state.user_name.touched && (
+                {this.state.name.touched && (
                   <ValidationError message={nameError} />
                 )}
                 <input
@@ -119,7 +119,7 @@ class Register extends Component {
                   name="name"
                   onChange={(e) => this.checkName(e.target.value)}
                 ></input>
-                <label className="name">Name:</label>
+                <label className="name">User Name:</label>
                 {this.state.user_name.touched && (
                   <ValidationError message={usernameError} />
                 )}
