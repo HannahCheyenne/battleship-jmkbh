@@ -1,9 +1,9 @@
 import config from "../config";
-import TokenService from "./token-service";
 
 const BattleshipAPI = {
-  getStats(userId) {
-    return fetch(`${config.API_ENDPOINT}/stats`, {
+  getStats() {
+    //figure out endpoint
+    return fetch(`${config.API_ENDPOINT}/user`, {
       method: "GET",
       headers: {
         // authorization: `bearer ${TokenService.getAuthToken()}`,
@@ -36,3 +36,5 @@ const BattleshipAPI = {
     );
   },
 };
+
+export default BattleshipAPI
