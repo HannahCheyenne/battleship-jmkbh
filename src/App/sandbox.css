@@ -1,14 +1,52 @@
+html {
+  background:linear-gradient(
+      rgba(218, 218, 218, 0), 
+      rgba(235, 235, 235, 0)
+    ),url(../Images/background.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #ffffff;
+}
 .board {
-  border: 1px solid black;
-  width: 40vw;
-  letter-spacing: 10px;
-
-  
+  box-shadow:0px 0px 0px 5px #f1f1f1 inset;
+  width: 330px;
+  height:330px;
+  margin: 5px;
+  text-align: center;
+  display: flex;
+  align-items: center;
 }
 .App {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
-  
+}
+.boardButton {
+  height: 40px;
+  width: 40px;
+  background: #d8d8d854;
+  color: #ffffff;
+  border: 2px solid #f1f1f1;
+  box-shadow:0px 0px 0px 1px #b8b8b8 inset;
+}
+.borderDiv{
+  padding: 2px 2px 2px 2px;
+}
+.boardButton:hover{
+  background: #ff0000;
+}
+.attackForm{
+  text-align: center;
+}
+.attackForm input{
+  margin: 15px 5px;
+  width: 50px;
+  height: 20px;
+}
+.attackForm .submit{
+  width: 65px;
+  height: 26px;
+  margin: 0 0 0 15px;
 }

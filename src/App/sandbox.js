@@ -347,7 +347,7 @@ export default class sandbox extends Component {
         <Board board={this.state.board[0]} key={this.state.board}></Board>
         Player 1 board:
         <Board board={this.state.board[1]} key={this.state.board + 1}></Board>
-        <form>
+        <form className="attackForm">
           <label>
             Attacking Player: {this.state.player}
             <br />
@@ -356,7 +356,7 @@ export default class sandbox extends Component {
             y:
             <input type="text" name="y" id="y" />
           </label>
-          <input type="submit" value="Submit" onClick={this.handleSubmit} />
+          <input className="submit" type="submit" value="Submit" onClick={this.handleSubmit} />
         </form>
       </div>
     );
