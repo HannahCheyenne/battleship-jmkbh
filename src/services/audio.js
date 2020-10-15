@@ -2,12 +2,10 @@ import * as Tone from 'tone'
 
 let theme = null;
 let mute = false;
-const path = process.env.PUBLIC_URL;
+const path = process.env.PUBLIC_URL
 
 async function playEffect(effect) {
-    const sound = new Tone.Player(
-        path + effect
-    )
+    const sound = new Tone.Player(path + effect)
     .toDestination()
     try {
         await Tone.loaded()
@@ -23,11 +21,19 @@ const Audio = {
     
     async playTheme(file) {
         theme && await theme.stop()
-        theme = new Tone.Player({
-            url: `${path}mp3s/${file}`,
-            loop: true
-            })
-            .toDestination()
+        if(file !== 'win.mp3' && file !== 'lose.mp3'){
+            theme = new Tone.Player({
+                url: `${path}mp3s/${file}`,
+                loop: true
+                })
+                .toDestination()
+        } else {
+            theme = new Tone.Player({
+                url: `${path}mp3s/${file}`,
+                loop: false
+                })
+                .toDestination()
+        }
         theme.context._latencyHint = 'playback'
         try {
             await Tone.loaded()
@@ -36,7 +42,7 @@ const Audio = {
             console.error(e)
             throw (e)
         }
-        theme.start()
+        !mute && theme.start()
     },
 
     laser() {
@@ -71,12 +77,9 @@ const Audio = {
         theme && theme.stop()
     },
 
-    muteTheme() {
-        theme && (theme._volume.mute = !theme._volume.mute)
-    },
-
-    muteEffects() {
+    mute() {
         mute = !mute
+        theme && (theme._volume.mute = !theme._volume.mute)
     },
 }
 
