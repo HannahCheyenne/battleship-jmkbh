@@ -1,5 +1,21 @@
 import * as Tone from 'tone'
 
+
+/* 
+// --- Integrate into game's attack function for appropriate sound ---
+
+// This function takes one or two boolean parameters.
+// 1. Was it a hit? (required)
+// 2. If it was a hit, was it destroyed? (not required)
+
+    handleAttack = () => {
+        Audio.attackSound(true)
+    }
+
+ */
+
+
+
 let theme = null;
 let mute = false;
 const path = process.env.PUBLIC_URL
@@ -17,6 +33,22 @@ async function playEffect(effect) {
     sound.start()
 };
 
+function laserSound() {
+    !mute && playEffect('mp3s/laser.mp3')
+};
+
+function hitSound(){
+    !mute && playEffect('mp3s/hit.mp3')
+};
+
+function missSound(){
+    !mute && playEffect('mp3s/miss.mp3')
+};
+
+function destroyedSound(){
+    !mute && playEffect('mp3s/destroyed.mp3')
+};
+
 const Audio = {
     
     async playTheme(file) {
@@ -24,7 +56,8 @@ const Audio = {
         if(file !== 'win.mp3' && file !== 'lose.mp3'){
             theme = new Tone.Player({
                 url: `${path}mp3s/${file}`,
-                loop: true
+                loop: true,
+                loopEnd: 102.6
                 })
                 .toDestination()
         } else {
@@ -45,20 +78,13 @@ const Audio = {
         !mute && theme.start()
     },
 
-    laser() {
-        !mute && playEffect('mp3s/laser.mp3')
-    },
-
-    hit(){
-        !mute && playEffect('mp3s/hit.mp3')
-    },
-
-    miss(){
-        !mute && playEffect('mp3s/miss.mp3')
-    },
-
-    destroyed(){
-        !mute && playEffect('mp3s/destroyed.mp3')
+    attackSound(hit, destroyed=false) {
+        laserSound()
+        hit === true
+          ? destroyed === true
+            ? setTimeout(destroyedSound, 200)
+            : setTimeout(hitSound, 200)
+          : setTimeout(missSound, 200)
     },
 
     click() {
