@@ -55,6 +55,18 @@ const Audio = {
         !mute && playEffect('mp3s/destroyed.mp3')
     },
 
+    click() {
+        !mute && playEffect('mp3s/click.mp3')
+    },
+
+    positioned() {
+        !mute && playEffect('mp3s/positioned.mp3')
+    },
+
+    err() {
+        !mute && playEffect('mp3s/err.mp3')
+    },
+
     stop() {
         theme && theme.stop()
     },
