@@ -15,19 +15,31 @@ export default class App extends Component {
   state = {
     currentTheme: null
   }
-  //These will eventually be refactored into one function
-  //that takes a file name parameter.
-  handleGameTheme = async (e) => {
-    e.preventDefault();
+
+  handleGameTheme = () => {
     this.setState(
       {currentTheme: 'game.mp3'},
       () => Audio.playTheme(this.state.currentTheme)
     )
   }
-  handleMenuTheme = async (e) => {
-    e.preventDefault();
+  
+  handleMenuTheme = () => {
     this.setState(
-      {currentTheme: 'game.mp3'},
+      {currentTheme: 'menu.mp3'},
+      () => Audio.playTheme(this.state.currentTheme)
+    )
+  }
+  
+  handleWinTheme = () => {
+    this.setState(
+      {currentTheme: 'win.mp3'},
+      () => Audio.playTheme(this.state.currentTheme)
+    )
+  }
+  
+  handleLoseTheme = () => {
+    this.setState(
+      {currentTheme: 'lose.mp3'},
       () => Audio.playTheme(this.state.currentTheme)
     )
   }
