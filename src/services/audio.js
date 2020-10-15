@@ -1,77 +1,34 @@
 import * as Tone from 'tone'
 
+let theme = null;
+let mute = false;
+const path = process.env.PUBLIC_URL;
+
+async function playEffect(effect) {
+    const sound = new Tone.Player(
+        path + effect
+    )
+    .toDestination()
+    try {
+        await Tone.loaded()
+    }
+    catch (e) {
+        console.error(e)
+        throw (e)
+    }
+    sound.start()
+};
+
 const Audio = {
-
-    music: null,
-
-    async laser(){
-        const sound = new Tone.Player(
-            process.env.PUBLIC_URL + 'mp3/laser.mp3'
-        )
-        .toDestination()
-        try {
-            await Tone.loaded()
-        }
-        catch (e) {
-            console.error(e)
-            throw (e)
-        }
-        sound.start()
-    },
-
-    async hit(){
-        const sound = new Tone.Player(
-            process.env.PUBLIC_URL + 'mp3/hit.mp3'
-        )
-        .toDestination()
-        try {
-            await Tone.loaded()
-        }
-        catch (e) {
-            console.error(e)
-            throw (e)
-        }
-        sound.start()
-    },
-
-    async miss(){
-        const sound = new Tone.Player(
-            process.env.PUBLIC_URL + 'mp3/miss.mp3'
-        )
-        .toDestination()
-        try {
-            await Tone.loaded()
-        }
-        catch (e) {
-            console.error(e)
-            throw (e)
-        }
-        sound.start()
-    },
-
-    async destroyed(){
-        const sound = new Tone.Player(
-            process.env.PUBLIC_URL + 'mp3/destroyed.mp3'
-        )
-        .toDestination()
-        try {
-            await Tone.loaded()
-        }
-        catch (e) {
-            console.error(e)
-            throw (e)
-        }
-        sound.start()
-    },
-
+    
     async playTheme(file) {
-        this.music && await this.music.stop()
-        this.music = new Tone.Player({
-            url: process.env.PUBLIC_URL + file,
+        theme && await theme.stop()
+        theme = new Tone.Player({
+            url: `${path}mp3s/${file}`,
             loop: true
             })
             .toDestination()
-        this.music.context._latencyHint = 'playback'
+        theme.context._latencyHint = 'playback'
         try {
             await Tone.loaded()
         }
@@ -79,13 +36,36 @@ const Audio = {
             console.error(e)
             throw (e)
         }
-        this.music.start()
+        theme.start()
+    },
+
+    laser() {
+        !mute && playEffect('mp3s/laser.mp3')
+    },
+
+    hit(){
+        !mute && playEffect('mp3s/hit.mp3')
+    },
+
+    miss(){
+        !mute && playEffect('mp3s/miss.mp3')
+    },
+
+    destroyed(){
+        !mute && playEffect('mp3s/destroyed.mp3')
     },
 
     stop() {
-        this.music && this.music.stop()
+        theme && theme.stop()
     },
 
+    muteTheme() {
+        theme && (theme._volume.mute = !theme._volume.mute)
+    },
+
+    muteEffects() {
+        mute = !mute
+    },
 }
 
 export default Audio;
