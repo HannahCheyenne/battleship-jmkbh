@@ -26,10 +26,13 @@ export default class sandbox extends Component {
         [1, 1, 1, 1, 1, 1, 1, 1],
       ],
     ],
+    p1Health: 17,
+    p2Health: 17,
+    gameover: false,
     player: 1,
     ships: [
       {
-        s: {
+        sm: {
           horizontal: false,
           health: 2,
         },
@@ -51,7 +54,7 @@ export default class sandbox extends Component {
         },
       },
       {
-        s: {
+        sm: {
           horizontal: false,
           health: 2,
         },
@@ -75,15 +78,23 @@ export default class sandbox extends Component {
     ],
   };
 
-  checkHit(x, y) {
-    if (this.state.player === 0) {
-      if (this.state.board[0][y][x] > 1) return 8;
-      //hit
-      else return 0; //miss
+  checkHit(x, y, player) {
+    if (player === 0) {
+      const cell = this.state.board[0][y][x];
+      if (cell > 1) {
+        this.setState({
+          p1Health: this.state.p1Health - 1,
+        });
+        return 8;
+      } else return 0; //miss
     } else {
-      if (this.state.board[1][y][x] > 1) return 8;
-      //hit
-      else return 0; //miss
+      const cell = this.state.board[1][y][x];
+      if (cell > 1) {
+        this.setState({
+          p2Health: this.state.p2Health - 1,
+        });
+        return 8;
+      } else return 0; //miss
     }
   }
 
@@ -99,15 +110,37 @@ export default class sandbox extends Component {
     e.preventDefault();
     let x = document.getElementById("x").value;
     let y = document.getElementById("y").value;
-    let p1Board = this.state.board[this.state.player];
-
-    p1Board[y][x] = this.checkHit(x, y);
+    let p1Board = this.state.board[0]; //!temp removed change player
+    p1Board[y][x] = this.checkHit(x, y, 0);
 
     this.setState({
-      player1Board: p1Board,
+      board: p1Board,
     });
 
-    this.changePlayer();
+    //this.changePlayer();
+
+    this.getDumbAiMove();
+
+    console.log(
+      "sandbox -> handleSubmit -> this.state.p1Health",
+      this.state.p1Health
+    );
+    console.log(
+      "sandbox -> handleSubmit -> this.state.p1Health",
+      this.state.p2Health
+    );
+
+    if (this.state.p1Health <= 0) {
+      this.setState({
+        gameover: true,
+      });
+    }
+
+    if (this.state.p2Health <= 0) {
+      this.setState({
+        gameover: true,
+      });
+    }
   };
 
   generateBoard(player) {
@@ -349,15 +382,18 @@ export default class sandbox extends Component {
     while (!validMove) {
       y = Math.floor(Math.random() * 8);
       x = Math.floor(Math.random() * 8);
-      cell = board[0][y][x]
-      if(cell !== 0 || cell !== 8 ){
-        
-        this.checkHit(x,y)
+      cell = board[1][y][x];
 
-
+      if (cell !== 0 && cell !== 8) {
+        validMove = true;
       }
-
     }
+
+    board[1][y][x] = this.checkHit(x, y, 1);
+
+    this.setState({
+      board: board,
+    });
   }
 
   render() {
@@ -365,12 +401,16 @@ export default class sandbox extends Component {
       <div className="sandbox">
         {" "}
         AI board:
-        <Board board={this.state.board[0]} key={this.state.board}></Board>
+        <Board
+          board={this.state.board[0]}
+          key={this.state.board}
+          className="test"
+        ></Board>
         Player board:
         <Board board={this.state.board[1]} key={this.state.board + 1}></Board>
         <form className="attackForm">
           <label>
-            Attacking Player: {this.state.player}
+            {this.state.gameover && <p>Game Over</p>}
             <br />
             x:
             <input type="text" name="x" id="x" />
