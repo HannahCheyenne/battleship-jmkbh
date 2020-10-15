@@ -217,9 +217,9 @@ export default class sandbox extends Component {
           board[player][y - 1][x] === 1 &&
           board[player][y - 2][x] === 1
         ) {
-          board[player][y][x] = 3;
-          board[player][y - 1][x] = 3;
-          board[player][y - 2][x] = 3;
+          board[player][y][x] = 7;
+          board[player][y - 1][x] = 7;
+          board[player][y - 2][x] = 7;
           this.setState({ board: board });
           validMove = true;
         }
@@ -229,9 +229,9 @@ export default class sandbox extends Component {
           board[player][y][x - 1] === 1 &&
           board[player][y][x - 2] === 1
         ) {
-          board[player][y][x] = 3;
-          board[player][y][x - 1] = 3;
-          board[player][y][x - 2] = 3;
+          board[player][y][x] = 7;
+          board[player][y][x - 1] = 7;
+          board[player][y][x - 2] = 7;
           this.setState({ board: board });
           validMove = true;
         }
@@ -339,13 +339,34 @@ export default class sandbox extends Component {
     this.generateBoard();
   }
 
+  getDumbAiMove() {
+    let board = this.state.board;
+    let validMove = false;
+    let x = 0;
+    let y = 0;
+    let cell;
+
+    while (!validMove) {
+      y = Math.floor(Math.random() * 8);
+      x = Math.floor(Math.random() * 8);
+      cell = board[0][y][x]
+      if(cell !== 0 || cell !== 8 ){
+        
+        this.checkHit(x,y)
+
+
+      }
+
+    }
+  }
+
   render() {
     return (
       <div className="sandbox">
         {" "}
-        Player 0 board:
+        AI board:
         <Board board={this.state.board[0]} key={this.state.board}></Board>
-        Player 1 board:
+        Player board:
         <Board board={this.state.board[1]} key={this.state.board + 1}></Board>
         <form className="attackForm">
           <label>
@@ -356,7 +377,12 @@ export default class sandbox extends Component {
             y:
             <input type="text" name="y" id="y" />
           </label>
-          <input className="submit" type="submit" value="Submit" onClick={this.handleSubmit} />
+          <input
+            className="submit"
+            type="submit"
+            value="Submit"
+            onClick={this.handleSubmit}
+          />
         </form>
       </div>
     );
