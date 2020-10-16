@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import Header from "../Header/Header";
 import DemoGame from '../Buttons/DemoGame/DemoGame'
-import spaceBackground from '../../Images/spaceBackground.jpg'
+// import spaceBackground from '../../Images/spaceBackground.jpg'
 import "./home.css";
 
 class Home extends Component {
   render() {
+    console.log("rendering")
     return (
       <div className="homePage">
         <Header />
