@@ -10,7 +10,6 @@
   width:200px;
   margin: 5px;
   border: none;
-  
 }
 
 .loginForm{
@@ -48,6 +47,28 @@
     box-shadow:2px 2px 2px #bbbbbb;
     margin: 65px 2.5% 0 0;
 }
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+ }
+ 
+ @-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+ }
+ 
+ @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+ }
+ 
+ .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+ }
 
 @media screen and (min-width: 550px) {
     .loginForm{
