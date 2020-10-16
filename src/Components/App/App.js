@@ -61,7 +61,7 @@ export default class App extends Component {
           <PublicOnlyRoute component={Register} path="/register" />
           <PrivateOnlyRoute component={StatsPage} path="/stats"/>
           <PrivateOnlyRoute component={Dashboard} path="/dashboard"/>
-          <PublicOnlyRoute component={Demo} path="/demo"/>
+          <PrivateOnlyRoute component={Demo} path="/demo"/>
           <PublicOnlyRoute component={QuickGame} path="/quickgame"/>
         </Switch>
       </div>

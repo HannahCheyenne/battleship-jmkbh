@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import './statspage.css'
 import BattleshipAPI from "../../services/battleship-api-service";
 import Header from '../Header/Header'
-import { getNodeText } from '@testing-library/react';
 
 class UserPage extends Component{
     
@@ -34,6 +33,7 @@ class UserPage extends Component{
             misses:data.stats.shots_missed,
             submarineD:data.stats.submarine_destroyed
           });
+          console.log(data)
         });
       }
     render(){
@@ -44,9 +44,7 @@ class UserPage extends Component{
             <>
             <Header />
             <div className="statsPage">
-                <h2>Welcome Back User!</h2>
-                <Link to="/dashboard"><button>Go Back</button></Link>
-                <h3>Your Stats</h3>
+                <h2>Your Stats</h2>
                 <p>Total games played: {gamesP}</p>
                 <p>Games won: {gameW}</p>
                 <p>Games lost: {gameL}</p>
@@ -59,6 +57,7 @@ class UserPage extends Component{
                 <p>Crusier: {submarineD}</p>
                 <p>Destroyers: {destroyerD}</p>
                 <p>Patrol Ships: {patrolboatD}</p>
+            <Link to="/dashboard"><button>Go Back</button></Link>
             </div>
         </>
 
