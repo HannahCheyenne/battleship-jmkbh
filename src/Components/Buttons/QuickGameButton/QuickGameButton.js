@@ -6,7 +6,7 @@ import "./quickgamebutton.css"
 class QuickGameButton extends Component{
     render(){
         return(
-            <button>Play Quick Game</button>
+            <button>Quick Game</button>
         )
     }
 }

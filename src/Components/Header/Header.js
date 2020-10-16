@@ -7,15 +7,21 @@ class Header extends Component {
   renderLoginLink() {
     return (
       <nav>
-        <Link to="/quickgame">Quick Game</Link>
         <Link to="/login">Login</Link> 
         <Link to="/register">Register</Link>
       </nav>
     );
   }
-  // renderHeaderLink() {
-  //   return ()
-  // }
+  renderHeaderLink() {
+    return (
+      <Link to='/'>Space Battleship</Link>
+    )
+  }
+  renderHeaderNoLink(){
+    return (
+      `Space Battleship`
+    )
+  }
   handleLogoutClick = () => {
     TokenService.clearAuthToken()
   }
@@ -34,7 +40,9 @@ class Header extends Component {
     return (
       <div>
         <header>
-          <h1><Link to='/'>Space Battleship</Link></h1>
+          <h1>{TokenService.hasAuthToken()
+              ? this.renderHeaderNoLink()
+              : this.renderHeaderLink()}</h1>
           <span>
             {TokenService.hasAuthToken()
               ? this.renderLogoutLink()

@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import Header from "../Header/Header";
 import DemoGame from '../Buttons/DemoGame/DemoGame'
 // import spaceBackground from '../../Images/spaceBackground.jpg'
-import "./home.css";
+import "./landingpage.css";
+import QuickGame from "../QuickGame/QuickGame";
+import QuickGameButton from "../Buttons/QuickGameButton/QuickGameButton";
 
 class Home extends Component {
   render() {
     console.log("rendering")
     return (
-      <div className="homePage">
+      <div className="landingPage">
         <Header />
         {/* <div className="starmap"><img src={spaceBackground} alt="Logo" /></div> */}
         <h2>Home Content</h2>
@@ -16,6 +18,7 @@ class Home extends Component {
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
         <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
         <DemoGame/>
+        <QuickGameButton/>
       </div>
     );
   }

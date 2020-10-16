@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "../Login/Login";
-import Home from "../Home/Home";
+import LandingPage from "../LandingPage/LandingPage";
 import Dashboard from "../Dashboard/Dashboard";
 import QuickGame from '../QuickGame/QuickGame'
 import Demo from "../Demo/Demo";
@@ -50,7 +50,7 @@ export default class App extends Component {
       <div>
         <Switch>
           <PublicOnlyRoute component={Login} path="/login" />
-          <Route component={Home} exact path="/" />
+          <Route component={LandingPage} exact path="/" />
           <PublicOnlyRoute component={Register} path="/register" />
           <PrivateOnlyRoute component={StatsPage} path="/stats"/>
           <PrivateOnlyRoute component={Dashboard} path="/dashboard"/>
