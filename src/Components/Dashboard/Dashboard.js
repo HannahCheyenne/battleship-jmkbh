@@ -24,10 +24,12 @@ class Dashboard extends Component {
     return (
       <>
         <Header />
+        <div>
         <CreatePrivateGame />
         <CreateAiGame />
         <JoinRandomGame />
         <StatsButton />
+        </div>
       </>
     );
   }

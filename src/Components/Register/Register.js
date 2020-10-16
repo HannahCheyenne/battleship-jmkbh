@@ -67,12 +67,12 @@ class Register extends Component {
       confirmPassword: { value: confirmPassword, touched: true },
     });
   }
-
   validateName() {
     const name = this.state.name;
     if (name.value.length < 3) {
       return "Must be at least three letters long";
     }
+    //needs special characters added
     if (name.value.match(/[$-/:-?{-~!"^_`[\]]/)) {
       return "Must contain only letters or numbers";
     }

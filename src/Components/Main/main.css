@@ -1,13 +1,9 @@
-.homePage{
-    color: #ffffff;
-    text-align: center;
+main img{
+    z-index: -100;
 }
 
-.homePage p{
-    padding: 0px 30px 0px 30px;
-}
 
-/* main{
+main img{
     animation: pulse 10s infinite;
   }
   
@@ -21,4 +17,4 @@
     100% {
         opacity:0%;
     }
-  } */
+  }
