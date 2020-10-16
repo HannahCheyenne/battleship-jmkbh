@@ -109,7 +109,7 @@ class Register extends Component {
       <>
         <Header />
         <div className="registrationPage">
-          <fieldset className="registrationForm">
+          <fieldset className="registrationForm animated fadeIn">
             <form onSubmit={this.handleSubmitNewUser}>
               <div className="regInputsLables">
                 <label className="name">Name:</label>
@@ -162,9 +162,9 @@ class Register extends Component {
                   Submit
                 </button>
               </div>
+              <div className="alreadyRegistered"><Link to="/login">Already registered?</Link></div>
             </form>
           </fieldset>
-         <div><Link to="/login">Already registered?</Link></div>
         </div>
       </>
     );
