@@ -56,9 +56,9 @@ class UserPage extends Component{
                 <p>Total Ships Destroyed: {totalShipsD}</p>
                 <p>Battleships: {battleshipD}</p>
                 <p>Freighter: {carrierD}</p>
-                <p>Fighters: {patrolboatD}</p>
+                <p>Fighters: {submarineD}</p>
                 <p>Destroyers: {destroyerD}</p>
-                <p>Patrol Ships: {submarineD}</p>
+                <p>Patrol Ships: {patrolboatD}</p>
             </div>
         </>
 
