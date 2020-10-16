@@ -12,7 +12,7 @@ class Dashboard extends Component {
   //   user: {},
   // };
   // componentDidMount() {
-  //   BattleshipAPI.getStats()
+  //   BattleshipAPI.getUser()
   //   .then((data) => {
   //     this.setState({
   //       user: data,
