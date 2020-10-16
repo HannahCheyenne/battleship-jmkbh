@@ -40,7 +40,7 @@ class Login extends Component {
       <div>
         <Header />
         <div className="loginPage">
-          <fieldset className="loginForm">
+          <fieldset className="loginForm animated fadeIn">
             <form onSubmit={this.handleSubmitJwtAuth}>
               <div className="inputsLabels">
               <label className="name">Name:</label>
