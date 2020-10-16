@@ -114,7 +114,7 @@ class Register extends Component {
               <div className="regInputsLables">
                 <label className="name">Name:</label>
                 {this.state.name.touched && (
-                  <ValidationError message={nameError} />
+                  <ValidationError className="errormessage" message={nameError} />
                 )}
                 <input
                   className="name"

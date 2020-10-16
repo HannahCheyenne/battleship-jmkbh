@@ -26,7 +26,7 @@
 }
 .inputsLabels{
     text-align: left;
-    font-size: 23px;
+    font-size: 20px;
 }
 .loginForm input{
     display:grid;
@@ -48,7 +48,7 @@
     margin: 65px 2.5% 0 0;
 }
 
-.animated {
+/* .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
     -webkit-animation-fill-mode: both;
@@ -68,8 +68,20 @@
  .fadeIn {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
- }
+ } */
 
+ .loginForm{
+    animation: pulse 1s;
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0%;
+    }
+    100% {
+        opacity:100%;
+    }
+  }
 @media screen and (min-width: 550px) {
     .loginForm{
         width: 40%;

@@ -26,7 +26,7 @@
 }
 .regInputsLables{
     text-align: left;
-    font-size: 23px;
+    font-size: 20px;
 }
 .registrationForm input{
     display:grid;
@@ -56,14 +56,15 @@
     margin-top: 10px;
 }
 
-.animated {
+/* .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
  }
- 
- @-webkit-keyframes fadeIn {
+ /* heads up this is causing slow and or buggy load times
+ I can change this to run more efficiently. */
+ /* @-webkit-keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
  }
@@ -76,8 +77,19 @@
  .fadeIn {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
- }
-
+ } */ 
+ .registrationForm{
+    animation: pulse 1s;
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0%;
+    }
+    100% {
+        opacity:100%;
+    }
+  }
  @media screen and (min-width: 550px) {
     .loginForm{
         width: 40%;
