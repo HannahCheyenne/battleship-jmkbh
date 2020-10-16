@@ -1,20 +1,17 @@
 import * as Tone from 'tone'
 
-
 /* 
 // --- Integrate into game's attack function for appropriate sound ---
 
 // This function takes one or two boolean parameters.
 // 1. Was it a hit? (required)
-// 2. If it was a hit, was it destroyed? (not required)
+// 2. If it was a hit, was it destroyed? (not required, defaults to false)
 
     handleAttack = () => {
         Audio.attackSound(true)
     }
 
  */
-
-
 
 let theme = null;
 let mute = false;
@@ -85,6 +82,10 @@ const Audio = {
             ? setTimeout(destroyedSound, 200)
             : setTimeout(hitSound, 200)
           : setTimeout(missSound, 200)
+    },
+
+    soft() {
+        !mute && playEffect('mp3s/soft.mp3')
     },
 
     click() {

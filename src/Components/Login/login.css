@@ -28,9 +28,10 @@
     text-align: right;
 }
 .loginButton{
-    width: 75px;
+    width: 100%;
     height: 30px;
     border: none;
     background: #ffffff;
     box-shadow:2px 2px 2px #bbbbbb;
+    margin-right: 2.5%;
 }

@@ -17,6 +17,13 @@ export default class App extends Component {
     currentTheme: null
   }
 
+  handleAmbianceTheme = () => {
+    this.setState(
+      {currentTheme: 'ambiance.mp3'},
+      () => Audio.playTheme(this.state.currentTheme)
+    )
+  }
+
   handleGameTheme = () => {
     this.setState(
       {currentTheme: 'game.mp3'},
