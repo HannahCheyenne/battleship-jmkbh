@@ -3,8 +3,8 @@ header{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 20px 30px 5px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 20px 30px 5px rgba(0, 0, 0, 0.7);
 }
 header h1{
     padding: 10px 10px 10px 20px;
