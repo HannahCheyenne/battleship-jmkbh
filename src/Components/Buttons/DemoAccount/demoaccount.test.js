@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DemoGame from './DemoGame'
+import DemoAccount from './DemoAccount'
 import { BrowserRouter } from 'react-router-dom';
-it('should render DemoGame button', () => {
+it('should render DemoAccount button', () => {
     const div = document.createElement('div');
     ReactDOM.render(
     <BrowserRouter>
-    <DemoGame />
+    <DemoAccount />
     </BrowserRouter>
     , div);
     ReactDOM.unmountComponentAtNode(div);

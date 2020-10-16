@@ -2,21 +2,22 @@ import React, { Component } from 'react'
 import TokenService from "../../../services/token-service";
 import AuthApiService from "../../../services/auth-api-service";
 
-import './demogame.css'
-//this component will join the demo version of the game against the ai
-class DemoGame extends Component{
-    handleDemoGame = (ev) => {
+import './demoaccount.css'
+class DemoAccount extends Component{
+    state = {
+        error:''
+    }
+    handleDemoAccount = (ev) => {
         ev.preventDefault();
         const username = "demo"
         const password = "Demopassword123!"
         AuthApiService.postLogin({
-          username: username,
-          password: password,
+          username:username,
+          password:password,
         })
           .then((res) => {
             TokenService.saveAuthToken(res.authToken);
-            this.props.history.push("/demo");
-            window.location.reload()
+            this.props.history.push("/dashboard");
           })
           .catch((res) => {
             this.setState({ error: res.error });
@@ -24,9 +25,9 @@ class DemoGame extends Component{
       };
     render(){
         return(
-            <form onSubmit={this.handleDemoGame}><button>Demo Game</button></form>
+            <form onSubmit={this.handleDemoAccount}><button>Demo Account</button></form>
         )
     }
 }
 
-export default DemoGame
+export default DemoAccount
