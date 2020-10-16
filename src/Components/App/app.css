@@ -13,20 +13,3 @@ html {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
-
-
-main{
-    animation: pulse 10s infinite;
-  }
-  
-  @keyframes pulse {
-    0% {
-      opacity: 0%;
-    }
-    50% {
-      opacity:100%;
-    }
-    100% {
-        opacity:0%;
-    }
-  }
