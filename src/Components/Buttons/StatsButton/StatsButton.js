@@ -4,8 +4,9 @@ import "./stats.css"
 
 class StatsButton extends Component{
     render(){
+        console.log()
         return(
-            <Link to="/stats"><button>Stats</button></Link>
+            <Link to={"/stats"}><button>Stats</button></Link>
         )
     }
 }

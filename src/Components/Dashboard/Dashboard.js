@@ -8,17 +8,18 @@ import JoinRandomGame from "../Buttons/JoinRandomGame/JoinRandomGame";
 import StatsButton from "../Buttons/StatsButton/StatsButton";
 
 class Dashboard extends Component {
-  state = {
-    user: {},
-  };
-  componentDidMount() {
-    BattleshipAPI.getStats()
-    .then((data) => {
-      this.setState({
-        user: data,
-      });
-    });
-  }
+  // state = {
+  //   user: {},
+  // };
+  // componentDidMount() {
+  //   BattleshipAPI.getStats()
+  //   .then((data) => {
+  //     this.setState({
+  //       user: data,
+  //     });
+  //     console.log(data)
+  //   });
+  // }
 
   render() {
     return (
