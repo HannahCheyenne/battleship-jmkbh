@@ -62,7 +62,7 @@ export default class App extends Component {
           <PrivateOnlyRoute component={StatsPage} path="/stats"/>
           <PrivateOnlyRoute component={Dashboard} path="/dashboard"/>
           <PrivateOnlyRoute component={Demo} path="/demo"/>
-          <PublicOnlyRoute component={QuickGame} path="/quickgame"/>
+          <PrivateOnlyRoute component={QuickGame} path="/quickgame"/>
         </Switch>
       </div>
     );

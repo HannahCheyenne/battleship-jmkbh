@@ -9,7 +9,7 @@ class DemoAccount extends Component{
     }
     handleDemoAccount = (ev) => {
         ev.preventDefault();
-        const username = "admin"
+        const username = "demo"
         const password = "pass"
         AuthApiService.postLogin({
           username:username,
