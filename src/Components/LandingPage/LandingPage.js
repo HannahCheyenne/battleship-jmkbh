@@ -3,10 +3,9 @@ import Header from "../Header/Header";
 import DemoGame from '../Buttons/DemoGame/DemoGame'
 // import spaceBackground from '../../Images/spaceBackground.jpg'
 import "./landingpage.css";
-import QuickGame from "../QuickGame/QuickGame";
 import QuickGameButton from "../Buttons/QuickGameButton/QuickGameButton";
 
-class Home extends Component {
+class LandingPage extends Component {
   render() {
     console.log("rendering")
     return (
@@ -24,4 +23,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default LandingPage;
