@@ -42,7 +42,7 @@ class GameBoard extends Component{
         <div className="gamePage">
         <div className="playerShips"><ShipContainer /></div>
             <div className="gameBoard">
-                <div className="player" id="player"><BoardRender /></div>
+                <div className="player" id="player"><BoardRender test={test}/></div>
                 <div className="opponent" id="opponent"><BoardRender test={test}/></div>
             </div>
             <div className="opponentShips"><ShipContainer /></div>
