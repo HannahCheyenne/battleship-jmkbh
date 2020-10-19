@@ -10,64 +10,65 @@ import Register from "../Register/Register";
 import PublicOnlyRoute from "../../Utils/PublicOnlyRoute";
 import PrivateOnlyRoute from "../../Utils/PrivateOnlyRoute";
 import StatsPage from "../StatsPage/StatsPage";
-import Audio from '../../services/audio'
+import Audio, {isMuted} from '../../services/audio'
 import "./app.css";
 import GameBoard from "../GameBoard/GameBoard";
+import Context from '../../Context'
 
 export default class App extends Component {
   state = {
-    currentTheme: null
+    currentTheme: null,
+    isMuted
   }
 
-  handleAmbianceTheme = () => {
+  /*
+  Themes are:
+  'ambiance.mp3'
+  'game.mp3'
+  'menu.mp3'
+  'win.mp3'
+  'lose.mp3'
+  */
+
+  handleTheme = (theme) => {
     this.setState(
-      {currentTheme: 'ambiance.mp3'},
+      {currentTheme: theme},
       () => Audio.playTheme(this.state.currentTheme)
     )
   }
 
-  handleGameTheme = () => {
-    this.setState(
-      {currentTheme: 'game.mp3'},
-      () => Audio.playTheme(this.state.currentTheme)
-    )
+  handleMute = () => {
+    this.setState({isMuted: !isMuted}, () => Audio.mute())
   }
-  
-  handleMenuTheme = () => {
-    this.setState(
-      {currentTheme: 'menu.mp3'},
-      () => Audio.playTheme(this.state.currentTheme)
-    )
-  }
-  
-  handleWinTheme = () => {
-    this.setState(
-      {currentTheme: 'win.mp3'},
-      () => Audio.playTheme(this.state.currentTheme)
-    )
-  }
-  
-  handleLoseTheme = () => {
-    this.setState(
-      {currentTheme: 'lose.mp3'},
-      () => Audio.playTheme(this.state.currentTheme)
-    )
+
+  // This should be stylized later
+  renderMuteButton = () => {
+    return (this.state.isMuted === true
+    ? <button className='muteButton' onClick={this.handleMute}>Unmute</button>
+    : <button className='muteButton' onClick={this.handleMute}>Mute</button>)
   }
 
   render() {
+    const value = {
+      handleTheme: this.handleTheme,
+      handleMute: this.handleMute,
+    }
     return (
       <div>
-        <Switch>
-          <PublicOnlyRoute component={Login} path="/login" />
-          <Route component={LandingPage} exact path="/" />
-          <Route component={ContactPage} exact path="/contact" />
-          <PublicOnlyRoute component={Register} path="/register" />
-          <PrivateOnlyRoute component={StatsPage} path="/stats"/>
-          <PrivateOnlyRoute component={Dashboard} path="/dashboard"/>
-          <PrivateOnlyRoute component={Demo} path="/demo"/>
-          <PrivateOnlyRoute component={QuickGame} path="/quickgame"/>
-          <PrivateOnlyRoute component={GameBoard} path="/game"/>
-        </Switch>
+        <Context.Provider value={value}>
+          <Switch>
+            <PublicOnlyRoute component={Login} path="/login" />
+            <Route component={LandingPage} exact path="/" />
+            <Route component={ContactPage} exact path="/contact" />
+            <PublicOnlyRoute component={Register} path="/register" />
+            <PrivateOnlyRoute component={StatsPage} path="/stats"/>
+            <PrivateOnlyRoute component={Dashboard} path="/dashboard"/>
+            <PrivateOnlyRoute component={Demo} path="/demo"/>
+            <PrivateOnlyRoute component={QuickGame} path="/quickgame"/>
+            <PrivateOnlyRoute component={GameBoard} path="/game"/>
+          </Switch>
+          {this.renderMuteButton()}
+        </Context.Provider>
       </div>
     );
   }

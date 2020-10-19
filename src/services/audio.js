@@ -14,7 +14,7 @@ import * as Tone from 'tone'
  */
 
 let theme = null;
-let mute = false;
+let isMuted = false;
 const path = process.env.PUBLIC_URL
 
 async function playEffect(effect) {
@@ -31,19 +31,19 @@ async function playEffect(effect) {
 };
 
 function laserSound() {
-    !mute && playEffect('mp3s/laser.mp3')
+    !isMuted && playEffect('mp3s/laser.mp3')
 };
 
 function hitSound(){
-    !mute && playEffect('mp3s/hit.mp3')
+    !isMuted && playEffect('mp3s/hit.mp3')
 };
 
 function missSound(){
-    !mute && playEffect('mp3s/miss.mp3')
+    !isMuted && playEffect('mp3s/miss.mp3')
 };
 
 function destroyedSound(){
-    !mute && playEffect('mp3s/destroyed.mp3')
+    !isMuted && playEffect('mp3s/destroyed.mp3')
 };
 
 const Audio = {
@@ -72,7 +72,7 @@ const Audio = {
             console.error(e)
             throw (e)
         }
-        !mute && theme.start()
+        !isMuted && theme.start()
     },
 
     attackSound(hit, destroyed=false) {
@@ -85,19 +85,19 @@ const Audio = {
     },
 
     soft() {
-        !mute && playEffect('mp3s/soft.mp3')
+        !isMuted && playEffect('mp3s/soft.mp3')
     },
 
     click() {
-        !mute && playEffect('mp3s/click.mp3')
+        !isMuted && playEffect('mp3s/click.mp3')
     },
 
     positioned() {
-        !mute && playEffect('mp3s/positioned.mp3')
+        !isMuted && playEffect('mp3s/positioned.mp3')
     },
 
     err() {
-        !mute && playEffect('mp3s/err.mp3')
+        !isMuted && playEffect('mp3s/err.mp3')
     },
 
     stop() {
@@ -105,9 +105,10 @@ const Audio = {
     },
 
     mute() {
-        mute = !mute
+        isMuted = !isMuted
         theme && (theme._volume.mute = !theme._volume.mute)
     },
 }
 
 export default Audio;
+export {isMuted}

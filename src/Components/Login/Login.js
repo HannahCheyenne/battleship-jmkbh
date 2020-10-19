@@ -4,6 +4,7 @@ import TokenService from "../../services/token-service";
 import AuthApiService from "../../services/auth-api-service";
 import Header from "../Header/Header";
 import "./login.css";
+import Context from '../../Context'
 
 class Login extends Component {
   state = {
@@ -17,8 +18,12 @@ class Login extends Component {
       touched: false,
     },
   };
+
+  static contextType = Context;
+
   handleSubmitJwtAuth = (ev) => {
     ev.preventDefault();
+    this.context.handleTheme('ambiance.mp3')
     this.setState({ error: null });
     const { username, password } = ev.target;
     AuthApiService.postLogin({
@@ -46,7 +51,7 @@ class Login extends Component {
               <div className="inputsLabels">
               {/* <label className="name">Name:</label> */}
               <input className="name" placeholder="Name"
-required name="username"></input>
+                required name="username"></input>
               {/* <label className="password">Password:</label> */}
               <input
                 className="password"

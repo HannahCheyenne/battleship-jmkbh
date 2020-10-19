@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import TokenService from "../../../services/token-service";
 import AuthApiService from "../../../services/auth-api-service";
 import "./quickgamebutton.css"
+import Context from '../../../Context'
 
 class QuickGameButton extends Component{
     state = {
         error:''
     }
+
+    static contextType = Context;
+
     handleQuickGame = (ev) => {
         ev.preventDefault();
+        this.context.hendleTheme('menu.mp3')
         const username = "demo"
         const password = "pass"
         AuthApiService.postLogin({
