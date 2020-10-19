@@ -23,18 +23,25 @@ class GameBoard extends Component{
     handleAiMove = () => {
         
     }
+    renderImage(){
+        console.log(this.value)
+        if(this.value==1){
+        }
+        if(this.value==0){
+        }
+        if(this.value==8){
+        }
+    }
     render(){
         const test = [
-            [
-              [1, 1, 1, 5, 5, 5, 5, 5],
-              [1, 1, 1, 1, 1, 1, 1, 1],
-              [1, 1, 1, 1, 1, 1, 1, 1],
-              [1, 1, 4, 4, 4, 4, 1, 1],
+              [0, 0, 1, 5, 5, 5, 5, 5],
+              [0, 0, 0, 1, 1, 1, 1, 1],
+              [8, 8, 8, 8, 1, 1, 1, 1],
+              [8, 1, 4, 4, 4, 4, 1, 1],
               [1, 1, 1, 1, 1, 1, 1, 1],
               [1, 1, 3, 3, 3, 1, 1, 1],
               [1, 1, 1, 1, 1, 1, 1, 1],
               [1, 3, 3, 3, 1, 1, 2, 2],
-            ]
         ]
         console.log(test)
         return(<>
@@ -42,8 +49,9 @@ class GameBoard extends Component{
         <div className="gamePage">
         <div className="playerShips"><ShipContainer /></div>
             <div className="gameBoard">
-                <div className="player" id="player"><BoardRender test={test}/></div>
-                <div className="opponent" id="opponent"><BoardRender test={test}/></div>
+                <div className="player" id="player">
+                    <BoardRender test={test}/></div>
+                {/* <div className="opponent" id="opponent"><BoardRender test={test}/></div> */}
             </div>
             <div className="opponentShips"><ShipContainer /></div>
             </div>

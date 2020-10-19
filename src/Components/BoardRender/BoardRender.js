@@ -4,22 +4,30 @@ import './boardrender.css'
 export default class Board extends Component {
     //for now the game size is defaulted at 8x8. need to refactor this so it
     //so we can change the size of the grid. shouldn't be too hard. stretch goal!
+
   render() {
-      const boardMap = [1,2,3,4,5,6,7,8]
-      console.log(this.props.test)
-      const {test} = this.props
-      console.log(test)
+      const { test } = this.props
+
     return (<>
       <div className="boardContainer">
         <div className="board">
-          {boardMap.map((i) => (<button className="slot" id={`1.${i}`} key={`1.${i}`}></button>))}
-          {boardMap.map((i) => (<button className="slot" id={`2.${i}`} key={`2.${i}`}></button>))}
-          {boardMap.map((i) => (<button className="slot" id={`3.${i}`} key={`3.${i}`}></button>))}
-          {boardMap.map((i) => (<button className="slot" id={`4.${i}`} key={`4.${i}`}></button>))}
-          {boardMap.map((i) => (<button className="slot" id={`5.${i}`} key={`5.${i}`}></button>))}
-          {boardMap.map((i) => (<button className="slot" id={`6.${i}`} key={`6.${i}`}></button>))}
-          {boardMap.map((i) => (<button className="slot" id={`7.${i}`} key={`7.${i}`}></button>))}
-          {boardMap.map((i) => (<button className="slot" id={`8.${i}`} key={`8.${i}`}></button>))}
+            {test[0].map((i, index) => (<button key={`0.${index}`} id={`0.${index}`} value={i} className="slot" >
+                {i === 0 ? "M":
+                i === 8 ? "H": "0"}</button>))}
+            {test[1].map((i, index) => (<button key={`1.${index}`} id={`1.${index}`} value={i} className="slot" >{i === 0 ? "M":
+                i === 8 ? "H": "0"}</button>))}
+            {test[2].map((i, index) => (<button key={`2.${index}`} id={`2.${index}`} value={i} className="slot" >{i === 0 ? "M":
+                i === 8 ? "H": "0"}</button>))}
+            {test[3].map((i, index) => (<button key={`3.${index}`} id={`3.${index}`} value={i} className="slot" >{i === 0 ? "M":
+                i === 8 ? "H": "0"}</button>))}
+            {test[4].map((i, index) => (<button key={`4.${index}`} id={`4.${index}`} value={i} className="slot" >{i === 0 ? "M":
+                i === 8 ? "H": "0"}</button>))}
+            {test[5].map((i, index) => (<button key={`5.${index}`} id={`5.${index}`} value={i} className="slot" >{i === 0 ? "M":
+                i === 8 ? "H": "0"}</button>))}
+            {test[6].map((i, index) => (<button key={`6.${index}`} id={`6.${index}`} value={i} className="slot" >{i === 0 ? "M":
+                i === 8 ? "H": "0"}</button>))}
+            {test[7].map((i, index) => (<button key={`7.${index}`} id={`7.${index}`} value={i} className="slot" >{i === 0 ? "M":
+                i === 8 ? "H": "0"}</button>))}
         </div>
       </div>
       </>
