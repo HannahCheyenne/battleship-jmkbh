@@ -1,0 +1,30 @@
+.dashboardPage{
+    text-align: center;
+    padding: 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.dashboardButtonContainer{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+.dashimage{
+    height: 225px;
+    width: 225px;
+    background: #1c093dc9;
+    box-shadow: 2px 2px 2px #000000;
+    border-radius: 30px;
+}
+.buttonImageCombo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px 0 20px;
+}
+@media screen and (min-width: 600px) {
+    .dashboardButtonContainer{
+        flex-direction: row;
+    }
+}

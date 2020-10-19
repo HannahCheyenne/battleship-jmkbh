@@ -1,15 +1,20 @@
-html, body{
+html,body
+{
+    width: 100%;
     margin: 0px;
     padding: 0px;
-    width: 100%;
+    overflow-x: hidden; 
 }
 
 html {
-    background:linear-gradient(
-        rgba(218, 218, 218, 0), 
-        rgba(235, 235, 235, 0)
-      ),url(../../Images/background.png);
+    /* background:url(../../Images/2262.jpg); */
+    /* background:url(../../Images/35941.jpg); */
+    /* background:url(../../Images/1873.jpg); */
+    /* background:url(../../Images/2306971.png); */
+    /* background:url(../../Images/2314572.png); */
+    background:url(../../Images/2262.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-position: center;
 }

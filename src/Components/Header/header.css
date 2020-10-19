@@ -3,8 +3,8 @@ header{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: rgba(0, 0, 0, 0.7);
-    box-shadow: 0px 20px 30px 5px rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 15px 15px 5px rgba(0, 0, 0, 0.5);
 }
 header h1{
     padding: 10px 10px 10px 20px;
@@ -12,12 +12,10 @@ header h1{
 header a, header h1 {
     text-decoration: none;
     color:#ffffff;
-    transition-duration: 0.4s;
 }
 header a:hover,
 header span a:hover{
-    color: white;
-    text-shadow: 0px 0px 7px rgba(255, 255, 255, 0.591);
+    color: #dcfffc;
 }
 header span a {
     padding: 10px;

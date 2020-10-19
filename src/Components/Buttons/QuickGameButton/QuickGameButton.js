@@ -3,8 +3,6 @@ import TokenService from "../../../services/token-service";
 import AuthApiService from "../../../services/auth-api-service";
 import "./quickgamebutton.css"
 
-//this component will allow the two players to have a rematch in the same room
-// if one player leaves, this will allow a player to stay in the same game room and wait for another player to join
 class QuickGameButton extends Component{
     state = {
         error:''
@@ -27,7 +25,7 @@ class QuickGameButton extends Component{
       };
     render(){
         return(
-            <form onSubmit={this.handleQuickGame}><button>Quick Game</button></form>
+            <form onSubmit={this.handleQuickGame}><button className="quickGameButton">Quick Game</button></form>
         )
     }
 }

@@ -1,6 +1,6 @@
 .registrationPage{
     text-align: center;
-    padding: 80px;
+    padding: 5%;
     display: flex;
     justify-content: center;;
 }
@@ -12,74 +12,80 @@
   margin: 5px;
   border: none;
 }
+.errorDiv{
+    min-height:30px;
+}
 .registrationForm{
-    min-width: 300px;
+    min-width: 225px;
+    max-width: 450px;
     height: fit-content;
     margin: auto;
-    background: rgb(174, 174, 174) url(../Login/bw-space.jpg);
-    background-blend-mode: screen;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     border: none;
-    padding:15px;
 }
 .regInputsLables{
     text-align: left;
-    font-size: 23px;
+    font-size: 20px;
 }
 .registrationForm input{
-    display:grid;
-    width: 95%;
+    display:flex;
+    font-size: 25px;
     height: 30px;
-    margin-right: 2.5%;
-    box-shadow:2px 2px 2px #bbbbbb;
+    min-width: 225px;
+    margin:0 0 20px 0;
+    border-radius: 30px;
+    padding: 10px;
+    box-shadow:2px 2px 3px #646464;
+}
+.registrationForm input:focus{
+    outline-style: none;
+    background-color: rgb(200, 200, 200);
 }
 .registrationSubmit{
-    text-align: right;
+    text-align: center;
+}
+.submit:active{
+    background: #6de2d6;
 }
 .registrationPage a{
     color:#1f1f1f;
     text-decoration: none;
 }
+.registrationPage a:hover{
+    color:#D1FAF6;
+}
 .submit{
-    width: 97%;
-    height: 30px;
+    font-size: 25px;
+    padding: 10px;
+    min-width: 125px;
     color: white;
     border: none;
-    background: #2b2b2b;
-    box-shadow:2px 2px 2px #bbbbbb;
-    margin-right: 2.5%;
+    outline-style: none;
+    margin:10px 10px 30px 10px;
+    border-radius: 30px;
+    background: #48BE9F;
+    box-shadow:2px 2px 1px #646464;
 }
 
-.alreadyRegistered{
-    margin-top: 10px;
+.alreadyRegistered a{
+    color: #cacaca;
 }
-
-.animated {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
- }
- 
- @-webkit-keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
- }
- 
- @keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
- }
- 
- .fadeIn {
-    -webkit-animation-name: fadeIn;
-    animation-name: fadeIn;
- }
-
+ .registrationForm{
+    animation: pulse 1s;
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0%;
+    }
+    100% {
+        opacity:100%;
+    }
+  }
  @media screen and (min-width: 550px) {
-    .loginForm{
-        width: 40%;
+    .registrationForm input{
+        width:350px;
+    }
+    .submit{
+        width:225px;
     }
 }

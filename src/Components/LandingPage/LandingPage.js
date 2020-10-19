@@ -7,17 +7,32 @@ import QuickGameButton from "../Buttons/QuickGameButton/QuickGameButton";
 
 class LandingPage extends Component {
   render() {
-    return (
-      <div className="landingPage">
+    return (<>
         <Header />
+      <div className="landingPage">
         {/* <div className="starmap"><img src={spaceBackground} alt="Logo" /></div> */}
-        <h2>Home Content</h2>
-        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-        <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
-        <DemoAccount history={this.props.history}/>
-        <QuickGameButton history={this.props.history}/>
+        <fieldset className="aboutContent">
+          <h2>Players</h2>
+            <p>Play vs Player or play a game against the Ai</p>
+          <h2>Goal</h2>
+            <p>Destroy your opponents battleship</p>
+          
+          <h2>Rules</h2>
+            <p>Rule number 1 goes here</p>
+            <p>Rule number 2 goes here, elaborate</p>
+            <p>Rule number 3 goes here with some explanation, lots of explanation</p>
+          
+          <h2>Buttons</h2>
+            <p>Explain what the Demo button does</p>
+            <p>Explain what the quick game does</p>
+          
+        </fieldset>
+        <div className="landingPageButtonGroup">
+          <span><DemoAccount history={this.props.history}/></span>
+          <span><QuickGameButton history={this.props.history}/></span>
+        </div>
       </div>
+      </>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import TokenService from "../../services/token-service";
 import AuthApiService from "../../services/auth-api-service";
 import Header from "../Header/Header";
@@ -43,11 +44,13 @@ class Login extends Component {
           <fieldset className="loginForm animated fadeIn">
             <form onSubmit={this.handleSubmitJwtAuth}>
               <div className="inputsLabels">
-              <label className="name">Name:</label>
-              <input className="name" required name="username"></input>
-              <label className="password">Password:</label>
+              {/* <label className="name">Name:</label> */}
+              <input className="name" placeholder="Name"
+required name="username"></input>
+              {/* <label className="password">Password:</label> */}
               <input
                 className="password"
+                placeholder="Password"
                 required
                 name="password"
                 type="password"
@@ -55,9 +58,10 @@ class Login extends Component {
               </div>
               <h3>{error}</h3>
               <div className="loginButtonContainer">
-                <button className="loginButton" type="submit">Log In</button>
+                <button className="loginButton" type="submit">Login</button>
               </div>
             </form>
+        <div className="needToRegister"><Link to="/register">Need to register?</Link></div>
           </fieldset>
         </div>
       </div>

@@ -4,7 +4,7 @@ import "./createprivategame.css"
 class CreatePrivateGame extends Component{
     render(){
         return(
-            <button>Private Game</button>
+            <button className="gameButton">Private Game</button>
         )
     }
 }

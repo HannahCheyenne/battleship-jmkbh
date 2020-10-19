@@ -89,7 +89,7 @@ class Register extends Component {
   validatePassword() {
     const password = this.state.password;
     if (password.value.length < 8 || !password.value.match(/\d/)) {
-      return "Password must contain numbers and letters";
+      return "Must contain numbers and letters";
     }
   }
   validateConfirmPassword() {
@@ -112,40 +112,40 @@ class Register extends Component {
           <fieldset className="registrationForm animated fadeIn">
             <form onSubmit={this.handleSubmitNewUser}>
               <div className="regInputsLables">
-                <label className="name">Name:</label>
-                {this.state.name.touched && (
-                  <ValidationError message={nameError} />
-                )}
+              <div className="errorDiv">{this.state.name.touched && (
+                  <ValidationError className="errormessage" message={nameError} />
+                )}</div>
                 <input
                   className="name"
                   name="name"
+                  placeholder="Name"
                   onChange={(e) => this.checkName(e.target.value)}
                 ></input>
-                <label className="name">User Name:</label>
-                {this.state.username.touched && (
+                <div className="errorDiv">{this.state.username.touched && (
                   <ValidationError message={usernameError} />
-                )}
+                )}</div>
                 <input
                   className="name"
                   name="username"
+                  placeholder="User Name"
                   onChange={(e) => this.checkUserName(e.target.value)}
                 ></input>
-                <label className="password">Password:</label>
-                {this.state.password.touched && (
+                <div className="errorDiv">{this.state.password.touched && (
                   <ValidationError message={passwordError} />
-                )}
+                )}</div>
                 <input
                   className="password"
                   name="password"
+                  placeholder="Password"
                   onChange={(e) => this.checkPassword(e.target.value)}
                 ></input>
-                <label className="password">Confirm Password:</label>
-                {this.state.confirmPassword.touched && (
+                <div className="errorDiv">{this.state.confirmPassword.touched && (
                   <ValidationError message={confirmPasswordError} />
-                )}
+                )}</div>
                 <input
                   className="password"
                   name="confirmPassword"
+                  placeholder="Confirm Password"
                   onChange={(e) => this.checkConfirmPassword(e.target.value)}
                 ></input>
               </div>
