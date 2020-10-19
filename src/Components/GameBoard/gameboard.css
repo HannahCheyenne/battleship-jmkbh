@@ -1,4 +1,9 @@
 .gamePage{
+    display: flex;
+    
+}
+
+.gameBoard{
     /* background:url(../../Images/backgroundGamepage.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -16,4 +21,10 @@
 }
 .opponent{
     margin: 30px;
+}
+
+@media all and (max-width:700px){
+    .gamePage{
+        flex-direction: column;
+    }
 }

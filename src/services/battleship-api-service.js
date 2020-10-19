@@ -24,9 +24,9 @@ const BattleshipAPI = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
-  loadPrivateGame(id) {
+  postMove(co) {
     return fetch(`${config.API_ENDPOINT}/`, {
-      method: "GET",
+      method: "POST",
       headers: {
         // authorization: `bearer ${TokenService.getAuthToken()}`,
         "Content-Type": "application/json",

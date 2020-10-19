@@ -10,13 +10,13 @@ class UserPage extends Component{
       battleshipD:0,
       carrierD:0,
       destroyerD:0,
+      patrolboatD:0,
+      submarineD:0,
       gameL:0,
       gameW:0,
       gamesP:0,
-      patrolboatD:0,
       hits:0,
       misses:0,
-      submarineD:0,
     };
       componentDidMount() {
         BattleshipAPI.getStats()
@@ -54,7 +54,7 @@ class UserPage extends Component{
                 <p>Total Ships Destroyed: {totalShipsD}</p>
                 <p>Battleships: {battleshipD}</p>
                 <p>Space Carrier: {carrierD}</p>
-                <p>Crusier: {submarineD}</p>
+                <p>Cruiser: {submarineD}</p>
                 <p>Destroyers: {destroyerD}</p>
                 <p>Patrol Ships: {patrolboatD}</p>
             <Link to="/dashboard"><button>Go Back</button></Link>
