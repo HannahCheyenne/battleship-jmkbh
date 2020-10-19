@@ -25,7 +25,7 @@ class QuickGameButton extends Component{
       };
     render(){
         return(
-            <form onSubmit={this.handleQuickGame}><button>Quick Game</button></form>
+            <form onSubmit={this.handleQuickGame}><button className="quickGameButton">Quick Game</button></form>
         )
     }
 }

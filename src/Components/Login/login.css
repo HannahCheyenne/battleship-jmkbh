@@ -1,6 +1,6 @@
 .loginPage{
     text-align: center;
-    padding: 80px;
+    padding: 5%;
     display: flex;
     justify-content: center;
 }
@@ -13,66 +13,59 @@
 }
 
 .loginForm{
-    min-width: 300px;
-    height: 250px;
+    padding-top: 50px;
+    min-width: 225px;
+    max-width: 450px;
+    height: fit-content;
     margin: auto;
-    background: rgb(174, 174, 174) url(./bw-space.jpg);
-    background-blend-mode: screen;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     border: none;
-    padding:15px;
 }
 .inputsLabels{
     text-align: left;
     font-size: 20px;
 }
 .loginForm input{
-    display:grid;
-    width: 95%;
+    display:flex;
+    font-size: 25px;
     height: 30px;
-    margin-right: 2.5%;
-    box-shadow:2px 2px 2px #bbbbbb;
+    min-width: 225px;
+    margin:40px 0 30px 0;
+    border-radius: 30px;
+    padding: 10px;
+    box-shadow:2px 2px 3px #646464;
+}
+.loginForm input:focus{
+    outline-style: none;
+    background-color: rgb(200, 200, 200);
 }
 .loginButtonContainer{
-    text-align: right;
+    text-align: center;
 }
 .loginButton{
-    width: 97%;
-    height: 30px;
+    font-size: 25px;
+    padding: 10px;
+    min-width: 125px;
     color: white;
     border: none;
-    background: #2b2b2b;
-    box-shadow:2px 2px 2px #bbbbbb;
-    margin: 65px 2.5% 0 0;
+    outline-style: none;
+    margin:10px 10px 30px 10px;
+    border-radius: 30px;
+    background: #48BE9F;
+    box-shadow:2px 2px 1px #646464;
 }
-
-/* .animated {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
- }
- 
- @-webkit-keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
- }
- 
- @keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
- }
- 
- .fadeIn {
-    -webkit-animation-name: fadeIn;
-    animation-name: fadeIn;
- } */
-
+.loginButton:active{
+    background: #6de2d6;
+}
  .loginForm{
     animation: pulse 1s;
   }
+  .needToRegister a{
+    color: #cacaca;
+        text-decoration: none;
+    }
+    .needToRegister a:hover{
+        color:#D1FAF6;
+    }
   
   @keyframes pulse {
     0% {
@@ -83,7 +76,11 @@
     }
   }
 @media screen and (min-width: 550px) {
-    .loginForm{
-        width: 40%;
+
+    .loginForm input{
+        width:350px;
+    }
+    .loginButton{
+        width:225px;
     }
 }

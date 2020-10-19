@@ -4,7 +4,7 @@ import './validationerror.css'
 export default function ValidationError(props) {
   if(props.message) {
     return (
-      <div className="error">{props.message}</div>
+      <label className="error">{props.message}</label>
     );
   }
 

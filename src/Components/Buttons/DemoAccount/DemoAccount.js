@@ -25,7 +25,7 @@ class DemoAccount extends Component{
       };
     render(){
         return(
-            <form onSubmit={this.handleDemoAccount}><button>Demo Account</button></form>
+            <form onSubmit={this.handleDemoAccount}><button className="demoAccountButton">Demo Account</button></form>
         )
     }
 }

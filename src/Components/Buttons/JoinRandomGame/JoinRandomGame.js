@@ -5,7 +5,7 @@ import './joinrandomgame.css'
 class JoinRandomGame extends Component{
     render(){
         return(
-            <button>Random Game</button>
+            <button className="gameButton">Random Game</button>
         )
     }
 }

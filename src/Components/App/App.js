@@ -4,6 +4,7 @@ import Login from "../Login/Login";
 import LandingPage from "../LandingPage/LandingPage";
 import Dashboard from "../Dashboard/Dashboard";
 import QuickGame from '../QuickGame/QuickGame'
+import ContactPage from '../ContactPage/ContactPage'
 import Demo from "../Demo/Demo";
 import Register from "../Register/Register";
 import PublicOnlyRoute from "../../Utils/PublicOnlyRoute";
@@ -11,6 +12,7 @@ import PrivateOnlyRoute from "../../Utils/PrivateOnlyRoute";
 import StatsPage from "../StatsPage/StatsPage";
 import Audio from '../../services/audio'
 import "./app.css";
+import GameBoard from "../GameBoard/GameBoard";
 
 export default class App extends Component {
   state = {
@@ -58,11 +60,13 @@ export default class App extends Component {
         <Switch>
           <PublicOnlyRoute component={Login} path="/login" />
           <Route component={LandingPage} exact path="/" />
+          <Route component={ContactPage} exact path="/contact" />
           <PublicOnlyRoute component={Register} path="/register" />
           <PrivateOnlyRoute component={StatsPage} path="/stats"/>
           <PrivateOnlyRoute component={Dashboard} path="/dashboard"/>
           <PrivateOnlyRoute component={Demo} path="/demo"/>
           <PrivateOnlyRoute component={QuickGame} path="/quickgame"/>
+          <PrivateOnlyRoute component={GameBoard} path="/game"/>
         </Switch>
       </div>
     );

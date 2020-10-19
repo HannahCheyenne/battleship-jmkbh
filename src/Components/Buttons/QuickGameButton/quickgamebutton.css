@@ -1,0 +1,17 @@
+.quickGameButton{
+        width:225px;
+        box-shadow:2px 2px 1px #646464;
+        font-size: 25px;
+        padding: 10px;
+        min-width: 125px;
+        color: white;
+        border: none;
+        outline-style: none;
+        margin:10px 10px 10px 10px;
+        border-radius: 30px;
+        background: #48BE9F;
+    }
+    
+    .quickGameButton:active{
+        background: #6de2d6;
+    }
