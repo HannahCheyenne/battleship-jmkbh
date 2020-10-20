@@ -10,11 +10,11 @@ class GameBoard extends Component {
     super();
     this.playerMove = this.playerMove.bind(this);
     this.state = {
-        idfromBoard: "",
+        idfromBoard: " ",
         //player
-        p1_board:[],
+        p1_board:[ [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], ],
         //opponent
-        p2_board:[],
+        p2_board:[ [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], ],
         p1_health:[],
         p2_health:[],
         player_turn:true,
@@ -23,29 +23,32 @@ class GameBoard extends Component {
     };
   }
     componentDidMount(){
-        BattleshipAPI.getState()
+        console.log('mount')
+        let id = 1
+        BattleshipAPI.getState(id)
         .then(data => {
             console.log(data)
+            console.log(data.gameState[0].p2_board)
             this.setState({
-                p1_board:data.p1_board,
+                p1_board:data.gameState[0].p1_board,
                 //opponent
-                p2_board:data.p2_board,
-                p1_health:data.p1_health,
-                p2_health:data.p2_health,
-                player_turn:data.player_turn,
+                p2_board:data.gameState[0].p2_board,
+                p1_health:data.gameState[0].p1_health,
+                p2_health:data.gameState[0].p2_health,
+                player_turn:data.gameState[0].player_turn,
                 //whether game is over
-                active_game:data.active_game,
+                active_game:data.gameState[0].active_game,
             })
           })
     }
   postMove=()=>{
     let gameId = this.props.match.params.id
-    console.log(this.props)
       let split = this.state.idfromBoard.split(".")
       let x = Number(split[0])
       let y = Number(split[1])
       BattleshipAPI.postMove(gameId,x,y)
       .then((data) => {
+          
           this.setState({
             idfromBoard:'',
             //player
@@ -68,18 +71,7 @@ class GameBoard extends Component {
 
 
   render() {
-    const test = [
-      [0, 0, 1, 5, 5, 5, 5, 5],
-      [0, 0, 0, 1, 1, 1, 1, 1],
-      [8, 8, 8, 8, 1, 1, 1, 1],
-      [8, 1, 4, 4, 4, 4, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 3, 3, 3, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 3, 3, 3, 1, 1, 2, 8],
-    ];
-    console.log(test);
-    console.log("click id in game board", this.state.idfromBoard);
+      console.log(this.state.p2_board)
     return (
       <>
         <Header />
@@ -89,7 +81,7 @@ class GameBoard extends Component {
           </div>
           <div className="gameBoard">
             <div className="player" id="player">
-              <OpponentBoardRender test={test} playerMove={this.playerMove} />
+              <OpponentBoardRender key={this.state.p2_board} p2Board={this.state.p2_board} playerMove={this.playerMove} />
             </div>
             {/* <div className="opponent" id="opponent"><BoardRender test={test}/></div> */}
           </div>
