@@ -42,6 +42,11 @@ export default class App extends Component {
     this.setState({isMuted: !isMuted}, () => Audio.mute())
   }
 
+  handleVolume = (e) => {
+    e.preventDefault()
+    Audio.setVol(e.target.value)
+  }
+
   // This should be stylized later
   renderMuteButton = () => {
     return (this.state.isMuted === true
@@ -70,6 +75,7 @@ export default class App extends Component {
             <PrivateOnlyRoute component={GameBoard} path="/game"/>
           </Switch>
           {this.renderMuteButton()}
+          <input type="range" min="-30" max="0" onChange={this.handleVolume}/>
         </Context.Provider>
       </div>
     );

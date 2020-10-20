@@ -87,6 +87,10 @@ const Audio = {
           : setTimeout(missSound, 200)
     },
 
+    setVol(val) {
+        vol.volume.value = val
+    },
+
     soft() {
         !isMuted && playEffect('mp3s/soft.mp3')
     },
