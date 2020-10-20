@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import boom from '../../Images/boom.png'
 import miss from '../../Images/miss.png'
-import './boardrender.css'
 
-export default class Board extends Component {
+import './opponentboardrender.css'
+
+export default class OpponentBoard extends Component {
     constructor() {
         super();
         this.handleClick = this.handleClick.bind(this);
@@ -11,15 +12,12 @@ export default class Board extends Component {
           id: ''
         };
       }
-      //child
       handleClick(event) {
         this.setState({
           id: event.target.id
-        },this.props.playerMove(this.state.id));
+        },() => this.props.playerMove(this.state.id));
     
       }
-    //for now the game size is defaulted at 8x8. need to refactor this so it
-    //so we can change the size of the grid. shouldn't be too hard. stretch goal!
   render() {
       const { test } = this.props
       const H = <img className ="image" src={boom} alt="hit"/>
@@ -28,8 +26,7 @@ export default class Board extends Component {
     return (<>
       <div className="boardContainer">
         <div className="board">
-            {test[0].map((i, index) => (<button onClick={this.handleClick} key={`0.${index}`} id={`0.${index}`} value={i} className="slot" >
-                {i === 0 ? M:
+            {test[0].map((i, index) => (<button onClick={this.handleClick} key={`0.${index}`} id={`0.${index}`} value={i} className="slot" >{i === 0 ? M:
                 i === 8 ? H: ""}</button>))}
             {test[1].map((i, index) => (<button onClick={this.handleClick} key={`1.${index}`} id={`1.${index}`} value={i} className="slot" >{i === 0 ? M:
                 i === 8 ? H: ""}</button>))}
