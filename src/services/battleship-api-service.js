@@ -14,7 +14,7 @@ const BattleshipAPI = {
     );
   },
   getState(id) {
-    return fetch(`${config.API_ENDPOINT}/game:id`, {
+    return fetch(`${config.API_ENDPOINT}/game/${id}`, {
       method: "GET",
       headers: {
         authorization: `bearer ${TokenService.getAuthToken()}`,
