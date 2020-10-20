@@ -13,17 +13,27 @@ class GameBoard extends Component {
         idfromBoard: " ",
         //player
         p1_board: [
-          [0, 0, 1, 5, 5, 5, 5, 5],
-          [0, 0, 0, 1, 1, 1, 1, 1],
-          [8, 8, 8, 8, 1, 1, 1, 1],
-          [8, 1, 4, 4, 4, 4, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 3, 3, 3, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 3, 3, 3, 1, 1, 2, 8],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+       
         ],
         //opponent
-        p2_board:[ [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1], ],
+        p2_board:[ 
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+        ],
         p1_health:[],
         p2_health:[],
         player_turn:true,
@@ -32,12 +42,9 @@ class GameBoard extends Component {
     };
   }
     componentDidMount(){
-        console.log('mount')
         let id = 1
         BattleshipAPI.getState(id)
         .then(data => {
-            console.log(data)
-            console.log(data.gameState[0].p2_board)
             this.setState({
                 p1_board:data.gameState[0].p1_board,
                 //opponent
@@ -80,7 +87,6 @@ class GameBoard extends Component {
 
 
   render() {
-      console.log(this.state.p2_board)
     return (
       <>
         <Header />
