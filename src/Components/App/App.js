@@ -15,6 +15,10 @@ import "./app.css";
 import GameBoard from "../GameBoard/GameBoard";
 import Context from '../../Context'
 
+//Chat Features//
+import Join from '../Chat/Join/Join'
+import Chat from '../Chat/Chat/Chat'
+
 export default class App extends Component {
   state = {
     currentTheme: null,
@@ -58,6 +62,10 @@ export default class App extends Component {
         <Context.Provider value={value}>
           <Switch>
             <PublicOnlyRoute component={Login} path="/login" />
+            {/* -----------Chat Features--------------------- */}
+            <Route component={Join} path="/joinChat" />
+            <Route component={Chat} path="/activeChat" />
+            {/* --------------------------------------------- */}
             <Route component={LandingPage} exact path="/" />
             <Route component={ContactPage} exact path="/contact" />
             <PublicOnlyRoute component={Register} path="/register" />
