@@ -16,13 +16,13 @@
     align-content: center;
     justify-content: center;
 }
-.gameBoard html{
+/* html{
     background:url(../../Images/backgroundGamepage.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-}
+} */
 .player{
  margin: 30px;
 }
