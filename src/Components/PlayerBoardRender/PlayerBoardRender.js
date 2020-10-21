@@ -20,7 +20,7 @@ export default class PlayerBoardRender extends Component {
         cols={8} 
         rowHeight={50} 
         width={450}
-        margin={[1,1]}>
+        margin={[2,2]}>
             {this.renderGrid().map(coord => coord)}
             <div className="battleship" key='5Ship' data-grid={{x: 1, y: 9, w: 5, h: 1, static: true, isDraggable: true, isDroppable: true}}/>
             <div className="aDiv ship" key='3Ship' data-grid={{x: 1, y: 9, w: 1, h: 3, static: true, isDraggable: true, isDroppable: true}}/>
