@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TokenService from "../../services/token-service";
 import { Link } from "react-router-dom";
-import Audio from '../../services/audio'
+//import Audio from '../../services/audio'
 import Context from '../../Context'
 import "./header.css";
 
@@ -45,6 +45,7 @@ renderMuteButton = () => {
     )
   }
   handleLogoutClick = () => {
+    this.context.handleTheme()
     TokenService.clearAuthToken()
   }
   renderLogoutLink() {
@@ -67,8 +68,8 @@ renderMuteButton = () => {
             : this.renderHeaderLink()}
           </h1>
           <span className="headerAudio">
-          {this.renderMuteButton()}
-          <input type="range" min="-30" max="0" onChange={this.context.handleVolume}/>
+            {this.renderMuteButton()}
+            <input type="range" min="-30" max="0" onChange={this.context.handleVolume}/>
           </span>
           <span>
             {TokenService.hasAuthToken()

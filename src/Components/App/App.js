@@ -32,11 +32,16 @@ export default class App extends Component {
   'lose.mp3'
   */
 
-  handleTheme = (theme) => {
-    this.setState(
-      {currentTheme: theme},
-      () => Audio.playTheme(this.state.currentTheme)
-    )
+  handleTheme = (theme=null) => {
+    theme
+      ? this.setState(
+          {currentTheme: theme},
+          () => Audio.playTheme(this.state.currentTheme)
+        )
+      : this.setState(
+          {currentTheme: null},
+          () => Audio.stop()
+        )
   }
 
   handleMute = () => {

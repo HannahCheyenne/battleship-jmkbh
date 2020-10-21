@@ -5,6 +5,7 @@ header{
     justify-content: space-between;
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0px 15px 15px 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
 }
 header h1{
     padding: 10px 10px 10px 20px;
@@ -24,6 +25,13 @@ header h1, span {
     margin: auto 0 auto 0;
 }
 
+.muteButton {
+    color: rgb(255, 255, 255);
+    background: #ec7513b3;
+    border-radius: 10%;
+    height: 30px;
+    width: 60px;
+}
 
 @media screen and (min-width: 550px) {
     header{
