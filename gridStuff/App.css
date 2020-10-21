@@ -1,0 +1,42 @@
+.all {
+  margin-left: 30%;
+  margin-top: 20%;
+}
+
+button {
+  margin: 3px;
+}
+
+.aDiv {
+  border: 1px solid black;
+  background: rgb(215, 149, 7);
+  
+}
+.aDiv:hover{
+  background: chartreuse;
+}
+.ship {
+  background: rgba(128, 0, 128, 0.509);
+}
+
+#drag1 {
+  width: 165px;
+  height: 70px;
+}
+
+.flip {
+  transform: rotate(90deg);
+}
+
+.layout {
+  width: fit-content;
+  margin: 0;
+}
+
+.buttonShip {
+  width: 70px;
+  height: 70px;
+  font-size: 12px;
+  border: 1px solid black;
+  background: rgb(215, 149, 7);
+}
