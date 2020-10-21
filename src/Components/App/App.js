@@ -57,8 +57,11 @@ export default class App extends Component {
 
   render() {
     const value = {
+      currentTheme: this.state.currentTheme,
+      isMuted: this.state.isMuted,
       handleTheme: this.handleTheme,
       handleMute: this.handleMute,
+      handleVolume: this.handleVolume
     }
     return (
       <div>
@@ -75,8 +78,8 @@ export default class App extends Component {
             <PrivateOnlyRoute component={QuickGame} path="/quickgame"/>
             <PrivateOnlyRoute component={GameBoard} path="/game"/>
           </Switch>
-          {this.renderMuteButton()}
-          <input type="range" min="-30" max="0" onChange={this.handleVolume}/>
+          {/* {this.renderMuteButton()}
+          <input type="range" min="-30" max="0" onChange={this.handleVolume}/> */}
         </Context.Provider>
       </div>
     );

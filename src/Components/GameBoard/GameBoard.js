@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import OpponentBoardRender from "../OpponentBoardRender/OpponentBoardRender";
-import Header from "../Header/Header";
 import ShipContainer from "../ShipContainer/ShipContainer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
