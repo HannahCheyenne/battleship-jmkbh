@@ -18,7 +18,6 @@ import Context from '../../Context'
 export default class App extends Component {
   state = {
     currentTheme: null,
-    volume: -5,
     isMuted
   }
 
@@ -58,7 +57,6 @@ export default class App extends Component {
     const value = {
       handleTheme: this.handleTheme,
       handleMute: this.handleMute,
-      volume: this.state.volume,
     }
     return (
       <div>

@@ -1,5 +1,4 @@
 import * as Tone from 'tone';
-import Context from '../Context'
 
 /* 
 // --- Integrate into game's attack function for appropriate sound ---
@@ -16,13 +15,11 @@ import Context from '../Context'
 
 let theme = null;
 let isMuted = false;
-let vol = new Tone.Volume(-10).toDestination();
+let vol = new Tone.Volume().toDestination();
 const path = process.env.PUBLIC_URL
-
 
 async function playEffect(effect) {
     const sound = new Tone.Player(path + effect)
-    //.toDestination()
     try {
         await Tone.loaded()
     }
@@ -59,13 +56,11 @@ const Audio = {
                 loop: true,
                 loopEnd: 102.6
                 })
-                //.toDestination()
         } else {
             theme = new Tone.Player({
                 url: `${path}mp3s/${file}`,
                 loop: false
                 })
-                //.toDestination()
         }
         theme.context._latencyHint = 'playback'
         try {
