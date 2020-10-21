@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./dashboard.css";
-import Header from "../Header/Header";
 import CreatePrivateGame from "../Buttons/CreatePrivateGame/CreatePrivateGame";
 import CreateAiGame from "../Buttons/CreateAiGame/CreateAiGame";
 import JoinRandomGame from "../Buttons/JoinRandomGame/JoinRandomGame";
@@ -19,7 +18,6 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Header />
         <div className="dashboardPage">
           <div className="dashboardButtonContainer">
             <div className="buttonImageCombo">

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Header from "../Header/Header";
 import DemoAccount from '../Buttons/DemoAccount/DemoAccount'
 // import spaceBackground from '../../Images/spaceBackground.jpg'
 import "./landingpage.css";
@@ -8,7 +7,6 @@ import QuickGameButton from "../Buttons/QuickGameButton/QuickGameButton";
 class LandingPage extends Component {
   render() {
     return (<>
-        <Header />
       <div className="landingPage">
         {/* <div className="starmap"><img src={spaceBackground} alt="Logo" /></div> */}
         <fieldset className="aboutContent">

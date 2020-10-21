@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import './statspage.css'
 import BattleshipAPI from "../../services/battleship-api-service";
-import Header from '../Header/Header'
 
 class UserPage extends Component{
     
@@ -42,7 +41,6 @@ class UserPage extends Component{
       const totalShots = hits + misses
         return(
             <>
-            <Header />
             <div className="statsPage">
                 <h2>Your Stats</h2>
                 <p>Total games played: {gamesP}</p>
