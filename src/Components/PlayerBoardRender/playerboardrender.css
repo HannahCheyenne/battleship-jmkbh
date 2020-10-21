@@ -1,7 +1,11 @@
 .battleship{
     background: #00ff40;
-    
+
 }
 .gridCell {
     background: rgba(0, 0, 0, 0.187);
 }
+.react-grid-layout {
+    position: relative;
+    transition: height 200ms ease;
+  }

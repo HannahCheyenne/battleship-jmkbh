@@ -28,7 +28,7 @@ export default class OpponentBoard extends Component {
         <div className="board">
             {test[0].map((i, index) => (<button onClick={this.handleClick} key={`0.${index}`} id={`0.${index}`} value={i} className="slot" >{i === 0 ? M:
                 i === 8 ? H: ""}</button>))}
-            {test[1].map((i, index) => (<button onClick={this.handleClick} key={`1.${index}`} id={`1.${index}`} value={i} className="slot" >{i === 0 ? M:
+            {test[1].map((i, index) => (<button disabled={false} onClick={this.handleClick} key={`1.${index}`} id={`1.${index}`} value={i} className="slot" >{i === 0 ? M:
                 i === 8 ? H: ""}</button>))}
             {test[2].map((i, index) => (<button onClick={this.handleClick} key={`2.${index}`} id={`2.${index}`} value={i} className="slot" >{i === 0 ? M:
                 i === 8 ? H: ""}</button>))}
