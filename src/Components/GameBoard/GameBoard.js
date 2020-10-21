@@ -14,25 +14,25 @@ class GameBoard extends Component {
       //player
       id: 1,
       p1_board: [
-        [0, 0, 1, 5, 5, 5, 5, 5],
-        [0, 0, 0, 1, 1, 1, 1, 1],
-        [8, 8, 8, 8, 1, 1, 1, 1],
-        [8, 1, 4, 4, 4, 4, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 3, 3, 3, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 3, 3, 3, 1, 1, 2, 8],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
       ],
       //opponent
       p2_board: [
-        [0, 0, 1, 5, 5, 5, 5, 5],
-        [0, 0, 0, 1, 1, 1, 1, 1],
-        [8, 8, 8, 8, 1, 1, 1, 1],
-        [8, 1, 4, 4, 4, 4, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 3, 3, 3, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 3, 3, 3, 1, 1, 2, 8],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
       ],
       p1_health: [2, 3, 3, 4, 5],
       p2_health: [2, 3, 3, 4, 5],
@@ -43,26 +43,17 @@ class GameBoard extends Component {
   }
   componentDidMount() {
     BattleshipAPI.getState(1).then((data) => {
-      console.log("data", data.gameState[0].p1_board);
+      const gameState = data.gameState[0];
       this.setState({
-        id: data.gameState[0].id,
-        p1_board: data.gameState[0].p1_board,
+        id: gameState.id,
+        p1_board: gameState.p1_board,
         //opponent
-        p2_board: [
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-        ],
-        p1_health: [],
-        p2_health: [],
-        player_turn: true,
+        p2_board: gameState.p2_board,
+        p1_health: gameState.p1_health,
+        p2_health: gameState.p2_health,
+        player_turn: gameState.player_turn,
         //whether game is over
-        active_game: true,
+        active_game: gameState.active_game,
       });
     });
   }
@@ -104,13 +95,6 @@ class GameBoard extends Component {
   }
 
   render() {
-    const test = this.state.p1_board;
-    console.log(
-      "GameBoard -> render -> this.state.p1_board",
-      this.state.p1_board
-    );
-
-    console.log("test", test);
     console.log("click id in game board", this.state.idfromBoard);
     return (
       <>
@@ -122,8 +106,8 @@ class GameBoard extends Component {
           <div className="gameBoard">
             <div className="player" id="player">
               <OpponentBoardRender
-                test={this.state.p1_board}
-                key={this.state.p1_board}
+                test={this.state.p2_board}
+                key={this.state.p2_board}
                 playerMove={this.playerMove}
               />
             </div>
