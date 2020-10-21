@@ -48,12 +48,21 @@ class GameBoard extends Component {
         id: data.gameState[0].id,
         p1_board: data.gameState[0].p1_board,
         //opponent
-        p2_board: data.gameState[0].p2_board,
-        p1_health: data.gameState[0].p1_health,
-        p2_health: data.gameState[0].p2_health,
-        player_turn: data.gameState[0].player_turn,
+        p2_board: [
+          [1, 1, 1, 1, 1, 1, 1, 1],
+          [1, 1, 1, 1, 1, 1, 1, 1],
+          [1, 1, 1, 1, 1, 1, 1, 1],
+          [1, 1, 1, 1, 1, 1, 1, 1],
+          [1, 1, 1, 1, 1, 1, 1, 1],
+          [1, 1, 1, 1, 1, 1, 1, 1],
+          [1, 1, 1, 1, 1, 1, 1, 1],
+          [1, 1, 1, 1, 1, 1, 1, 1],
+        ],
+        p1_health: [],
+        p2_health: [],
+        player_turn: true,
         //whether game is over
-        active_game: data.gameState[0].active_game,
+        active_game: true,
       });
     });
   }
