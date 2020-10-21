@@ -1,11 +1,41 @@
 .battleship{
-    background: #00ff40;
 
 }
 .gridCell {
     background: rgba(0, 0, 0, 0.187);
+    border: 1px solid  #fffbef93;
 }
 .react-grid-layout {
     position: relative;
     transition: height 200ms ease;
+  }
+  .imageBattleship{
+    width: 50px;
+    height: 250px;
+    justify-content: center;
+    display: block;
+  }
+  .imageSubmarine{
+    width: 50px;
+    height: 150px;
+    justify-content: center;
+    display: block;
+  }
+  .imageCarrier{
+    width: 50px;
+    height: 200px;
+    justify-content: center;
+    display: block;
+  }
+  .imagePatrolboat{
+    width: 50px;
+    height: 100px;
+    justify-content: center;
+    display: block;
+  }
+  .imageDestroyer{
+    width: 50px;
+    height: 150px;
+    justify-content: center;
+    display: block;
   }
