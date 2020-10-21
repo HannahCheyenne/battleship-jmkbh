@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import OpponentBoardRender from "../OpponentBoardRender/OpponentBoardRender";
-import Header from "../Header/Header";
 import ShipContainer from "../ShipContainer/ShipContainer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
@@ -99,7 +98,6 @@ class GameBoard extends Component {
     console.log("click id in game board", this.state.idfromBoard);
     return (
       <>
-        <Header />
         <div className="gamePage">
           <div className="playerShips">
             <ShipContainer data={this.state.p1_health} />
