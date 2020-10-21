@@ -12,20 +12,30 @@ class GameBoard extends Component {
     this.state = {
       idfromBoard: "",
       //player
+      id: 1,
       p1_board: [
-          [0, 0, 1, 5, 5, 5, 5, 5],
-          [0, 0, 0, 1, 1, 1, 1, 1],
-          [8, 8, 8, 8, 1, 1, 1, 1],
-          [8, 1, 4, 4, 4, 4, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 3, 3, 3, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 3, 3, 3, 1, 1, 2, 8],
-        ],
+        [0, 0, 1, 5, 5, 5, 5, 5],
+        [0, 0, 0, 1, 1, 1, 1, 1],
+        [8, 8, 8, 8, 1, 1, 1, 1],
+        [8, 1, 4, 4, 4, 4, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 3, 3, 3, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 3, 3, 3, 1, 1, 2, 8],
+      ],
       //opponent
-      p2_board: [],
-      p1_health: [],
-      p2_health: [],
+      p2_board: [
+        [0, 0, 1, 5, 5, 5, 5, 5],
+        [0, 0, 0, 1, 1, 1, 1, 1],
+        [8, 8, 8, 8, 1, 1, 1, 1],
+        [8, 1, 4, 4, 4, 4, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 3, 3, 3, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 3, 3, 3, 1, 1, 2, 8],
+      ],
+      p1_health: [2, 3, 3, 4, 5],
+      p2_health: [2, 3, 3, 4, 5],
       player_turn: true,
       //whether game is over
       active_game: true,
@@ -35,7 +45,7 @@ class GameBoard extends Component {
     BattleshipAPI.getState(1).then((data) => {
       console.log("data", data.gameState[0].p1_board);
       this.setState({
-        idfromBoard: data.gameState[0].id,
+        id: data.gameState[0].id,
         p1_board: data.gameState[0].p1_board,
         //opponent
         p2_board: data.gameState[0].p2_board,
@@ -48,23 +58,30 @@ class GameBoard extends Component {
     });
   }
   postMove = () => {
-    let gameId = this.props.match.params.id;
-    console.log(this.props);
+    let gameId = this.state.id;
     let split = this.state.idfromBoard.split(".");
+    console.log(
+      "GameBoard -> postMove -> this.state.idfromBoard",
+      this.state.idfromBoard
+    );
     let x = Number(split[0]);
+    console.log("GameBoard -> postMove -> x", x);
     let y = Number(split[1]);
+    console.log("GameBoard -> postMove -> y", y);
     BattleshipAPI.postMove(gameId, x, y).then((data) => {
+      const gameState = data.gameState[0];
       this.setState({
         idfromBoard: "",
+        id: gameState.id,
         //player
-        p1_board: data.p1_board,
+        p1_board: gameState.p1_board,
         //opponent
-        p2_board: data.p2_board,
-        p1_health: data.p1_health,
-        p2_health: data.p2_health,
-        player_turn: data.player_turn,
+        p2_board: gameState.p2_board,
+        p1_health: gameState.p1_health,
+        p2_health: gameState.p2_health,
+        player_turn: gameState.player_turn,
         //whether game is over
-        active_game: data.active_game,
+        active_game: gameState.active_game,
       });
     });
   };
@@ -79,16 +96,11 @@ class GameBoard extends Component {
 
   render() {
     const test = this.state.p1_board;
-    // const test = [
-    //   [0, 0, 1, 5, 5, 5, 5, 5],
-    //   [0, 0, 0, 1, 1, 1, 1, 1],
-    //   [8, 8, 8, 8, 1, 1, 1, 1],
-    //   [8, 1, 4, 4, 4, 4, 1, 1],
-    //   [1, 1, 1, 1, 1, 1, 1, 1],
-    //   [1, 1, 3, 3, 3, 1, 1, 1],
-    //   [1, 1, 1, 1, 1, 1, 1, 1],
-    //   [1, 3, 3, 3, 1, 1, 2, 8],
-    // ];
+    console.log(
+      "GameBoard -> render -> this.state.p1_board",
+      this.state.p1_board
+    );
+
     console.log("test", test);
     console.log("click id in game board", this.state.idfromBoard);
     return (
@@ -100,7 +112,11 @@ class GameBoard extends Component {
           </div>
           <div className="gameBoard">
             <div className="player" id="player">
-              <OpponentBoardRender test={test} playerMove={this.playerMove} />
+              <OpponentBoardRender
+                test={this.state.p1_board}
+                key={this.state.p1_board}
+                playerMove={this.playerMove}
+              />
             </div>
             {/* <div className="opponent" id="opponent"><BoardRender test={test}/></div> */}
           </div>
