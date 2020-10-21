@@ -21,16 +21,16 @@ class UserPage extends Component{
         BattleshipAPI.getStats()
         .then((data) => {
           this.setState({
-            battleshipD:data.stats.battleship_destroyed,
-            carrierD:data.stats.carrier_destroyed,
-            destroyerD:data.stats.destroyer_destroyed,
-            gameL:data.stats.game_losses,
-            gameW:data.stats.game_wins,
-            gamesP:data.stats.games_played,
-            patrolboatD:data.stats.patrolboat_destroyed,
-            hits:data.stats.shots_hit,
-            misses:data.stats.shots_missed,
-            submarineD:data.stats.submarine_destroyed
+            battleshipD:data.battleship_destroyed,
+            carrierD:data.carrier_destroyed,
+            destroyerD:data.destroyer_destroyed,
+            gameL:data.game_losses,
+            gameW:data.game_wins,
+            gamesP:data.games_played,
+            patrolboatD:data.patrolboat_destroyed,
+            hits:data.shots_hit,
+            misses:data.shots_missed,
+            submarineD:data.submarine_destroyed
           });
           console.log(data)
         });
