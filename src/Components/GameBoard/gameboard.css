@@ -10,8 +10,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center; */
-    padding: 5%;
-    display: flex;
+    width: 500px;
     text-align: center;
     align-content: center;
     justify-content: center;

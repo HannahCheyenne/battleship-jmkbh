@@ -109,15 +109,16 @@ class GameBoard extends Component {
               <PlayerBoardRender />
             </div>
             </div>
-            <div className="opponent" id="opponent">
+          <div className="gameBoard">
+          <div className="opponent" id="opponent">
               <OpponentBoardRender
                 test={this.state.p2_board}
                 key={this.state.p2_board}
                 playerMove={this.playerMove}
               />
             </div>
+            </div>
             
-          
           <div className="opponentShips">
             <ShipContainer data={this.state.p2_health}/>
           </div>
