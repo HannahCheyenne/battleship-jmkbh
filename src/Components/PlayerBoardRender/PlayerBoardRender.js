@@ -9,7 +9,6 @@ import submarine from '../../Images/submarine.png'
 
 export default class PlayerBoardRender extends Component {
     static defaultProps = {
-        // preventCollision: true,
         className:"layout",
         cols:8, 
         rowHeight:50, 
@@ -49,7 +48,7 @@ export default class PlayerBoardRender extends Component {
             <div className="patrolboat" key='5Ship' data-grid={{x: 5, y: 9, w: 1, h: 2, static: true, isDraggable: true, isDroppable: true, preventCollision:true}}>
                 <img className="imagePatrolboat" src={patrolboat} alt="patrolboat"/>
                 </div>
-        </GridLayout>
+            </GridLayout>
         </div>
         <div className="boardContainer">
         

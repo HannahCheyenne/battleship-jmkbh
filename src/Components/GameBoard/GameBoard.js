@@ -99,10 +99,11 @@ class GameBoard extends Component {
     console.log("click id in game board", this.state.idfromBoard);
     return (
       <>
-        <Header />
         <div className="gamePage">
           <div className="playerShips">
             <ShipContainer data={this.state.p1_health} />
+            <div className="shipPlacement">
+            </div>
           </div>
           <div className="gameBoard">
             <div className="player" id="player">
