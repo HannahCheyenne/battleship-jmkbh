@@ -34,8 +34,8 @@ class GameBoard extends Component {
         [1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1],
       ],
-      p1_health: [2, 3, 3, 4, 5],
-      p2_health: [2, 3, 3, 4, 5],
+      p1_health: [0, 0, 0, 0, 0],
+      p2_health: [0, 0, 0, 0, 0],
       player_turn: true,
       //whether game is over
       active_game: true,
@@ -101,7 +101,7 @@ class GameBoard extends Component {
         <Header />
         <div className="gamePage">
           <div className="playerShips">
-            <ShipContainer />
+            <ShipContainer data={this.state.p1_health} />
           </div>
           <div className="gameBoard">
             <div className="player" id="player">
@@ -114,8 +114,9 @@ class GameBoard extends Component {
             {/* <div className="opponent" id="opponent"><BoardRender test={test}/></div> */}
           </div>
           <div className="opponentShips">
-            <ShipContainer />
+            <ShipContainer data={this.state.p2_health}/>
           </div>
+          {!this.state.active_game && <button >New Game</button>}
         </div>
       </>
     );
