@@ -14,10 +14,12 @@ import Audio, {isMuted} from '../../services/audio'
 import "./app.css";
 import GameBoard from "../GameBoard/GameBoard";
 import Context from '../../Context'
+import Header from '../Header/Header'
 
 export default class App extends Component {
   state = {
     currentTheme: null,
+    gameStarted: false,
     isMuted
   }
 
@@ -61,6 +63,7 @@ export default class App extends Component {
     return (
       <div>
         <Context.Provider value={value}>
+           <Route component={Header} path='/' />
           <Switch>
             <PublicOnlyRoute component={Login} path="/login" />
             <Route component={LandingPage} exact path="/" />
