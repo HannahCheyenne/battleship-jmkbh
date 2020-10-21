@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import ShipContainer from "../ShipContainer/ShipContainer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
+import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
 
 class GameBoard extends Component {
   constructor() {
@@ -111,7 +112,9 @@ class GameBoard extends Component {
                 playerMove={this.playerMove}
               />
             </div>
-            {/* <div className="opponent" id="opponent"><BoardRender test={test}/></div> */}
+            <div className="opponent" id="opponent">
+              <PlayerBoardRender />
+            </div>
           </div>
           <div className="opponentShips">
             <ShipContainer data={this.state.p2_health}/>
