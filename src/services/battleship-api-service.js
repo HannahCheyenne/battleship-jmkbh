@@ -36,7 +36,6 @@ const BattleshipAPI = {
     );
   },
   postMove(gameId, x, y) {
-    console.log("postMove -> gameId, x, y", gameId, x, y)
     return fetch(`${config.API_ENDPOINT}/game/${gameId}`, {
       method: "PATCH",
       headers: {

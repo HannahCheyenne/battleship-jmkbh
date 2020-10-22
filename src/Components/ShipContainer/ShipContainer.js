@@ -5,7 +5,6 @@ import './shipcontainer.css'
 class ShipContainer extends Component{
     render(){
         const {data} = this.props
-        console.log('Data: ', data)
         return(
             <div className="shipcontainer">
                 <HealthBar {...this.props} />

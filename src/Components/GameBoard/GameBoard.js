@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import OpponentBoardRender from "../OpponentBoardRender/OpponentBoardRender";
 import ShipContainer from "../ShipContainer/ShipContainer";
-import ShipContainerPlayer from "../ShipContainerPlayer/ShipContainerPlayer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
@@ -61,14 +60,8 @@ class GameBoard extends Component {
   postMove = () => {
     let gameId = this.state.id;
     let split = this.state.idfromBoard.split(".");
-    console.log(
-      "GameBoard -> postMove -> this.state.idfromBoard",
-      this.state.idfromBoard
-    );
     let x = Number(split[0]);
-    console.log("GameBoard -> postMove -> x", x);
     let y = Number(split[1]);
-    console.log("GameBoard -> postMove -> y", y);
     BattleshipAPI.postMove(gameId, x, y).then((data) => {
       const gameState = data.gameState;
       console.log("GameBoard -> postMove -> gameState", gameState.p2_board)
@@ -100,30 +93,29 @@ class GameBoard extends Component {
     return (
       <>
         <div className="gamePage">
-          <div className="playerShips">
-            <ShipContainerPlayer data={this.state.p1_health} />
-          </div>
           <div className="gameBoard">
             <div className="player" id="player">
-              <PlayerBoardRender 
-              test={this.state.p2_board}
-              key={this.state.p2_board}/>
+              <PlayerBoardRender
+                test={this.state.p2_board}
+                key={this.state.p2_board}
+                ships={this.state.p1_health}
+              />
             </div>
-            </div>
+          </div>
           <div className="gameBoard">
-          <div className="opponent" id="opponent">
+            <div className="opponent" id="opponent">
               <OpponentBoardRender
                 test={this.state.p2_board}
                 key={this.state.p2_board}
                 playerMove={this.playerMove}
               />
             </div>
-            </div>
-            
-          <div className="opponentShips">
-            <ShipContainer data={this.state.p2_health}/>
           </div>
-          {!this.state.active_game && <button >New Game</button>}
+
+          <div className="opponentShips">
+            <ShipContainer data={this.state.p2_health} />
+          </div>
+          {!this.state.active_game && <button>New Game</button>}
         </div>
       </>
     );
