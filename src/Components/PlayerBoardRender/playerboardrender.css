@@ -1,11 +1,15 @@
-.gridCell {
+.cell {
+  display: flex;  
+  flex-wrap: wrap;
+    height: 50px;
+    min-width: 50px;
     background: rgba(0, 0, 0, 0.187);
     border: 1px solid  #fffbef93;
 }
-.react-grid-layout {
-    position: relative;
-    transition: height 200ms ease;
-  }
+.boardContainer{
+  width: 450px;
+  height: 450px;
+}
   .imageBattleship{
     width: 50px;
     height: 250px;

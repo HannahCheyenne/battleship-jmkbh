@@ -6,3 +6,9 @@
     border: 1px solid #fffbef93;;
     background: #0000004f;
 }
+.ship{
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 20px;
+}
