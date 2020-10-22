@@ -48,12 +48,14 @@ class Header extends Component {
             ? this.renderHeaderNoLink()
             : this.renderHeaderLink()}
           </h1>
-          <AudioMenu />
-          <span>
-            {TokenService.hasAuthToken()
-              ? this.renderLogoutLink()
-              : this.renderLoginLink()}
-          </span>
+          <div className="rightSideOptions">
+            <AudioMenu />
+            <span>
+              {TokenService.hasAuthToken()
+                ? this.renderLogoutLink()
+                : this.renderLoginLink()}
+            </span>
+          </div>
         </header>
       </div>
     );
