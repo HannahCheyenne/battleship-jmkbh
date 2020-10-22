@@ -70,7 +70,8 @@ const Audio = {
             console.error(e)
             throw (e)
         }
-        !isMuted && theme.connect(vol).start()
+        isMuted && theme && (theme._volume.mute = !theme._volume.mute)
+        theme.connect(vol).start()
     },
 
     attackSound(hit, destroyed=false) {

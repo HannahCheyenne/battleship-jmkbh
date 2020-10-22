@@ -43,7 +43,7 @@ class GameBoard extends Component {
   }
   componentDidMount() {
     BattleshipAPI.getState(1).then((data) => {
-      const gameState = data.gameState[0];
+      const gameState = data.gameState;
       this.setState({
         id: gameState.id,
         p1_board: gameState.p1_board,
@@ -63,7 +63,8 @@ class GameBoard extends Component {
     let x = Number(split[0]);
     let y = Number(split[1]);
     BattleshipAPI.postMove(gameId, x, y).then((data) => {
-      const gameState = data.gameState[0];
+      const gameState = data.gameState;
+      console.log("GameBoard -> postMove -> gameState", gameState.p2_board)
       this.setState({
         idfromBoard: "",
         id: gameState.id,

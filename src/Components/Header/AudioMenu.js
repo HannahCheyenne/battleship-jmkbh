@@ -24,7 +24,7 @@ export default class AudioMenu extends Component {
         return (
             <div className="dropdown">
                 <button className="dropButton">
-                    Volume <i>&#9660;</i>
+                    Sound <i>&#9660;</i>
                 </button>
                 <div className="dropdownContent">
                     <input className="volRange" type="range" step="1" min="-30" max="0" onChange={this.context.handleVolume}/>

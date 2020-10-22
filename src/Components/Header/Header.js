@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import TokenService from "../../services/token-service";
 import { Link } from "react-router-dom";
-//import Audio from '../../services/audio'
-import Context from '../../Context'
 import AudioMenu from './AudioMenu'
+import Context from '../../Context'
 import "./header.css";
 
 class Header extends Component {
@@ -51,12 +50,14 @@ class Header extends Component {
             ? this.renderHeaderNoLink()
             : this.renderHeaderLink()}
           </h1>
-          <AudioMenu />
-          <span>
-            {TokenService.hasAuthToken()
-              ? this.renderLogoutLink()
-              : this.renderLoginLink()}
-          </span>
+          <div className="rightSideOptions">
+            <AudioMenu />
+            <span>
+              {TokenService.hasAuthToken()
+                ? this.renderLogoutLink()
+                : this.renderLoginLink()}
+            </span>
+          </div>
         </header>
       </div>
     );
