@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import OpponentBoardRender from "../OpponentBoardRender/OpponentBoardRender";
 import ShipContainer from "../ShipContainer/ShipContainer";
+import ShipContainerPlayer from "../ShipContainerPlayer/ShipContainerPlayer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
@@ -96,18 +97,17 @@ class GameBoard extends Component {
   }
 
   render() {
-    console.log("click id in game board", this.state.idfromBoard);
     return (
       <>
         <div className="gamePage">
           <div className="playerShips">
-            <ShipContainer data={this.state.p1_health} />
-            <div className="shipPlacement">
-            </div>
+            <ShipContainerPlayer data={this.state.p1_health} />
           </div>
           <div className="gameBoard">
             <div className="player" id="player">
-              <PlayerBoardRender />
+              <PlayerBoardRender 
+              test={this.state.p2_board}
+              key={this.state.p2_board}/>
             </div>
             </div>
           <div className="gameBoard">

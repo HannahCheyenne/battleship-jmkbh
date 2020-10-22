@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import HealthBar from '../GameBoard/HealthBar/HealthBar';
 import './shipcontainer.css'
 
 class ShipContainer extends Component{
     render(){
-        const data = this.props.data
-        console.log("ShipContainer -> render -> data", data)
-
+        const {data} = this.props
+        console.log(data)
         return(
             <div className="shipcontainer">
+                <HealthBar {...this.props} />
                 <div>Battleship: {data[4]}</div>
                 <div>Space Carrier: {data[3]}</div>
                 <div>Cruiser: {data[2]}</div>
