@@ -20,7 +20,7 @@
     margin: 0;
 }
 
-.dropdown .dropButton:hover {
+.dropdown:hover, .dropButton:hover {
     background-color: #ec7513;
 }
 
@@ -93,7 +93,7 @@ input[type=range]::-webkit-slider-thumb {
     height: 28px;
     width: 10px;
     border-radius: 10px;
-    background: #00eeff;
+    background: #00c1ce;
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -9.5px;
@@ -116,7 +116,7 @@ input[type=range]::-moz-range-thumb {
     height: 28px;
     width: 10px;
     border-radius: 10px;
-    background: #00eeff;
+    background: #00c1ce;
     cursor: pointer;
 }
 input[type=range]::-ms-track {
@@ -146,7 +146,7 @@ input[type=range]::-ms-thumb {
     height: 28px;
     width: 10px;
     border-radius: 10px;
-    background: #00eeff;
+    background: #00c1ce;
     cursor: pointer;
 }
 input[type=range]:focus::-ms-fill-lower {

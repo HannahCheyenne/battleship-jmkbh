@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import TokenService from "../../services/token-service";
 import { Link } from "react-router-dom";
 import AudioMenu from './AudioMenu'
+import Context from '../../Context'
 import "./header.css";
 
 class Header extends Component {
+  static contextType = Context;
 
   renderLoginLink() {
     return (
