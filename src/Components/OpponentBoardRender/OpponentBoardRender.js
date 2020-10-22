@@ -22,7 +22,6 @@ export default class OpponentBoard extends Component {
       const { test } = this.props
       const H = <img className ="image" src={boom} alt="hit"/>
         const M = <img className= 'image' src={miss} alt="miss"/>
-        console.log("click id in board render", this.state.id)
     return (<>
       <div className="boardContainer">
         <div className="board">
