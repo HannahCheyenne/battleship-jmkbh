@@ -18,6 +18,7 @@
     padding: 14px 16px;
     font-family: inherit;
     margin: 0;
+    width: 150px;
 }
 
 .dropdown:hover, .dropButton:hover {
@@ -27,8 +28,8 @@
 .dropdownContent {
     display: none;
     position: absolute;
-    width: 200px;
-    min-width: 160px;
+    width: 150px;
+    min-width: 150px;
     z-index: 1;
 }
 
@@ -43,7 +44,7 @@
     font-weight: bold;
     background: none;
     height: 30px;
-    width: 200px;
+    width: 150px;
     border: none;
     outline: none;
 }
@@ -59,7 +60,7 @@
 }
 
 .volRange {
-    width: 200px;
+    width: 150px;
     height: 25px;
     margin-bottom: 5px;
 }
@@ -73,13 +74,13 @@ input[type=range] {
     height: 12px;
     -webkit-appearance: none;
     margin: 15px 0px;
-    width: 200px;
+    width: 150px;
 }
 input[type=range]:focus {
     outline: none;
 }
 input[type=range]::-webkit-slider-runnable-track {
-    width: 200px;
+    width: 150px;
     height: 12px;
     cursor: pointer;
     box-shadow: 1px 1px 1px #000000;
@@ -102,7 +103,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
     background: purple;
 }
 input[type=range]::-moz-range-track {
-    width: 200px;
+    width: 150px;
     height: 12px;
     cursor: pointer;
     box-shadow: 1px 1px 1px #000000;
@@ -120,7 +121,7 @@ input[type=range]::-moz-range-thumb {
     cursor: pointer;
 }
 input[type=range]::-ms-track {
-    width: 200px;
+    width: 150px;
     height: 12px;
     cursor: pointer;
     background: transparent;
@@ -156,8 +157,8 @@ input[type=range]:focus::-ms-fill-upper {
     background: purple;
 }
 
-@media screen and (min-width: 550px) {
-    .dropdownContent {
-        right: 71px;
+@media screen and (max-width: 375px) {
+    .dropdown, .dropButton {
+        text-align: left;
     }
 }
