@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import AuthApiService from "../../services/auth-api-service";
-import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 import ValidationError from "../../Utils/ValidationError";
 import "./register.css";
@@ -107,7 +106,6 @@ class Register extends Component {
     const confirmPasswordError = this.validateConfirmPassword();
     return (
       <>
-        <Header />
         <div className="registrationPage">
           <fieldset className="registrationForm animated fadeIn">
             <form onSubmit={this.handleSubmitNewUser}>

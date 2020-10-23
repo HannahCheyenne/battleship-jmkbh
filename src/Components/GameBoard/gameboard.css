@@ -1,5 +1,6 @@
 .gamePage{
     display: flex;
+    justify-content: center;
 
 }
 
@@ -9,18 +10,28 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center; */
-    padding: 5%;
-    display: flex;
+    width: 500px;
     text-align: center;
     align-content: center;
     justify-content: center;
 }
-
+/* html{
+    background:url(../../Images/backgroundGamepage.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+} */
 .player{
  margin: 30px;
 }
 .opponent{
-    margin: 30px;
+margin: 30px;
+}
+.shipPlacement{
+    height: 300px;
+    width: 300px;
+    border: 1px solid  #fffbef93;
 }
 
 @media all and (max-width:700px){

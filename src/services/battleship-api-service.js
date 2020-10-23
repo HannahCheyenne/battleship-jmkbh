@@ -13,6 +13,17 @@ const BattleshipAPI = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
+  getState(id) {
+    return fetch(`${config.API_ENDPOINT}/game/${id}`, {
+      method: "GET",
+      headers: {
+        authorization: `bearer ${TokenService.getAuthToken()}`,
+        "Content-Type": "application/json",
+      },
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
   getUser() {
     return fetch(`${config.API_ENDPOINT}/`, {
       method: "GET",
@@ -24,17 +35,21 @@ const BattleshipAPI = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
-  postMove(co) {
-    return fetch(`${config.API_ENDPOINT}/`, {
-      method: "POST",
+  postMove(gameId, x, y) {
+    return fetch(`${config.API_ENDPOINT}/game/${gameId}`, {
+      method: "PATCH",
       headers: {
-        // authorization: `bearer ${TokenService.getAuthToken()}`,
+        authorization: `bearer ${TokenService.getAuthToken()}`,
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        x: x,
+        y: y,
+      }),
     }).then((res) =>
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
 };
 
-export default BattleshipAPI
+export default BattleshipAPI;

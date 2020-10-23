@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import TokenService from "../../services/token-service";
 import { Link } from "react-router-dom";
+import AudioMenu from './AudioMenu'
+import Context from '../../Context'
 import "./header.css";
 
 class Header extends Component {
+  static contextType = Context;
+
   renderLoginLink() {
     return (
       <nav>
@@ -24,6 +28,7 @@ class Header extends Component {
     )
   }
   handleLogoutClick = () => {
+    this.context.handleTheme()
     TokenService.clearAuthToken()
   }
   renderLogoutLink() {
@@ -42,13 +47,17 @@ class Header extends Component {
       <div>
         <header>
           <h1>{TokenService.hasAuthToken()
-              ? this.renderHeaderNoLink()
-              : this.renderHeaderLink()}</h1>
-          <span>
-            {TokenService.hasAuthToken()
-              ? this.renderLogoutLink()
-              : this.renderLoginLink()}
-          </span>
+            ? this.renderHeaderNoLink()
+            : this.renderHeaderLink()}
+          </h1>
+          <div className="rightSideOptions">
+            <AudioMenu />
+            <span>
+              {TokenService.hasAuthToken()
+                ? this.renderLogoutLink()
+                : this.renderLoginLink()}
+            </span>
+          </div>
         </header>
       </div>
     );

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import TokenService from "../../services/token-service";
 import AuthApiService from "../../services/auth-api-service";
-import Header from "../Header/Header";
 import "./login.css";
 import Context from '../../Context'
 
@@ -44,7 +43,6 @@ class Login extends Component {
     const { error } = this.state;
     return (
       <div>
-        <Header />
         <div className="loginPage">
           <fieldset className="loginForm animated fadeIn">
             <form onSubmit={this.handleSubmitJwtAuth}>

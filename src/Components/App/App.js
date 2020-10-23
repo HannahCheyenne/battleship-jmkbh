@@ -14,6 +14,7 @@ import Audio, {isMuted} from '../../services/audio'
 import "./app.css";
 import GameBoard from "../GameBoard/GameBoard";
 import Context from '../../Context'
+import Header from '../Header/Header'
 
 //Chat Features//
 import Join from '../Chat/Join/Join'
@@ -22,6 +23,7 @@ import Chat from '../Chat/Chat/Chat'
 export default class App extends Component {
   state = {
     currentTheme: null,
+    gameStarted: false,
     isMuted
   }
 
@@ -34,15 +36,25 @@ export default class App extends Component {
   'lose.mp3'
   */
 
-  handleTheme = (theme) => {
-    this.setState(
-      {currentTheme: theme},
-      () => Audio.playTheme(this.state.currentTheme)
-    )
+  handleTheme = (theme=null) => {
+    theme
+      ? this.setState(
+          {currentTheme: theme},
+          () => Audio.playTheme(this.state.currentTheme)
+        )
+      : this.setState(
+          {currentTheme: null},
+          () => Audio.stop()
+        )
   }
 
   handleMute = () => {
     this.setState({isMuted: !isMuted}, () => Audio.mute())
+  }
+
+  handleVolume = (e) => {
+    e.preventDefault()
+    Audio.setVol(e.target.value)
   }
 
   // This should be stylized later
@@ -54,12 +66,16 @@ export default class App extends Component {
 
   render() {
     const value = {
+      currentTheme: this.state.currentTheme,
+      isMuted: this.state.isMuted,
       handleTheme: this.handleTheme,
       handleMute: this.handleMute,
+      handleVolume: this.handleVolume
     }
     return (
       <div>
         <Context.Provider value={value}>
+           <Route component={Header} path='/' />
           <Switch>
             <PublicOnlyRoute component={Login} path="/login" />
             {/* -----------Chat Features--------------------- */}
@@ -75,7 +91,8 @@ export default class App extends Component {
             <PrivateOnlyRoute component={QuickGame} path="/quickgame"/>
             <PrivateOnlyRoute component={GameBoard} path="/game"/>
           </Switch>
-          {this.renderMuteButton()}
+          {/* {this.renderMuteButton()}
+          <input type="range" min="-30" max="0" onChange={this.handleVolume}/> */}
         </Context.Provider>
       </div>
     );

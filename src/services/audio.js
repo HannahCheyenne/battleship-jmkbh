@@ -1,4 +1,4 @@
-import * as Tone from 'tone'
+import * as Tone from 'tone';
 
 /* 
 // --- Integrate into game's attack function for appropriate sound ---
@@ -15,11 +15,11 @@ import * as Tone from 'tone'
 
 let theme = null;
 let isMuted = false;
+let vol = new Tone.Volume().toDestination();
 const path = process.env.PUBLIC_URL
 
 async function playEffect(effect) {
     const sound = new Tone.Player(path + effect)
-    .toDestination()
     try {
         await Tone.loaded()
     }
@@ -27,7 +27,7 @@ async function playEffect(effect) {
         console.error(e)
         throw (e)
     }
-    sound.start()
+    sound.connect(vol).start()
 };
 
 function laserSound() {
@@ -56,13 +56,11 @@ const Audio = {
                 loop: true,
                 loopEnd: 102.6
                 })
-                .toDestination()
         } else {
             theme = new Tone.Player({
                 url: `${path}mp3s/${file}`,
                 loop: false
                 })
-                .toDestination()
         }
         theme.context._latencyHint = 'playback'
         try {
@@ -72,7 +70,8 @@ const Audio = {
             console.error(e)
             throw (e)
         }
-        !isMuted && theme.start()
+        isMuted && theme && (theme._volume.mute = !theme._volume.mute)
+        theme.connect(vol).start()
     },
 
     attackSound(hit, destroyed=false) {
@@ -82,6 +81,10 @@ const Audio = {
             ? setTimeout(destroyedSound, 200)
             : setTimeout(hitSound, 200)
           : setTimeout(missSound, 200)
+    },
+
+    setVol(val) {
+        vol.volume.value = val
     },
 
     soft() {
