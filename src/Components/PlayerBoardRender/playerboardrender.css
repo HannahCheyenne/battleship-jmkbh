@@ -40,3 +40,9 @@
     justify-content: center;
     display: block;
   }
+  .selected{
+    background: #ff0000;
+  }
+  .shipLength{
+    background: #03ff18;
+  }
