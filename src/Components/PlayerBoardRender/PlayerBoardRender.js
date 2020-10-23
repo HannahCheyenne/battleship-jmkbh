@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import "./playerboardrender.css";
 import boom from "../../Images/boom.png";
 import miss from "../../Images/miss.png";
+import HealthBar from '../GameBoard/HealthBar/HealthBar'
 import battleship from "../../Images/battleship.png";
 import carrier from "../../Images/carrier.png";
 import patrolboat from "../../Images/patrolboat.png";
 import destroyer from "../../Images/destroyer.png";
 import submarine from "../../Images/submarine.png";
+import createShips from "../../Utils/GameHelpers";
 
 export default class PlayerBoardRender extends Component {
     constructor() {
@@ -22,24 +24,39 @@ export default class PlayerBoardRender extends Component {
               [1,1,1,1,1,1,1,1],
               [1,1,1,1,1,1,1,1],
               [1,1,1,1,1,1,1,1]
-        ]
+        ],
+        ships:createShips,
+        selectedShip:""
         };
       }
-  placementListener = function (e) {
+  // placementListener = function (e) {
     
-  };
+  // };
+  
   placementMouseover = function (e) {
     e.preventDefault()
     let split = e.target.id.split(".")
     let x = Number(split[0])
     let y = Number(split[1])
-    console.log(x,y, typeof x, typeof y)
+  //   if (size.length === value){
+  //     [y + length][x]
+  // }
     //ship needs to be the size of the ship that is selected in ship container
     //selected ship needs to be set in state, passed in as props
     //need to create a boundary to make sure placement is ok
     //no other ships underneath of it and it is within the boundaries of the game
   };
+  // selectShip = (e) => {
+  //   e.preventDefault()
+  //   let newSelection = e.target.id
+  //   let ship = 
+  //   this.setState = ({
+  //     selectedShip:newSelection
+  //   })
+  //   console.log(this.state.selectedShip)
+  // }
   placementOnClick = function (e) {
+    // add size to each index
     //this needs to set the ship in place
     // once it is set in place it needs to be removed from the roster.
     // i think that function can be created in the ship container as an onclick
@@ -48,11 +65,20 @@ export default class PlayerBoardRender extends Component {
   };
   render() {
     const board = this.state.board;
-    console.log(board)
+    const {ships} = this.state
     const H = <img className="image" src={boom} alt="hit" />;
     const M = <img className="image" src={miss} alt="miss" />;
+    console.log(this.state.selectedShip)
     return (
+    <div>
+    <div className="shipcontainer">
+                <HealthBar {...this.props} />
+                {ships.createShips.map((i) => (<button className="ship" onClick={this.selectShip} id={`${i.type}`}>{i.type}</button>))}
+                <button className="ship" onClick={this.toggleRotation}>Rotate</button>
+            </div>
       <div className="boardContainer">
+        
+
         <div className="board">
           {board[0].map((i, index) => (
             <button
@@ -143,27 +169,7 @@ export default class PlayerBoardRender extends Component {
             </button>
           ))}
         </div>
-
-        {/* <GridLayout
-        {...this.props}>
-            {this.renderGrid().map(coord => coord)}
-            <div className="battleship" key='1Ship' data-grid={{x: 1, y: 8, w: 1, h: 5, static: true, isDraggable: true, isDroppable: true, preventCollision:true}}>
-                <img className="imageBattleship" src={battleship} alt="battleship"/>
-                </div>
-            <div className="carrier" key='2Ship' data-grid={{x: 2, y: 8, w: 1, h: 4, static: true, isDraggable: true, isDroppable: true, preventCollision:true}}>
-                <img className="imageCarrier" src={carrier} alt="carrier"/>
-                </div>
-            <div className="submarine" key='3Ship' data-grid={{x: 3, y: 8, w: 1, h: 3, static: true, isDraggable: true, isDroppable: true, preventCollision:true}}>
-                <img className="imageSubmarine" src={submarine} alt="submarine"/>
-                </div>
-            <div className="destroyer" key='4Ship' data-grid={{x: 4, y: 8, w: 1, h: 3, static: true, isDraggable: true, isDroppable: true, preventCollision:true}}>
-                <img className="imageDestroyer" src={destroyer} alt="destroyer"/>
-                </div>
-            <div className="patrolboat" key='5Ship' data-grid={{x: 5, y: 8, w: 1, h: 2, static: true, isDraggable: true, isDroppable: true, preventCollision:true}}>
-                <img className="imagePatrolboat" src={patrolboat} alt="patrolboat"/>
-                </div>
-            </GridLayout>
-        </div> */}
+      </div>
       </div>
     );
   }

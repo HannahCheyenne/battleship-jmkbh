@@ -32,7 +32,6 @@ class UserPage extends Component{
             misses:data.shots_missed,
             submarineD:data.submarine_destroyed
           });
-          console.log(data)
         });
       }
     render(){
