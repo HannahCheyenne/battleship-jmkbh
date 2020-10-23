@@ -3,11 +3,11 @@ import "./playerboardrender.css";
 import boom from "../../Images/boom.png";
 import miss from "../../Images/miss.png";
 import HealthBar from "../GameBoard/HealthBar/HealthBar";
-import battleship from "../../Images/battleship.png";
-import carrier from "../../Images/carrier.png";
-import patrolboat from "../../Images/patrolboat.png";
-import destroyer from "../../Images/destroyer.png";
-import submarine from "../../Images/submarine.png";
+// import battleship from "../../Images/battleship.png";
+// import carrier from "../../Images/carrier.png";
+// import patrolboat from "../../Images/patrolboat.png";
+// import destroyer from "../../Images/destroyer.png";
+// import submarine from "../../Images/submarine.png";
 import createShips from "../../Utils/GameHelpers";
 
 export default class PlayerBoardRender extends Component {
@@ -215,22 +215,24 @@ export default class PlayerBoardRender extends Component {
     const M = <img className="image" src={miss} alt="miss" />;
     console.log(this.state.selectedShip);
     return (
-      <div>
+      <div className="playerContainer">
+        
         <div className="shipcontainer">
-          <HealthBar {...this.props} />
           {ships.createShips.map((i) => (
             <button className="ship" onClick={this.selectShip} id={`${i.type}`}>
               {i.type}
             </button>
           ))}
         </div>
+        <span>
+        <div>Health<HealthBar health={this.props.p1_health} /></div>
         <div className="boardContainer">
           <div className="board">
             {board[0].map((i, index) => (
               <button
               onMouseOut={this.resetBoard}
+              onClick={this.placementOnClick}
                 onMouseEnter={this.placementMouseover}
-                onClick={this.placementOnClick}
                 key={`0.${index}`}
                 id={`0.${index}`}
                 value={i}
@@ -242,8 +244,8 @@ export default class PlayerBoardRender extends Component {
             {board[1].map((i, index) => (
               <button
               onMouseOut={this.resetBoard}
+              onClick={this.placementOnClick}
                 onMouseEnter={this.placementMouseover}
-                onClick={this.placementOnClick}
                 key={`1.${index}`}
                 id={`1.${index}`}
                 value={i}
@@ -255,8 +257,8 @@ export default class PlayerBoardRender extends Component {
             {board[2].map((i, index) => (
               <button
               onMouseOut={this.resetBoard}
+              onClick={this.placementOnClick}
                 onMouseEnter={this.placementMouseover}
-                onClick={this.placementOnClick}
                 key={`2.${index}`}
                 id={`2.${index}`}
                 value={i}
@@ -268,8 +270,8 @@ export default class PlayerBoardRender extends Component {
             {board[3].map((i, index) => (
               <button
               onMouseOut={this.resetBoard}
+              onClick={this.placementOnClick}
                 onMouseEnter={this.placementMouseover}
-                onClick={this.placementOnClick}
                 key={`3.${index}`}
                 id={`3.${index}`}
                 value={i}
@@ -281,8 +283,8 @@ export default class PlayerBoardRender extends Component {
             {board[4].map((i, index) => (
               <button
                 onMouseOut={this.resetBoard}
-                onMouseEnter={this.placementMouseover}
                 onClick={this.placementOnClick}
+                onMouseEnter={this.placementMouseover}
                 key={`4.${index}`}
                 id={`4.${index}`}
                 value={i}
@@ -294,8 +296,8 @@ export default class PlayerBoardRender extends Component {
             {board[5].map((i, index) => (
               <button
               onMouseOut={this.resetBoard}
+              onClick={this.placementOnClick}
                 onMouseEnter={this.placementMouseover}
-                onClick={this.placementOnClick}
                 key={`5.${index}`}
                 id={`5.${index}`}
                 value={i}
@@ -307,8 +309,8 @@ export default class PlayerBoardRender extends Component {
             {board[6].map((i, index) => (
               <button
               onMouseOut={this.resetBoard}
+              onClick={this.placementOnClick}
                 onMouseEnter={this.placementMouseover}
-                onClick={this.placementOnClick}
                 key={`6.${index}`}
                 id={`6.${index}`}
                 value={i}
@@ -321,8 +323,8 @@ export default class PlayerBoardRender extends Component {
             {board[7].map((i, index) => (
               <button
               onMouseOut={this.resetBoard}
+              onClick={this.placementOnClick}
                 onMouseEnter={this.placementMouseover}
-                onClick={this.placementOnClick}
                 key={`7.${index}`}
                 id={`7.${index}`}
                 value={i}
@@ -333,6 +335,7 @@ export default class PlayerBoardRender extends Component {
             ))}
           </div>
         </div>
+        </span>
       </div>
     );
   }

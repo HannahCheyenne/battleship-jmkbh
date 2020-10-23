@@ -1,27 +1,14 @@
 .gamePage{
     display: flex;
     justify-content: center;
-
+    align-items: center;
+    
 }
-
 .gameBoard{
-    /* background:url(../../Images/backgroundGamepage.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center; */
-    width: 500px;
     text-align: center;
     align-content: center;
     justify-content: center;
 }
-/* html{
-    background:url(../../Images/backgroundGamepage.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-} */
 .player{
  margin: 30px;
 }

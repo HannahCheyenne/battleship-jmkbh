@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import OpponentBoardRender from "../OpponentBoardRender/OpponentBoardRender";
-import ShipContainer from "../ShipContainer/ShipContainer";
+// import ShipContainer from "../ShipContainer/ShipContainer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
-import HealthBar from "./HealthBar/HealthBar";
+// import HealthBar from "./HealthBar/HealthBar";
 
 class GameBoard extends Component {
   constructor() {
@@ -95,22 +95,23 @@ class GameBoard extends Component {
       <>
         <div className="gamePage">
           <div className="gameBoard">
-          <HealthBar data={this.state.p1_health} />
             <div className="player" id="player">
               <PlayerBoardRender
                 test={this.state.p2_board}
                 key={this.state.p2_board}
                 ships={this.state.p1_health}
+                p1_health={this.state.p1_health}
               />
             </div>
           </div>
           <div className="gameBoard">
-            <HealthBar data={this.state.p2_health} />
             <div className="opponent" id="opponent">
               <OpponentBoardRender
                 test={this.state.p2_board}
                 key={this.state.p2_board}
                 playerMove={this.playerMove}
+                p2_health={this.state.p2_health}
+
               />
             </div>
           </div>
