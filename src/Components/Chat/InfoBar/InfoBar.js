@@ -1,4 +1,3 @@
-
 import React from 'react';
 // import './InfoBar.css';
 import closeIcon from '../Icons/closeIcon.png';
