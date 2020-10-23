@@ -25,6 +25,16 @@ export default class PlayerBoardRender extends Component {
         [3, 7, 4, 4, 4, 4, 7, 7],
         [3, 7, 7, 7, 7, 7, 7, 7],
       ],
+      prevBoard: [
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 0, 0, 7, 7, 1, 7, 7],
+        [7, 7, 7, 7, 7, 1, 7, 7],
+        [7, 7, 7, 7, 7, 1, 7, 7],
+        [3, 7, 7, 7, 7, 7, 7, 7],
+        [3, 7, 7, 7, 7, 7, 7, 7],
+        [3, 7, 4, 4, 4, 4, 7, 7],
+        [3, 7, 7, 7, 7, 7, 7, 7],
+      ],
       ships: createShips,
       selectedShip: "",
       curx: 0,
@@ -35,109 +45,118 @@ export default class PlayerBoardRender extends Component {
     };
   }
   // placementListener = function (e) {
+  resetBoard = (e) => {
+    e.preventDefault();
+    console.log("PlayerBoardRender -> resetBoard -> this.state", this.state)
+    const oldBoard = this.state.board;
+    
+    this.setState({
+      board: oldBoard,
+    });
+    
+    console.log("PlayerBoardRender -> resetBoard -> this.state", this.state)
+  };
 
-  // };
 
   placementMouseover = (e) => {
     e.preventDefault();
-    let board = this.state.board;
-    console.log(board, "board teddy");
+    let teddy = this.state
+    console.log(teddy, 'teddy was here')
+    let newBoard = this.state.board;
+    console.log("PlayerBoardRender -> placementMouseover -> newBoard", newBoard)
+  
     let split = e.target.id.split(".");
     let newx = Number(split[0]);
     let newy = Number(split[1]);
-    let anchory = this.state.anchory
-    let anchorx = this.state.anchorx
+    let anchory = this.state.anchory;
+    let anchorx = this.state.anchorx;
 
     console.log("x", newx, "y", newy);
-    if (board[newx][newy]) {
+
+    if (newBoard[newx][newy]) {
       this.setState({
         x: newx,
         y: newy,
       });
     }
 
-    if(this.state.isAnchor){
-      console.log("PlayerBoardRender -> placementMouseover -> anchory", anchory)
-      console.log("PlayerBoardRender -> placementMouseover -> anchorx", anchorx)
-      const x = newx
-      console.log("PlayerBoardRender -> placementMouseover -> x ", x )
-      const y = newy
-      console.log("PlayerBoardRender -> placementMouseover -> y", y)
-      let board = this.state.board
-      console.log("PlayerBoardRender -> placementMouseover -> board", board)
-      const diffx = anchorx - newx
-      console.log("PlayerBoardRender -> placementMouseover -> diffx", diffx)
-      const diffy = anchory - newy
-      console.log("PlayerBoardRender -> placementMouseover -> diffy", diffy)
+    if (this.state.isAnchor) {
+      const diffx = anchorx - newx;
+      const diffy = anchory - newy;
 
-      if (diffx && diffy !== 0){  
-
-        if(Math.abs(diffx) > Math.abs(diffy)) {
-          console.log("x is greater than")
-
-          console.log("diffx is positive")
-          if(diffx > 0){ //up
-            if ( //check valid
-              board[anchorx][anchory] === 7 &&
-              board[anchorx - 1][anchory] === 7 &&
-              board[anchorx - 2][anchory] === 7
-              ) {
-                console.log("up")
-              board[anchorx][anchory] = 6;
-              board[anchorx - 1][anchory] = 6;
-              board[anchorx - 2][anchory] = 6;
-              this.setState({ board: board });
+      if (!(diffx !== 0 && diffy !== 0)) {
+        if (Math.abs(diffx) > Math.abs(diffy)) {
+          console.log("diff x is greater");
+          if (diffx > 0) {
+            //up
+            console.log("diff x is positive - up");
+            if (
+              //check valid
+              newBoard[anchorx][anchory] === 7 &&
+              newBoard[anchorx - 1][anchory] === 7 &&
+              newBoard[anchorx - 2][anchory] === 7
+            ) {
+              newBoard[anchorx][anchory] = 6;
+              newBoard[anchorx - 1][anchory] = 6;
+              newBoard[anchorx - 2][anchory] = 6;
+              this.setState({ board: newBoard });
               //validMove = true;
-              }
             }
-          else if (diffx < 0){ //down
-            if( //checklvalid
-              board[anchorx][anchory] === 7 &&
-              board[anchorx + 1][anchory] === 7 &&
-              board[anchorx + 2][anchory] === 7
-              ) {
-              board[anchorx][anchory] = 6;
-              board[anchorx + 1][anchory] = 6;
-              board[anchorx + 2][anchory] = 6;
-              this.setState({ board: board });
+          } else if (diffx < 0) {
+            console.log("diff x is negative - down"); //down
+            if (
+              //checklvalid
+              newBoard[anchorx][anchory] === 7 &&
+              newBoard[anchorx + 1][anchory] === 7 &&
+              newBoard[anchorx + 2][anchory] === 7
+            ) {
+              newBoard[anchorx][anchory] = 6;
+              newBoard[anchorx + 1][anchory] = 6;
+              newBoard[anchorx + 2][anchory] = 6;
+              this.setState({ board: newBoard });
               //validMove = true;
             }
           }
-        }
+        } else if (Math.abs(diffy) > Math.abs(diffx)) {
+          console.log("diff y is greater");
 
-        else if(Math.abs(diffy) > Math.abs(diffx)) {
-          if(diffy > 0){ //left
-            if ( //check valid
-              board[anchorx][anchory] === 7 &&
-              board[anchorx][anchory-1] === 7 &&
-              board[anchorx][anchory] === 7
-              ) {
-              board[anchorx][anchory] = 6;
-              board[anchorx][anchory-1] = 6;
-              board[anchorx][anchory-1] = 6;
-              this.setState({ board: board });
+          if (diffy > 0) {
+            //left
+            console.log("diff y is positive - left?");
+            if (
+              //check valid
+              newBoard[anchorx][anchory] === 7 &&
+              newBoard[anchorx][anchory - 1] === 7 &&
+              newBoard[anchorx][anchory - 2] === 7
+            ) {
+              newBoard[anchorx][anchory] = 6;
+              newBoard[anchorx][anchory - 1] = 6;
+              newBoard[anchorx][anchory - 2] = 6;
+              this.setState({ board: newBoard });
               //validMove = true;
-              }
             }
-          else if (diffy < 0){ //right
-            if( //checklvalid
-              board[anchorx][anchory] === 7 &&
-              board[anchorx][anchory+2] === 7 &&
-              board[anchorx][anchory+1] === 7
-              ) {
-              board[anchorx][anchory] = 6;
-              board[anchorx][anchory+1] = 6;
-              board[anchorx][anchory+2] = 6;
-              this.setState({ board: board });
+          } else if (diffy < 0) {
+            //right
+            console.log("diff y is negative - right?");
+            if (
+              //checklvalid
+              newBoard[anchorx][anchory] === 7 &&
+              newBoard[anchorx][anchory + 1] === 7 &&
+              newBoard[anchorx][anchory + 2] === 7
+            ) {
+              newBoard[anchorx][anchory] = 6;
+              newBoard[anchorx][anchory + 1] = 6;
+              newBoard[anchorx][anchory + 2] = 6;
+              this.setState({ board: newBoard });
               //validMove = true;
             }
           }
         }
       }
     }
-  }
+  };
 
-/*+++++++++++++++++++++++++++++
+  /*+++++++++++++++++++++++++++++
  
         let id = `${x}.${y}`;
         console.log(id);
@@ -146,8 +165,6 @@ export default class PlayerBoardRender extends Component {
         element.className += " " + "shipLength";
 
 ++++++++++++++++++++++++++++++*/
-
-    
 
   // selectShip = (e) => {
   //   e.preventDefault()
@@ -158,21 +175,18 @@ export default class PlayerBoardRender extends Component {
   //   })
   //   console.log(this.state.selectedShip)
   // }
+
   placementOnClick = (e) => {
     e.preventDefault();
     let isAnchor = this.state.isAnchor;
-    console.log("im clicking", this.state.y, this.state.x);
     const x = this.state.x;
     const y = this.state.y;
-    console.log("isAnchor", isAnchor);
 
     if (!isAnchor) {
-      //find the div with the x.y, set className to selecte
       let id = `${x}.${y}`;
-      console.log(id);
       const element = document.getElementById(id);
-      console.log(element);
-      element.className += " " + " selected";
+
+      element.className += " selected";
       this.setState({
         anchorx: x,
         anchory: y,
@@ -192,14 +206,11 @@ export default class PlayerBoardRender extends Component {
           anchory: 0,
           isAnchor: false,
         });
-      }
-      else {
+      } else {
         //need the length of the ship
         //get the x plus one highlight each box if vert
         //get the y plus one highlight each box if horiz
-      } 
-
-
+      }
     }
     // add size to each index
     //this needs to set the ship in place
@@ -207,7 +218,6 @@ export default class PlayerBoardRender extends Component {
     // i think that function can be created in the ship container as an onclick
     //like while active and onClick then remove from roster
   };
-
 
   render() {
     const { ships, board } = this.state;
@@ -315,7 +325,6 @@ export default class PlayerBoardRender extends Component {
                 id={`6.${index}`}
                 value={i}
                 className={`slot bg${i}`}
-                
               >
                 {i === 9 ? M : i === 8 ? H : ""}
               </button>
