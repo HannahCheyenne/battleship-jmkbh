@@ -33,18 +33,25 @@ export default class PlayerBoardRender extends Component {
     
   // };
   
-  placementMouseover = function (e) {
+  placementMouseover = (e) => {
     e.preventDefault()
+    let board = this.state.board
+    console.log(board, 'board teddy')
     let split = e.target.id.split(".")
     let x = Number(split[0])
     let y = Number(split[1])
+    console.log("x", x, "y", y)
   //   if (size.length === value){
-  //     [y + length][x]
+      if(board[x][y] === true){
+        board[x + 5][y].setAttribute('slot:hover')
+        console.log(board[x + 5][y], 'hey, echo hello?')
+      }
   // }
     //ship needs to be the size of the ship that is selected in ship container
     //selected ship needs to be set in state, passed in as props
     //need to create a boundary to make sure placement is ok
     //no other ships underneath of it and it is within the boundaries of the game
+    
   };
   // selectShip = (e) => {
   //   e.preventDefault()
@@ -55,7 +62,7 @@ export default class PlayerBoardRender extends Component {
   //   })
   //   console.log(this.state.selectedShip)
   // }
-  placementOnClick = function (e) {
+  placementOnClick = (e) => {
     // add size to each index
     //this needs to set the ship in place
     // once it is set in place it needs to be removed from the roster.
@@ -64,8 +71,8 @@ export default class PlayerBoardRender extends Component {
    
   };
   render() {
-    const board = this.state.board;
-    const {ships} = this.state
+    // const board = this.state;
+    const {ships, board} = this.state
     const H = <img className="image" src={boom} alt="hit" />;
     const M = <img className="image" src={miss} alt="miss" />;
     console.log(this.state.selectedShip)
