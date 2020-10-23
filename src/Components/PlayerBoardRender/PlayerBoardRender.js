@@ -25,16 +25,7 @@ export default class PlayerBoardRender extends Component {
         [3, 7, 4, 4, 4, 4, 7, 7],
         [3, 7, 7, 7, 7, 7, 7, 7],
       ],
-      prevBoard: [
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 0, 0, 7, 7, 1, 7, 7],
-        [7, 7, 7, 7, 7, 1, 7, 7],
-        [7, 7, 7, 7, 7, 1, 7, 7],
-        [3, 7, 7, 7, 7, 7, 7, 7],
-        [3, 7, 7, 7, 7, 7, 7, 7],
-        [3, 7, 4, 4, 4, 4, 7, 7],
-        [3, 7, 7, 7, 7, 7, 7, 7],
-      ],
+     
       ships: createShips,
       selectedShip: "",
       curx: 0,
@@ -48,7 +39,16 @@ export default class PlayerBoardRender extends Component {
   resetBoard = (e) => {
     e.preventDefault();
     console.log("PlayerBoardRender -> resetBoard -> this.state", this.state)
-    const oldBoard = this.state.board;
+    const oldBoard = [
+      [7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 0, 0, 7, 7, 1, 7, 7],
+      [7, 7, 7, 7, 7, 1, 7, 7],
+      [7, 7, 7, 7, 7, 1, 7, 7],
+      [3, 7, 7, 7, 7, 7, 7, 7],
+      [3, 7, 7, 7, 7, 7, 7, 7],
+      [3, 7, 4, 4, 4, 4, 7, 7],
+      [3, 7, 7, 7, 7, 7, 7, 7],
+    ]
     
     this.setState({
       board: oldBoard,
