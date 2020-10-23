@@ -3,19 +3,17 @@ import React from 'react';
 
 import onlineIcon from '../Icons/onlineIcon.png';
 
-// import './TextContainer.css';
-
+import './TextContainer.css';
 const TextContainer = ({ users }) => (
   <div className="textContainer">
     <div>
-      <h1>Welcome to Space Chat <span role="img" aria-label="emoji">💬</span></h1>
-      <h2>Created to chat with other pilots <span role="img" aria-label="emoji"></span></h2>
+      <h1>Welcome to Space Chat<span role="img" aria-label="emoji">🤖💬</span></h1>
     </div>
     {
       users
         ? (
           <div>
-            <h1>People currently chatting:</h1>
+            <h1>Pilots:</h1>
             <div className="activeContainer">
               <h2>
                 {users.map(({ name }) => (
