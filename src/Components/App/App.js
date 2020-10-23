@@ -24,7 +24,8 @@ export default class App extends Component {
   state = {
     currentTheme: null,
     gameStarted: false,
-    isMuted
+    isMuted,
+    currentUser: null
   }
 
   /*
@@ -56,6 +57,10 @@ export default class App extends Component {
     e.preventDefault()
     Audio.setVol(e.target.value)
   }
+  
+  setCurrentUser = (user) => {
+    this.setState({currentUser: user})
+  }
 
   // This should be stylized later
   renderMuteButton = () => {
@@ -70,7 +75,9 @@ export default class App extends Component {
       isMuted: this.state.isMuted,
       handleTheme: this.handleTheme,
       handleMute: this.handleMute,
-      handleVolume: this.handleVolume
+      handleVolume: this.handleVolume,
+      setCurrentUser: this.setCurrentUser,
+      currentUser: this.state.currentUser
     }
     return (
       <div>

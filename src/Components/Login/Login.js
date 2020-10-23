@@ -33,6 +33,7 @@ class Login extends Component {
         username.value = "";
         password.value = "";
         TokenService.saveAuthToken(res.authToken);
+        this.context.setCurrentUser(res.username)
         this.props.history.push("/dashboard");
       })
       .catch((res) => {
