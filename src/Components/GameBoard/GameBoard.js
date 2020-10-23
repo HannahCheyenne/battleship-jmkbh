@@ -4,6 +4,7 @@ import ShipContainer from "../ShipContainer/ShipContainer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
+import HealthBar from "./HealthBar/HealthBar";
 
 class GameBoard extends Component {
   constructor() {
@@ -94,6 +95,7 @@ class GameBoard extends Component {
       <>
         <div className="gamePage">
           <div className="gameBoard">
+          <HealthBar data={this.state.p1_health} />
             <div className="player" id="player">
               <PlayerBoardRender
                 test={this.state.p2_board}
@@ -103,6 +105,7 @@ class GameBoard extends Component {
             </div>
           </div>
           <div className="gameBoard">
+            <HealthBar data={this.state.p2_health} />
             <div className="opponent" id="opponent">
               <OpponentBoardRender
                 test={this.state.p2_board}
@@ -112,9 +115,9 @@ class GameBoard extends Component {
             </div>
           </div>
 
-          <div className="opponentShips">
+          {/* <div className="opponentShips">
             <ShipContainer data={this.state.p2_health} />
-          </div>
+          </div> */}
           {!this.state.active_game && <button>New Game</button>}
         </div>
       </>

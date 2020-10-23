@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import HealthBar from '../GameBoard/HealthBar/HealthBar'
 import boom from '../../Images/boom.png'
 import miss from '../../Images/miss.png'
 
@@ -26,6 +27,9 @@ export default class OpponentBoard extends Component {
       const H = <img className ="image" src={boom} alt="hit"/>
         const M = <img className= 'image' src={miss} alt="miss"/>
     return (<>
+    <div className="shipcontainer">
+          <HealthBar {...this.props} />
+        </div>
       <div className="boardContainer">
         <div className="board">
             {test[0].map((i, index) => (<button onClick={this.handleClick} key={`0.${index}`} id={`0.${index}`} value={i} className="slot" >{i === 9 ? M:

@@ -1,0 +1,21 @@
+.healthBar{
+    padding: 10px;
+    min-width: 125px;
+    border: none;
+    outline-style: none;
+    border-radius: 30px;
+    box-shadow:2px 2px 1px #646464;
+}
+
+.val100{
+    width: 100%;
+    background: #00ff15;
+}
+.val50{
+    width: 50%;
+    background: #ffc400;
+}
+.val10{
+    width: 10%;
+    background: #ff0000;
+}

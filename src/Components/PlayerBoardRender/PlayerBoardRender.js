@@ -16,14 +16,14 @@ export default class PlayerBoardRender extends Component {
     this.state = {
       id: "",
       board: [
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 0, 0, 7, 7, 1, 7, 7],
+        [7, 7, 7, 7, 7, 1, 7, 7],
+        [7, 7, 7, 7, 7, 1, 7, 7],
+        [3, 7, 7, 7, 7, 7, 7, 7],
+        [3, 7, 7, 7, 7, 7, 7, 7],
+        [3, 7, 4, 4, 4, 4, 7, 7],
+        [3, 7, 7, 7, 7, 7, 7, 7],
       ],
       ships: createShips,
       selectedShip: "",
@@ -45,6 +45,9 @@ export default class PlayerBoardRender extends Component {
     let split = e.target.id.split(".");
     let newx = Number(split[0]);
     let newy = Number(split[1]);
+    let anchory = this.state.anchory
+    let anchorx = this.state.anchorx
+
     console.log("x", newx, "y", newy);
     if (board[newx][newy]) {
       this.setState({
@@ -54,87 +57,98 @@ export default class PlayerBoardRender extends Component {
     }
 
     if(this.state.isAnchor){
-      
-      //ship lenght = 3
-      //determine direction
-        //diffx = anchorx - curx
-        //diffy = anchroy - cury
+      console.log("PlayerBoardRender -> placementMouseover -> anchory", anchory)
+      console.log("PlayerBoardRender -> placementMouseover -> anchorx", anchorx)
+      const x = newx
+      console.log("PlayerBoardRender -> placementMouseover -> x ", x )
+      const y = newy
+      console.log("PlayerBoardRender -> placementMouseover -> y", y)
+      let board = this.state.board
+      console.log("PlayerBoardRender -> placementMouseover -> board", board)
+      const diffx = anchorx - newx
+      console.log("PlayerBoardRender -> placementMouseover -> diffx", diffx)
+      const diffy = anchory - newy
+      console.log("PlayerBoardRender -> placementMouseover -> diffy", diffy)
 
-      //(diffx && diffy = 0)
-        //skipp all that 
+      if (diffx && diffy !== 0){  
 
-      //if(abs(diffx) > abs(diffy))
-        //if(diffx > 0) //left
-        //else if (diffx < 0) to the //right
-      //else if (abs(diffy) > abs(diffx))
-        //if(diffy > 0) //up
-        //else if (diffy < 0) //down
-      //else (no extreme)
+        if(Math.abs(diffx) > Math.abs(diffy)) {
+          console.log("x is greater than")
 
-/*+++++++++++++++++++++++++++++
-setMd2(player) {
-    let board = this.state.board;
-    let validMove = false;
-    let x = 0;
-    let y = 0;
-    let horizontal = true;
-
-    while (!validMove) {
-      y = Math.floor(Math.random() * 6) + 2;
-      console.log("3 sandbox -> y", y);
-      x = Math.floor(Math.random() * 6) + 2;
-      console.log("3 sandbox -> x", x);
-      horizontal = Math.random() < 0.5;
-
-      if (!horizontal) {
-        if (
-          board[y][x] === 1 &&
-          board[y - 1][x] === 1 &&
-          board[y - 2][x] === 1
-        ) {
-          board[y][x] = 7;
-          board[y - 1][x] = 7;
-          board[y - 2][x] = 7;
-          this.setState({ board: board });
-          validMove = true;
+          console.log("diffx is positive")
+          if(diffx > 0){ //up
+            if ( //check valid
+              board[anchorx][anchory] === 7 &&
+              board[anchorx - 1][anchory] === 7 &&
+              board[anchorx - 2][anchory] === 7
+              ) {
+                console.log("up")
+              board[anchorx][anchory] = 6;
+              board[anchorx - 1][anchory] = 6;
+              board[anchorx - 2][anchory] = 6;
+              this.setState({ board: board });
+              //validMove = true;
+              }
+            }
+          else if (diffx < 0){ //down
+            if( //checklvalid
+              board[anchorx][anchory] === 7 &&
+              board[anchorx + 1][anchory] === 7 &&
+              board[anchorx + 2][anchory] === 7
+              ) {
+              board[anchorx][anchory] = 6;
+              board[anchorx + 1][anchory] = 6;
+              board[anchorx + 2][anchory] = 6;
+              this.setState({ board: board });
+              //validMove = true;
+            }
+          }
         }
-      } else {
-        if (
-          board[y][x] === 1 &&
-          board[y][x - 1] === 1 &&
-          board[y][x - 2] === 1
-        ) {
-          board[y][x] = 7;
-          board[y][x - 1] = 7;
-          board[y][x - 2] = 7;
-          this.setState({ board: board });
-          validMove = true;
+
+        else if(Math.abs(diffy) > Math.abs(diffx)) {
+          if(diffy > 0){ //left
+            if ( //check valid
+              board[anchorx][anchory] === 7 &&
+              board[anchorx][anchory-1] === 7 &&
+              board[anchorx][anchory] === 7
+              ) {
+              board[anchorx][anchory] = 6;
+              board[anchorx][anchory-1] = 6;
+              board[anchorx][anchory-1] = 6;
+              this.setState({ board: board });
+              //validMove = true;
+              }
+            }
+          else if (diffy < 0){ //right
+            if( //checklvalid
+              board[anchorx][anchory] === 7 &&
+              board[anchorx][anchory+2] === 7 &&
+              board[anchorx][anchory+1] === 7
+              ) {
+              board[anchorx][anchory] = 6;
+              board[anchorx][anchory+1] = 6;
+              board[anchorx][anchory+2] = 6;
+              this.setState({ board: board });
+              //validMove = true;
+            }
+          }
         }
       }
     }
   }
 
+/*+++++++++++++++++++++++++++++
+ 
+        let id = `${x}.${y}`;
+        console.log(id);
+        const element = document.getElementById(id);
+        console.log(element);
+        element.className += " " + "shipLength";
+
 ++++++++++++++++++++++++++++++*/
 
+    
 
-
-
-
-
-      let id = `${x}.${y}`;
-      console.log(id);
-      const element = document.getElementById(id);
-      console.log(element);
-      element.className += " " + "shipLength";
-
-
-      
-    }
-    //ship needs to be the size of the ship that is selected in ship container
-    //selected ship needs to be set in state, passed in as props
-    //need to create a boundary to make sure placement is ok
-    //no other ships underneath of it and it is within the boundaries of the game
-  };
   // selectShip = (e) => {
   //   e.preventDefault()
   //   let newSelection = e.target.id
@@ -193,6 +207,8 @@ setMd2(player) {
     // i think that function can be created in the ship container as an onclick
     //like while active and onClick then remove from roster
   };
+
+
   render() {
     const { ships, board } = this.state;
     const H = <img className="image" src={boom} alt="hit" />;
@@ -212,98 +228,107 @@ setMd2(player) {
           <div className="board">
             {board[0].map((i, index) => (
               <button
+              onMouseOut={this.resetBoard}
                 onMouseEnter={this.placementMouseover}
                 onClick={this.placementOnClick}
                 key={`0.${index}`}
                 id={`0.${index}`}
                 value={i}
-                className="slot"
+                className={`slot bg${i}`}
               >
-                {i === 0 ? M : i === 8 ? H : ""}
+                {i === 9 ? M : i === 8 ? H : ""}
               </button>
             ))}
             {board[1].map((i, index) => (
               <button
+              onMouseOut={this.resetBoard}
                 onMouseEnter={this.placementMouseover}
                 onClick={this.placementOnClick}
                 key={`1.${index}`}
                 id={`1.${index}`}
                 value={i}
-                className="slot"
+                className={`slot bg${i}`}
               >
-                {i === 0 ? M : i === 8 ? H : ""}
+                {i === 9 ? M : i === 8 ? H : ""}
               </button>
             ))}
             {board[2].map((i, index) => (
               <button
+              onMouseOut={this.resetBoard}
                 onMouseEnter={this.placementMouseover}
                 onClick={this.placementOnClick}
                 key={`2.${index}`}
                 id={`2.${index}`}
                 value={i}
-                className="slot"
+                className={`slot bg${i}`}
               >
                 {i === 0 ? M : i === 8 ? H : ""}
               </button>
             ))}
             {board[3].map((i, index) => (
               <button
+              onMouseOut={this.resetBoard}
                 onMouseEnter={this.placementMouseover}
                 onClick={this.placementOnClick}
                 key={`3.${index}`}
                 id={`3.${index}`}
                 value={i}
-                className="slot"
+                className={`slot bg${i}`}
               >
-                {i === 0 ? M : i === 8 ? H : ""}
+                {i === 9 ? M : i === 8 ? H : ""}
               </button>
             ))}
             {board[4].map((i, index) => (
               <button
+                onMouseOut={this.resetBoard}
                 onMouseEnter={this.placementMouseover}
                 onClick={this.placementOnClick}
                 key={`4.${index}`}
                 id={`4.${index}`}
                 value={i}
-                className="slot"
+                className={`slot bg${i}`}
               >
-                {i === 0 ? M : i === 8 ? H : ""}
+                {i === 9 ? M : i === 8 ? H : ""}
               </button>
             ))}
             {board[5].map((i, index) => (
               <button
+              onMouseOut={this.resetBoard}
                 onMouseEnter={this.placementMouseover}
                 onClick={this.placementOnClick}
                 key={`5.${index}`}
                 id={`5.${index}`}
                 value={i}
-                className="slot"
+                className={`slot bg${i}`}
               >
-                {i === 0 ? M : i === 8 ? H : ""}
+                {i === 9 ? M : i === 8 ? H : ""}
               </button>
             ))}
             {board[6].map((i, index) => (
               <button
+              onMouseOut={this.resetBoard}
                 onMouseEnter={this.placementMouseover}
                 onClick={this.placementOnClick}
                 key={`6.${index}`}
                 id={`6.${index}`}
                 value={i}
-                className="slot"
+                className={`slot bg${i}`}
+                
               >
-                {i === 0 ? M : i === 8 ? H : ""}
+                {i === 9 ? M : i === 8 ? H : ""}
               </button>
             ))}
             {board[7].map((i, index) => (
               <button
+              onMouseOut={this.resetBoard}
                 onMouseEnter={this.placementMouseover}
                 onClick={this.placementOnClick}
                 key={`7.${index}`}
                 id={`7.${index}`}
                 value={i}
-                className="slot"
+                className={`slot bg${i}`}
               >
-                {i === 0 ? M : i === 8 ? H : ""}
+                {i === 9 ? M : i === 8 ? H : ""}
               </button>
             ))}
           </div>
