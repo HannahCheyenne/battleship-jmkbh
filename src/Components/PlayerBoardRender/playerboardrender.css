@@ -63,15 +63,12 @@
     justify-content: center;
     display: block;
   }
-  .selected{
-    background: #ff0000;
-  }
   .shipLength{
     background: #03ff18;
   }
-
+  
   .slot.bg0 {
-    background: rgba(122, 122, 255, 0.212);
+    background: rgba(222, 222, 255, 0.712);
   }
   .slot.bg1 {
     background: rgba(255, 122, 248, 0.712);
@@ -88,8 +85,12 @@
   .slot.bg6 {
     background: rgba(0, 213, 122, 0.712);
   }
+  .selected{
+    background: #ff0000;
+    border: 1px solid red
+  }
   
-
+  
   @media all and (max-width:700px){
     .playerContainer{
       flex-direction: column;
