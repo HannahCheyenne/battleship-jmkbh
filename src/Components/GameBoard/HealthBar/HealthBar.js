@@ -6,10 +6,7 @@ export default class HealthBar extends Component{
 
     render(){
         const {health} = this.props
-        console.log(health)
         let i = health.reduce((a, b) => {return a + b})
-
-        
         return(
             <div className="health">
             <div className='healthBar'>

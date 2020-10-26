@@ -1,4 +1,48 @@
 .devTeamPage{
     color:#ffffff;
     text-align: center;
+    margin: 10%;
+}
+.theDevs{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.devContainers{
+    width: 300px;
+    height: 400px;
+    padding: 10px;
+    text-align: center;
+    margin: 10px auto;
+    background: #4a199edc;
+    box-shadow: 2px 2px 2px #000000;
+    border-radius: 30px;
+}
+.devImg{
+    margin: 2px;
+    height: 200px;
+    width: 200px;
+}
+.devContainers a{
+    width:250px;
+    box-shadow:2px 2px 1px #646464;
+    font-size: 20px;
+    text-decoration: none;
+    padding: 5px 20px 5px 20px;
+    color: white;
+    border-radius: 30px;
+    background: #48BE9F;
+}
+.devContainers h3{
+    margin: 2px;
+}
+.devContainers p{
+    margin: 5px;
+    height: 40px;
+}
+
+.devContainers a:hover{
+    background: #6de2d6;
 }

@@ -70,9 +70,9 @@
   .slot.bg0 {
     background: rgba(222, 222, 255, 0.712);
   }
-  .slot.bg1 {
+  /* .slot.bg1 {
     background: rgba(255, 122, 248, 0.712);
-  }
+  } */
   .slot.bg2 {
     background: rgba(0, 60, 255, 0.712);
   }
@@ -82,7 +82,7 @@
   .slot.bg4 {
     background: rgba(255, 213, 122, 0.712);
   }
-  .slot.bg6 {
+  .slot.bg5 {
     background: rgba(0, 213, 122, 0.712);
   }
   .selected{
