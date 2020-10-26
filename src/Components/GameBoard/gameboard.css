@@ -1,33 +1,24 @@
 .gamePage{
     display: flex;
+    box-sizing: border-box;
     justify-content: center;
-
+    align-items: center;
+    /* height: 100vh; */
+    /* height: calc(100vh - 3px); */
+    /* background:url(../../Images/backgroundGamepage.jpg); */
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
+    /* background-attachment: fixed; */
+    /* background-position: center; */
+    /* width: 100vw; */
+    
 }
-
 .gameBoard{
-    /* background:url(../../Images/backgroundGamepage.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center; */
-    width: 500px;
     text-align: center;
     align-content: center;
     justify-content: center;
 }
-/* html{
-    background:url(../../Images/backgroundGamepage.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-} */
-.player{
- margin: 30px;
-}
-.opponent{
-margin: 30px;
-}
+
 .shipPlacement{
     height: 300px;
     width: 300px;

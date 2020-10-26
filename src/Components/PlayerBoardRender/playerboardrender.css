@@ -1,3 +1,26 @@
+.playerContainer{
+  display:flex;
+}
+.shipcontainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  margin: 5px;
+  width: 150px;
+  height: 160px;
+  color: #ffffff;
+  border: 1px solid #fffbef93;;
+  background: #0000004f;
+}
+.ship{
+  background: none;
+  margin: 3px;
+  border: none;
+  color: #ffffff;
+  font-size: 20px;
+}
+
 .cell {
   display: flex;  
   flex-wrap: wrap;
@@ -7,8 +30,8 @@
     border: 1px solid  #fffbef93;
 }
 .boardContainer{
-  width: 450px;
-  height: 450px;
+  max-width: 450px;
+  max-height: 450px;
 }
   .imageBattleship{
     width: 50px;
@@ -40,3 +63,43 @@
     justify-content: center;
     display: block;
   }
+  .shipLength{
+    background: #03ff18;
+  }
+  
+  .slot.bg0 {
+    background: rgba(222, 222, 255, 0.712);
+  }
+  .slot.bg1 {
+    background: rgba(255, 122, 248, 0.712);
+  } 
+  .slot.bg2 {
+    background: rgba(0, 60, 255, 0.712);
+  }
+  .slot.bg3 {
+    background: rgba(252, 106, 69, 0.712);
+  }
+  .slot.bg4 {
+    background: rgba(255, 213, 122, 0.712);
+  }
+  .slot.bg6 {
+    background: rgba(0, 213, 122, 0.712);
+  }
+  .selected{
+    background: #ff0000;
+    border: 1px solid red
+  }
+  
+  
+  @media all and (max-width:700px){
+    .playerContainer{
+      flex-direction: column;
+    }
+    .boardContainer{
+      order: 2;
+    }
+    .shipcontainer{
+      order: 1;
+
+    }
+}

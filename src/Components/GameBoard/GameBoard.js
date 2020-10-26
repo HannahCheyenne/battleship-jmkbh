@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import OpponentBoardRender from "../OpponentBoardRender/OpponentBoardRender";
-import ShipContainer from "../ShipContainer/ShipContainer";
+// import ShipContainer from "../ShipContainer/ShipContainer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
+// import HealthBar from "./HealthBar/HealthBar";
 
 class GameBoard extends Component {
   constructor() {
@@ -57,6 +58,51 @@ class GameBoard extends Component {
       });
     });
   }
+  newGame = () => {
+    let initialState = {
+      p1_board: [
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+      ],
+      p2_board: [
+        [7, 4, 4, 4, 4, 4, 7, 7],
+        [7, 7, 7, 7, 7, 7, 2, 7],
+        [7, 7, 7, 7, 7, 7, 2, 7],
+        [7, 7, 0, 0, 7, 7, 2, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 1, 1, 1, 7, 7],
+        [7, 3, 3, 3, 3, 7, 7, 7],
+      ],
+      p1_health: [2, 3, 3, 4, 5],
+      p2_health: [2, 3, 3, 4, 5],
+      player_turn: true,
+      active_game: true,
+    };
+    BattleshipAPI.newGame(initialState).then((data) => {
+      const gameState = data.gameState;
+      this.setState({
+        idfromBoard: "",
+        id: gameState.id,
+        //player
+        p1_board: gameState.p1_board,
+        //opponent
+        p2_board: gameState.p2_board,
+        p1_health: gameState.p1_health,
+        p2_health: gameState.p2_health,
+        player_turn: gameState.player_turn,
+        //whether game is over
+        active_game: gameState.active_game,
+      });
+    });
+  };
+
   postMove = () => {
     let gameId = this.state.id;
     let split = this.state.idfromBoard.split(".");
@@ -64,7 +110,6 @@ class GameBoard extends Component {
     let y = Number(split[1]);
     BattleshipAPI.postMove(gameId, x, y).then((data) => {
       const gameState = data.gameState;
-      console.log("GameBoard -> postMove -> gameState", gameState.p2_board)
       this.setState({
         idfromBoard: "",
         id: gameState.id,
@@ -99,6 +144,7 @@ class GameBoard extends Component {
                 test={this.state.p2_board}
                 key={this.state.p2_board}
                 ships={this.state.p1_health}
+                p1_health={this.state.p1_health}
               />
             </div>
           </div>
@@ -108,14 +154,18 @@ class GameBoard extends Component {
                 test={this.state.p2_board}
                 key={this.state.p2_board}
                 playerMove={this.playerMove}
+                p2_health={this.state.p2_health}
+
               />
             </div>
           </div>
 
-          <div className="opponentShips">
+          {/* <div className="opponentShips">
             <ShipContainer data={this.state.p2_health} />
           </div>
-          {!this.state.active_game && <button>New Game</button>}
+          {!this.state.active_game && (
+            <NewGame data={this.state} handleClick={this.newGame} />
+          */}
         </div>
       </>
     );

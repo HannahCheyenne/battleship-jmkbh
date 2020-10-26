@@ -3,18 +3,18 @@ import { Route, Switch } from "react-router-dom";
 import Login from "../Login/Login";
 import LandingPage from "../LandingPage/LandingPage";
 import Dashboard from "../Dashboard/Dashboard";
-import QuickGame from '../QuickGame/QuickGame'
-import ContactPage from '../ContactPage/ContactPage'
+import QuickGame from '../QuickGame/QuickGame';
+import ContactPage from '../ContactPage/ContactPage';
 import Demo from "../Demo/Demo";
 import Register from "../Register/Register";
 import PublicOnlyRoute from "../../Utils/PublicOnlyRoute";
 import PrivateOnlyRoute from "../../Utils/PrivateOnlyRoute";
 import StatsPage from "../StatsPage/StatsPage";
-import Audio, {isMuted} from '../../services/audio'
+import Audio, {isMuted} from '../../services/audio';
 import "./app.css";
 import GameBoard from "../GameBoard/GameBoard";
-import Context from '../../Context'
-import Header from '../Header/Header'
+import Context from '../../Context';
+import Header from '../Header/Header';
 
 //Chat Features//
 import Join from '../Chat/Join/Join'
@@ -47,7 +47,7 @@ export default class App extends Component {
           {currentTheme: null},
           () => Audio.stop()
         )
-  }
+  };
 
   handleMute = () => {
     this.setState({isMuted: !isMuted}, () => Audio.mute())
@@ -98,10 +98,8 @@ export default class App extends Component {
             <PrivateOnlyRoute component={QuickGame} path="/quickgame"/>
             <PrivateOnlyRoute component={GameBoard} path="/game"/>
           </Switch>
-          {/* {this.renderMuteButton()}
-          <input type="range" min="-30" max="0" onChange={this.handleVolume}/> */}
         </Context.Provider>
       </div>
     );
-  }
-}
+  };
+};
