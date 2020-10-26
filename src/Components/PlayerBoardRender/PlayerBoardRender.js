@@ -76,6 +76,7 @@ export default class PlayerBoardRender extends Component {
   }
 
   saveOldBoard() {
+    //TODO set anchor sound effect here
     const board = this.state.board;
     let savedBoard = this.deepCopy(board);
     console.log("saved old board", savedBoard);
@@ -120,6 +121,7 @@ export default class PlayerBoardRender extends Component {
   }
 
   updateBoard = () => {
+    //TODO do sound effect for successful ship placement
     let { board, savedBoard, shipId, shipsToPlace } = this.state;
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
@@ -128,6 +130,7 @@ export default class PlayerBoardRender extends Component {
         }
       }
     }
+
     shipsToPlace[shipId] = 0;
     shipId -= 1;
     this.setState({
@@ -227,6 +230,42 @@ export default class PlayerBoardRender extends Component {
     }
   };
 
+  clearBoard = (e) => {
+    e.preventDefault();
+    this.setState({
+      id: "",
+      board: [
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+      ],
+      savedBoard: [
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+      ],
+      ships: createShips,
+      currX: 0,
+      currY: 0,
+      anchorX: 0,
+      anchorY: 0,
+      isAnchor: false,
+      shipId: 4,
+      shipsToPlace: [1, 1, 1, 1, 1],
+      validPlacement: false,
+    });
+  };
+
   render() {
     const { ships } = this.state;
     const board = [...this.state.board];
@@ -240,8 +279,12 @@ export default class PlayerBoardRender extends Component {
     return (
       <div className="playerContainer">
         <div className="shipcontainer">
-          {remainingShips === 0 && <button>Submit</button>}
-
+          {remainingShips === 0 && (
+            <div>
+              <button onClick={this.newGameSubmit}>Submit</button>
+              <button onClick={this.clearBoard}>Reset</button>
+            </div>
+          )}
           {ships.createShips.map((i) => (
             <button className="ship" onClick={this.selectShip} id={`${i.type}`}>
               {i.type}
