@@ -1,18 +1,15 @@
 import React, {Component} from 'react';
 import Context from '../../Context';
+import Audio from '../../services/audio'
 import "./audiomenu.css";
 
 export default class AudioMenu extends Component {
     static contextType = Context;
 
-    /*
-    Themes are:
-    'ambiance.mp3'
-    'game.mp3'
-    'menu.mp3'
-    'win.mp3'
-    'lose.mp3'
-    */
+    handleVolume = (e) => {
+        e.preventDefault()
+        Audio.setVol(e.target.value)
+    };
 
     renderMuteButton = () => {
         return (this.context.isMuted === true
@@ -27,11 +24,11 @@ export default class AudioMenu extends Component {
                     Sound <i>&#9660;</i>
                 </button>
                 <div className="dropdownContent">
-                    <input className="volRange" type="range" step="1" min="-30" max="0" onChange={this.context.handleVolume}/>
+                    <input className="volRange" type="range" step="1" min="-30" max="0" onChange={this.handleVolume}/>
                     <br/>
                     {this.renderMuteButton()}
                 </div>
             </div>
-        )
-    }
+        );
+    };
 }
