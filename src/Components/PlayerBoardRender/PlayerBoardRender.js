@@ -47,7 +47,6 @@ export default class PlayerBoardRender extends Component {
     };
   }
 
-  // placementListener = function (e) {
   resetBoard = (e) => {
     e.preventDefault();
     let savedBoard = this.state.savedBoard;
@@ -97,7 +96,7 @@ export default class PlayerBoardRender extends Component {
     const shipLength = this.shipLength(shipId);
     let newBoard = [...this.state.board];
     let checkCells = true;
-    
+
     for (let i = 0; i < shipLength; i++) {
       let x = anchorX + i * dirX;
       let y = anchorY + i * dirY;
@@ -105,8 +104,7 @@ export default class PlayerBoardRender extends Component {
         if (newBoard[x][y] !== 7) {
           checkCells = false;
         }
-      }
-      else {
+      } else {
         checkCells = false;
       }
     }
