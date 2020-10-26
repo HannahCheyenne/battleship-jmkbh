@@ -85,10 +85,8 @@ class GameBoard extends Component {
       player_turn: true,
       active_game: true,
     };
-    console.log("GameBoard -> newGame -> initialState", initialState);
     BattleshipAPI.newGame(initialState).then((data) => {
       const gameState = data.gameState;
-      console.log("GameBoard -> newGame -> gameState", data);
       this.setState({
         idfromBoard: "",
         id: gameState.id,
