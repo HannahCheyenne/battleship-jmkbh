@@ -51,7 +51,7 @@ export default class PlayerBoardRender extends Component {
     e.preventDefault();
     let savedBoard = this.state.savedBoard;
     const board = this.state.board;
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
         board[i][j] = savedBoard[i][j];
       }
@@ -75,12 +75,12 @@ export default class PlayerBoardRender extends Component {
     }
   }
 
-  saveOldBoard() {
+  saveOldBoard = () => {
     //TODO set anchor sound effect here
     const board = this.state.board;
     let savedBoard = this.deepCopy(board);
     console.log("saved old board", savedBoard);
-  }
+  };
 
   deepCopy = (arr) => {
     let copy = [];
@@ -92,25 +92,29 @@ export default class PlayerBoardRender extends Component {
     return copy;
   };
 
-  checkUp(anchorX, anchorY, dirX, dirY) {
+  checkCells = (anchorX, anchorY, dirX, dirY) => {
     const shipId = this.state.shipId;
+    console.log("PlayerBoardRender -> checkCells -> shipId", shipId);
     const shipLength = this.shipLength(shipId);
+    console.log("PlayerBoardRender -> checkCells -> shipLength", shipLength);
     let newBoard = [...this.state.board];
-    let checkCells = true;
+    let allClear = true;
 
     for (let i = 0; i < shipLength; i++) {
       let x = anchorX + i * dirX;
       let y = anchorY + i * dirY;
       if (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
         if (newBoard[x][y] !== 7) {
-          checkCells = false;
+          allClear = false;
         }
       } else {
-        checkCells = false;
+        allClear = false;
       }
     }
-
-    if (checkCells) {
+    if (this.state.shipsToPlace[shipId] === 0) {
+      allClear = false;
+    }
+    if (allClear) {
       for (let i = 0; i < shipLength; i++) {
         let x = anchorX + i * dirX;
         let y = anchorY + i * dirY;
@@ -118,7 +122,7 @@ export default class PlayerBoardRender extends Component {
       }
     }
     this.setState({ board: [...newBoard], validPlacement: true });
-  }
+  };
 
   updateBoard = () => {
     //TODO do sound effect for successful ship placement
@@ -132,7 +136,14 @@ export default class PlayerBoardRender extends Component {
     }
 
     shipsToPlace[shipId] = 0;
-    shipId -= 1;
+    // if (shipId > 0) shipId -= 1;
+    // else shipId = 4;
+    let shipsLeft = shipsToPlace.findIndex(v => v === 1)
+    console.log("PlayerBoardRender -> updateBoard -> shipsLeft", shipsLeft)
+    if (shipsLeft >= 0){
+      shipId = shipsLeft
+    }
+
     this.setState({
       savedBoard: savedBoard,
       isAnchor: false,
@@ -150,7 +161,7 @@ export default class PlayerBoardRender extends Component {
     let newY = Number(split[1]);
     let anchorY = this.state.anchorY;
     let anchorX = this.state.anchorX;
-    console.log("x", newX, "y", newY);
+    //console.log("x", newX, "y", newY);
 
     if (newBoard[newX][newY]) {
       this.setState({
@@ -166,33 +177,36 @@ export default class PlayerBoardRender extends Component {
         if (Math.abs(diffX) > Math.abs(diffY)) {
           if (diffX > 0) {
             //up
-            this.checkUp(anchorX, anchorY, -1, 0);
+            this.checkCells(anchorX, anchorY, -1, 0);
           } else if (diffX < 0) {
             //down
-            this.checkUp(anchorX, anchorY, 1, 0);
+            this.checkCells(anchorX, anchorY, 1, 0);
           }
         } else if (Math.abs(diffY) > Math.abs(diffX)) {
           if (diffY > 0) {
             //left
-            this.checkUp(anchorX, anchorY, 0, -1);
+            this.checkCells(anchorX, anchorY, 0, -1);
           } else if (diffY < 0) {
             //right
-            this.checkUp(anchorX, anchorY, 0, 1);
+            this.checkCells(anchorX, anchorY, 0, 1);
           }
         }
       }
     }
   };
 
-  // selectShip = (e) => {
-  //   e.preventDefault()
-  //   let newSelection = e.target.id
-  //   let ship =
-  //   this.setState = ({
-  //     shipId:newSelection
-  //   })
-  //   console.log(this.state.shipId)
-  // }
+  selectShip = (e) => {
+    e.preventDefault();
+    let newSelection = parseInt(e.target.id);
+    console.log(
+      "PlayerBoardRender -> selectShip -> newSelection",
+      newSelection
+    );
+
+    this.setState({
+      shipId: newSelection,
+    });
+  };
 
   placementOnClick = (e) => {
     e.preventDefault();
@@ -267,26 +281,32 @@ export default class PlayerBoardRender extends Component {
   };
 
   render() {
-    const { ships } = this.state;
+    const { ships, shipsToPlace } = this.state;
+    console.log("PlayerBoardRender -> render -> shipsToPlace", shipsToPlace)
     const board = [...this.state.board];
     const H = <img className="image" src={boom} alt="hit" />;
     const M = <img className="image" src={miss} alt="miss" />;
     const remainingShips = this.state.shipsToPlace.reduce(
       (accumulator, currentValue) => accumulator + currentValue
     );
-    console.log("State Updated: ", this.state);
+    
+    //console.log("State Updated: ", this.state);
 
     return (
       <div className="playerContainer">
         <div className="shipcontainer">
           {remainingShips === 0 && (
             <div>
-              <button onClick={this.newGameSubmit}>Submit</button>
-              <button onClick={this.clearBoard}>Reset</button>
+              <button onClick={this.newGameSubmit}>Start new game!</button>
+              <button onClick={this.clearBoard}>Reset Board</button>
             </div>
           )}
           {ships.createShips.map((i) => (
-            <button className="ship" onClick={this.selectShip} id={`${i.type}`}>
+            <button
+              className={`ship active${shipsToPlace[i.shipId]}`}
+              onClick={this.selectShip}
+              id={`${i.shipId}`}
+            >
               {i.type}
             </button>
           ))}
@@ -308,7 +328,7 @@ export default class PlayerBoardRender extends Component {
                   value={i}
                   className={`slot bg${i}`}
                 >
-                  {i === 9 ? M : i === 8 ? H : ""}
+                  {i === 9 ? M : i === 8 ? H : ""}{" "}
                 </button>
               ))}
               {board[1].map((i, index) => (
@@ -334,7 +354,7 @@ export default class PlayerBoardRender extends Component {
                   value={i}
                   className={`slot bg${i}`}
                 >
-                  {i === 0 ? M : i === 8 ? H : ""}
+                  {i === 9 ? M : i === 8 ? H : ""}
                 </button>
               ))}
               {board[3].map((i, index) => (
