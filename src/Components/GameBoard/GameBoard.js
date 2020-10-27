@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import OpponentBoardRender from "../OpponentBoardRender/OpponentBoardRender";
+import BoardRender from "../BoardRender/BoardRender";
 // import ShipContainer from "../ShipContainer/ShipContainer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
@@ -119,30 +119,35 @@ class GameBoard extends Component {
   }
 
   render() {
-
+    
     console.log("main game state", this.state)
     return (
       <>
         <div className="gamePage">
           <div className="gameBoard">
             <div className="player" id="player">
+              {!this.state.active_game && 
               <PlayerBoardRender
                 newGame={this.newGame}
                 disabled={this.state.active_game}
                 test={this.state.p1_board}
                 key={this.state.p1_board}
-                ships={this.state.p1_health}
-                p1_health={this.state.p1_health}
               />
+              }
+              {this.state.active_game &&
+                <BoardRender
+                test={this.state.p1_board}
+                key={this.state.p1_board}
+                disabled={true}
+              />}
             </div>
           </div>
           <div className="gameBoard">
             <div className="opponent" id="opponent">
-              <OpponentBoardRender
+              <BoardRender
                 test={this.state.p2_board}
                 key={this.state.p2_board}
                 playerMove={this.playerMove}
-                p2_health={this.state.p2_health}
                 disabled={!this.state.active_game}
               />
             </div>

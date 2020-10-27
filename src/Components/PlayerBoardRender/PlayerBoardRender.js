@@ -309,6 +309,7 @@ export default class PlayerBoardRender extends Component {
               className={`ship active${shipsToPlace[i.shipId]}`}
               onClick={this.selectShip}
               id={`${i.shipId}`}
+              //this is where the unique key prop error is coming from
             >
               {i.type}
             </button>
@@ -317,7 +318,6 @@ export default class PlayerBoardRender extends Component {
         <span>
           <div>
             Health
-            <HealthBar health={this.props.p1_health} />
           </div>
           <div className="boardContainer">
             <div className="board">
