@@ -97,6 +97,7 @@ class GameBoard extends Component {
     let split = this.state.idfromBoard.split(".");
     let x = Number(split[0]);
     let y = Number(split[1]);
+    const p2Health = this.state.p2_health
     BattleshipAPI.postMove(gameId, x, y).then((data) => {
       const gameState = data.gameState;
       this.setState({
@@ -111,7 +112,7 @@ class GameBoard extends Component {
         player_turn: gameState.player_turn,
         //whether game is over
         active_game: gameState.active_game,
-      });
+      }, ()=>{console.log(gameState.p2_health, p2Health)});
     });
   };
   playerMove(id) {
