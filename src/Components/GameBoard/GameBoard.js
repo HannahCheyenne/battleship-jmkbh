@@ -4,6 +4,7 @@ import BoardRender from "../BoardRender/BoardRender";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
+import Context from "../../Context";
 // import HealthBar from "./HealthBar/HealthBar";
 
 class GameBoard extends Component {
@@ -58,8 +59,10 @@ class GameBoard extends Component {
       });
     });
   }
+  static contextType = Context;
 
   newGame = (playerBoard) => {
+    this.context.handleTheme('game.mp3');
     let initialState = {
       p1_board: playerBoard,
       p2_board: playerBoard,//!temporary for demo

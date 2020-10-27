@@ -10,6 +10,7 @@ import HealthBar from "../GameBoard/HealthBar/HealthBar";
 // import submarine from "../../Images/submarine.png";
 import createShips from "../../Utils/GameHelpers";
 import TriggerTest from "./TriggerTest";
+import Audio from '../../services/audio'
 
 export default class PlayerBoardRender extends Component {
   constructor() {
@@ -77,7 +78,7 @@ export default class PlayerBoardRender extends Component {
   }
 
   saveOldBoard = () => {
-    //TODO set anchor sound effect here
+    Audio.click()
     const board = this.state.board;
     let savedBoard = this.deepCopy(board);
     console.log("saved old board", savedBoard);
@@ -134,7 +135,7 @@ export default class PlayerBoardRender extends Component {
   }
 
   updateBoard = () => {
-    //TODO do sound effect for successful ship placement
+    Audio.positioned()
     let { board, savedBoard, shipId, shipsToPlace } = this.state;
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
