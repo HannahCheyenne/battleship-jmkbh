@@ -5,7 +5,7 @@ import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
 // import HealthBar from "./HealthBar/HealthBar";
-
+import GetAiMove from "./GetAiMove";
 class GameBoard extends Component {
   constructor() {
     super();
@@ -62,7 +62,7 @@ class GameBoard extends Component {
   newGame = (playerBoard) => {
     let initialState = {
       p1_board: playerBoard,
-      p2_board: playerBoard,//!temporary for demo
+      p2_board: playerBoard, //!temporary for demo
       p1_health: [2, 3, 3, 4, 5],
       p2_health: [2, 3, 3, 4, 5],
       player_turn: true,
@@ -70,6 +70,26 @@ class GameBoard extends Component {
     };
 
     BattleshipAPI.newGame(initialState).then((data) => {
+      const gameState = data.gameState;
+      this.setState({
+        idfromBoard: "",
+        id: gameState.id,
+        //player
+        p1_board: gameState.p1_board,
+        //opponent
+        p2_board: gameState.p2_board,
+        p1_health: gameState.p1_health,
+        p2_health: gameState.p2_health,
+        player_turn: gameState.player_turn,
+        //whether game is over
+        active_game: gameState.active_game,
+      });
+    });
+  };
+
+  getAiMove = () => {
+    const gameId = this.state.id;
+    BattleshipAPI.getAiMove(gameId).then((data) => {
       const gameState = data.gameState;
       this.setState({
         idfromBoard: "",
@@ -119,21 +139,35 @@ class GameBoard extends Component {
   }
 
   render() {
-
-    console.log("main game state", this.state)
+    console.log("main game state", this.state);
     return (
       <>
         <div className="gamePage">
           <div className="gameBoard">
             <div className="player" id="player">
-              <PlayerBoardRender
-                newGame={this.newGame}
-                disabled={this.state.active_game}
-                test={this.state.p1_board}
-                key={this.state.p1_board}
-                ships={this.state.p1_health}
-                p1_health={this.state.p1_health}
-              />
+              {!this.state.player_turn && (
+                <GetAiMove func={this.getAiMove}></GetAiMove>
+              )}
+
+              {!this.state.active_game && (
+                <PlayerBoardRender
+                  newGame={this.newGame}
+                  disabled={this.state.active_game}
+                  test={this.state.p1_board}
+                  key={this.state.p1_board}
+                  ships={this.state.p1_health}
+                  p1_health={this.state.p1_health}
+                />
+              )}
+              {this.state.active_game && (
+                <OpponentBoardRender
+                  test={this.state.p1_board}
+                  key={this.state.p1_board}
+                  playerMove={this.playerMove}
+                  p2_health={this.state.p1_health}
+                  disabled={!this.state.active_game}
+                />
+              )}
             </div>
           </div>
           <div className="gameBoard">
