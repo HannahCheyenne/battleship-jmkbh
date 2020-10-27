@@ -3,6 +3,7 @@ import * as Tone from 'tone';
 let theme = null;
 let isMuted = false;
 let vol = new Tone.Volume().toDestination();
+let missCount = 0;
 const path = process.env.PUBLIC_URL
 
 async function playEffect(effect) {
@@ -18,6 +19,7 @@ async function playEffect(effect) {
 };
 
 function hitSound(){
+    missCount = 0;
     !isMuted && playEffect('mp3s/hit.mp3')
 };
 
@@ -58,11 +60,21 @@ const Audio = {
     },
 
     attackSound(hit=false, destroyed=false) {
-        hit === true
-          ? destroyed === true
+        if(hit === true) {
+          destroyed === true
             ? setTimeout(destroyedSound, 200)
             : setTimeout(hitSound, 200)
-          : setTimeout(missSound, 200)
+        } else {
+             missCount++
+             missCount % 10 === 0
+                ? playEffect('mp3s/squeak.mp3')
+                : playEffect('mp3s/laser.mp3')
+                    && setTimeout(missSound, 200)
+        }
+    },
+
+    getMisses() {
+        return missCount;
     },
 
     setVol(val) {
@@ -71,6 +83,10 @@ const Audio = {
 
     laser() {
         !isMuted && playEffect('mp3s/laser.mp3')
+    },
+
+    squeak() {
+        !isMuted && playEffect('mp3s/squeak.mp3')
     },
 
     soft() {
