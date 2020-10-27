@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import boom from '../../Images/boom.png'
 import miss from '../../Images/miss.png'
 import './boardrender.css'
+// import Audio from '../../services/audio'
+// {Audio.attackSound(true)}{console.log('triggered')}
 
 export default class Board extends Component {
     constructor() {

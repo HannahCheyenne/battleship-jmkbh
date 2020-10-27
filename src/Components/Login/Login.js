@@ -22,7 +22,6 @@ class Login extends Component {
 
   handleSubmitJwtAuth = (ev) => {
     ev.preventDefault();
-    this.context.handleTheme('ambiance.mp3')
     this.setState({ error: null });
     const { username, password } = ev.target;
     AuthApiService.postLogin({

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Audio from '../../services/audio'
 import "./dashboard.css";
 import CreatePrivateGame from "../Buttons/CreatePrivateGame/CreatePrivateGame";
 import CreateAiGame from "../Buttons/CreateAiGame/CreateAiGame";
@@ -14,6 +15,9 @@ import planetyellow from '../../Images/Planets/planetyellow.png'
 // import planetyellowring from '../../Images/Planets/planetyellowring.png'
 
 class Dashboard extends Component {
+  componentDidMount() {
+    Audio.stop()
+  }
   render() {
     return (
       <div>

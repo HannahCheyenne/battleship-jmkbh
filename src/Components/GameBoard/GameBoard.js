@@ -5,6 +5,7 @@ import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
 import Context from "../../Context";
+import Audio from '../../services/audio'
 // import HealthBar from "./HealthBar/HealthBar";
 
 class GameBoard extends Component {
@@ -91,6 +92,7 @@ class GameBoard extends Component {
   };
 
   postMove = () => {
+    Audio.laser()
     let gameId = this.state.id;
     let split = this.state.idfromBoard.split(".");
     let x = Number(split[0]);
