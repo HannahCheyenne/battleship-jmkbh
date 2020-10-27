@@ -9,6 +9,8 @@ import Context from "../../Context";
 import Audio from '../../services/audio'
 // import HealthBar from "./HealthBar/HealthBar";
 import GetAiMove from "./GetAiMove";
+import EndGameTrigger from "./EndGame/EndGameTrigger";
+import EndGameOverlay from './EndGameOverlay/EndGameOverlay'
 class GameBoard extends Component {
   constructor() {
     super();
@@ -43,6 +45,7 @@ class GameBoard extends Component {
       player_turn: true,
       //whether game is over
       active_game: true,
+      endScreen:false,
     };
   }
   componentDidMount() {
@@ -142,7 +145,18 @@ class GameBoard extends Component {
       () => this.postMove()
     );
   }
-
+  gameOver = () => {
+    console.log("running")
+    this.setState({
+      endScreen:true
+    })
+  }
+  gameOn = () => {
+    console.log("running")
+    this.setState({
+      endScreen:false
+    })
+  }
   render() {
 
     console.log("main game state", this.state)
@@ -150,11 +164,13 @@ class GameBoard extends Component {
       <>
         <div className="gamePage">
           <div className="gameBoard">
-
+          {!this.state.active_game &&
+          <EndGameTrigger func={this.gameOver}/>}
+            {this.state.endScreen && <EndGameOverlay func={this.gameOn}/>}
             {!this.state.player_turn && 
             <GetAiMove func={this.getAiMove}></GetAiMove>}
             <div className="player" id="player">
-              {!this.state.active_game && 
+              {!this.state.active_game && !this.state.endScreen &&
               <PlayerBoardRender
                 newGame={this.newGame}
                 disabled={this.state.active_game}
@@ -172,12 +188,13 @@ class GameBoard extends Component {
           </div>
           <div className="gameBoard">
             <div className="opponent" id="opponent">
-              <BoardRender
+              {this.state.active_game && 
+                <BoardRender
                 test={this.state.p2_board}
                 key={this.state.p2_board}
                 playerMove={this.playerMove}
                 disabled={!this.state.active_game}
-              />
+              />}
             </div>
           </div>
         </div>
