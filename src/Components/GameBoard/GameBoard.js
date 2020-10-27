@@ -163,6 +163,8 @@ class GameBoard extends Component {
   render() {
     //TODO These need to be changed to the actual user and the gameboard ID so
     //both users can talk to each other. Use context maybe?
+    
+    //TODO make room a concatenation of player names
     const name = "TestUser";
     const room = "TestRoom";
 
