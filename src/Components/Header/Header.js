@@ -24,7 +24,8 @@ class Header extends Component {
   }
   renderHeaderNoLink(){
     return (
-      `Space Battleship`
+      <Link to='/dashboard'>Space Battleship</Link>
+      // `Space Battleship`
     )
   }
   handleLogoutClick = () => {

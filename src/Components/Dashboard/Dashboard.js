@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Audio from '../../services/audio'
 import "./dashboard.css";
 import CreatePrivateGame from "../Buttons/CreatePrivateGame/CreatePrivateGame";
 import CreateAiGame from "../Buttons/CreateAiGame/CreateAiGame";
@@ -14,10 +15,12 @@ import planetyellow from '../../Images/Planets/planetyellow.png'
 // import planetyellowring from '../../Images/Planets/planetyellowring.png'
 import Context from "../../Context"
 
-
 class Dashboard extends Component {
   static contextType = Context;
   
+  componentDidMount() {
+    Audio.stop()
+  }
   render() {
     return (
       <div>

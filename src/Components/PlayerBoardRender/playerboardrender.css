@@ -29,6 +29,10 @@
     background: rgba(0, 0, 0, 0.187);
     border: 1px solid  #fffbef93;
 }
+.cell:disabled {
+  cursor: not-allowed;
+}
+
 .boardContainer{
   max-width: 450px;
   max-height: 450px;
@@ -88,6 +92,10 @@
   .selected{
     background: #ff0000;
     border: 1px solid red
+  }
+
+  .active1 {
+    background:  rgba(0, 213, 122, 0.712);
   }
   
   

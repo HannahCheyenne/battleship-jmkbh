@@ -30,7 +30,6 @@ export default class App extends Component {
 
   /*
   Themes are:
-  'ambiance.mp3'
   'game.mp3'
   'menu.mp3'
   'win.mp3'

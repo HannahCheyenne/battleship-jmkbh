@@ -9,6 +9,8 @@ import HealthBar from "../GameBoard/HealthBar/HealthBar";
 // import destroyer from "../../Images/destroyer.png";
 // import submarine from "../../Images/submarine.png";
 import createShips from "../../Utils/GameHelpers";
+import TriggerTest from "./TriggerTest";
+import Audio from '../../services/audio'
 
 export default class PlayerBoardRender extends Component {
   constructor() {
@@ -51,7 +53,7 @@ export default class PlayerBoardRender extends Component {
     e.preventDefault();
     let savedBoard = this.state.savedBoard;
     const board = this.state.board;
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
         board[i][j] = savedBoard[i][j];
       }
@@ -75,12 +77,12 @@ export default class PlayerBoardRender extends Component {
     }
   }
 
-  saveOldBoard() {
-    //TODO set anchor sound effect here
+  saveOldBoard = () => {
+    Audio.click()
     const board = this.state.board;
     let savedBoard = this.deepCopy(board);
     console.log("saved old board", savedBoard);
-  }
+  };
 
   deepCopy = (arr) => {
     let copy = [];
@@ -92,25 +94,27 @@ export default class PlayerBoardRender extends Component {
     return copy;
   };
 
-  checkUp(anchorX, anchorY, dirX, dirY) {
+  checkCells = (anchorX, anchorY, dirX, dirY) => {
     const shipId = this.state.shipId;
     const shipLength = this.shipLength(shipId);
     let newBoard = [...this.state.board];
-    let checkCells = true;
+    let allClear = true;
 
     for (let i = 0; i < shipLength; i++) {
       let x = anchorX + i * dirX;
       let y = anchorY + i * dirY;
       if (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
         if (newBoard[x][y] !== 7) {
-          checkCells = false;
+          allClear = false;
         }
       } else {
-        checkCells = false;
+        allClear = false;
       }
     }
-
-    if (checkCells) {
+    if (this.state.shipsToPlace[shipId] === 0) {
+      allClear = false;
+    }
+    if (allClear) {
       for (let i = 0; i < shipLength; i++) {
         let x = anchorX + i * dirX;
         let y = anchorY + i * dirY;
@@ -118,10 +122,20 @@ export default class PlayerBoardRender extends Component {
       }
     }
     this.setState({ board: [...newBoard], validPlacement: true });
+  };
+
+  findNextShip(arr) {
+    let index = arr
+      .slice()
+      .reverse()
+      .findIndex((v) => v === 1);
+    var count = arr.length - 1;
+    var finalIndex = index >= 0 ? count - index : index;
+    return finalIndex;
   }
 
   updateBoard = () => {
-    //TODO do sound effect for successful ship placement
+    Audio.positioned()
     let { board, savedBoard, shipId, shipsToPlace } = this.state;
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
@@ -132,7 +146,8 @@ export default class PlayerBoardRender extends Component {
     }
 
     shipsToPlace[shipId] = 0;
-    shipId -= 1;
+    shipId = this.findNextShip(shipsToPlace);
+
     this.setState({
       savedBoard: savedBoard,
       isAnchor: false,
@@ -150,7 +165,7 @@ export default class PlayerBoardRender extends Component {
     let newY = Number(split[1]);
     let anchorY = this.state.anchorY;
     let anchorX = this.state.anchorX;
-    console.log("x", newX, "y", newY);
+    //console.log("x", newX, "y", newY);
 
     if (newBoard[newX][newY]) {
       this.setState({
@@ -166,33 +181,31 @@ export default class PlayerBoardRender extends Component {
         if (Math.abs(diffX) > Math.abs(diffY)) {
           if (diffX > 0) {
             //up
-            this.checkUp(anchorX, anchorY, -1, 0);
+            this.checkCells(anchorX, anchorY, -1, 0);
           } else if (diffX < 0) {
             //down
-            this.checkUp(anchorX, anchorY, 1, 0);
+            this.checkCells(anchorX, anchorY, 1, 0);
           }
         } else if (Math.abs(diffY) > Math.abs(diffX)) {
           if (diffY > 0) {
             //left
-            this.checkUp(anchorX, anchorY, 0, -1);
+            this.checkCells(anchorX, anchorY, 0, -1);
           } else if (diffY < 0) {
             //right
-            this.checkUp(anchorX, anchorY, 0, 1);
+            this.checkCells(anchorX, anchorY, 0, 1);
           }
         }
       }
     }
   };
 
-  // selectShip = (e) => {
-  //   e.preventDefault()
-  //   let newSelection = e.target.id
-  //   let ship =
-  //   this.setState = ({
-  //     shipId:newSelection
-  //   })
-  //   console.log(this.state.shipId)
-  // }
+  selectShip = (e) => {
+    e.preventDefault();
+    let newSelection = parseInt(e.target.id);
+    this.setState({
+      shipId: newSelection,
+    });
+  };
 
   placementOnClick = (e) => {
     e.preventDefault();
@@ -230,8 +243,15 @@ export default class PlayerBoardRender extends Component {
     }
   };
 
-  clearBoard = (e) => {
+  newGameSubmit = () => {
+    
+  };
+
+  reset = (e) => {
     e.preventDefault();
+    this.clearBoard();
+  };
+  clearBoard = () => {
     this.setState({
       id: "",
       board: [
@@ -267,26 +287,31 @@ export default class PlayerBoardRender extends Component {
   };
 
   render() {
-    const { ships } = this.state;
+    const { ships, shipsToPlace, savedBoard } = this.state;
     const board = [...this.state.board];
     const H = <img className="image" src={boom} alt="hit" />;
     const M = <img className="image" src={miss} alt="miss" />;
-    const remainingShips = this.state.shipsToPlace.reduce(
-      (accumulator, currentValue) => accumulator + currentValue
-    );
-    console.log("State Updated: ", this.state);
+    const remainingShips = this.state.shipsToPlace.reduce((a, c) => a + c);
+
+    //console.log("State Updated: ", this.state);
 
     return (
       <div className="playerContainer">
         <div className="shipcontainer">
           {remainingShips === 0 && (
             <div>
-              <button onClick={this.newGameSubmit}>Submit</button>
-              <button onClick={this.clearBoard}>Reset</button>
+              <button onClick={() => this.props.newGame(savedBoard)}>Start new game!</button>
+              <button onClick={this.reset}>Reset Board</button>
             </div>
           )}
           {ships.createShips.map((i) => (
-            <button className="ship" onClick={this.selectShip} id={`${i.type}`}>
+            <button
+              className={`ship active${shipsToPlace[i.shipId]}`}
+              onClick={this.selectShip}
+              id={`${i.shipId}`}
+              key={`${i.shipId}`}
+              //this is where the unique key prop error is coming from
+            >
               {i.type}
             </button>
           ))}
@@ -294,10 +319,13 @@ export default class PlayerBoardRender extends Component {
         <span>
           <div>
             Health
-            <HealthBar health={this.props.p1_health} />
           </div>
           <div className="boardContainer">
             <div className="board">
+              {!this.props.disabled && (
+                <TriggerTest func={this.clearBoard}></TriggerTest>
+              )}
+
               {board[0].map((i, index) => (
                 <button
                   onMouseOut={this.resetBoard}
@@ -307,8 +335,9 @@ export default class PlayerBoardRender extends Component {
                   id={`0.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
-                  {i === 9 ? M : i === 8 ? H : ""}
+                  {i === 9 ? M : i === 8 ? H : ""}{" "}
                 </button>
               ))}
               {board[1].map((i, index) => (
@@ -320,6 +349,7 @@ export default class PlayerBoardRender extends Component {
                   id={`1.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -333,8 +363,9 @@ export default class PlayerBoardRender extends Component {
                   id={`2.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
-                  {i === 0 ? M : i === 8 ? H : ""}
+                  {i === 9 ? M : i === 8 ? H : ""}
                 </button>
               ))}
               {board[3].map((i, index) => (
@@ -346,6 +377,7 @@ export default class PlayerBoardRender extends Component {
                   id={`3.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -359,6 +391,7 @@ export default class PlayerBoardRender extends Component {
                   id={`4.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -372,6 +405,7 @@ export default class PlayerBoardRender extends Component {
                   id={`5.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -385,6 +419,7 @@ export default class PlayerBoardRender extends Component {
                   id={`6.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -398,6 +433,7 @@ export default class PlayerBoardRender extends Component {
                   id={`7.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
