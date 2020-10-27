@@ -12,13 +12,17 @@ import planetred from '../../Images/Planets/planetred.png'
 import planetyellow from '../../Images/Planets/planetyellow.png'
 // import planetyellowbump from '../../Images/Planets/planetyellowbump.png'
 // import planetyellowring from '../../Images/Planets/planetyellowring.png'
+import Context from "../../Context"
 
 
 class Dashboard extends Component {
+  static contextType = Context;
+  
   render() {
     return (
       <div>
         <div className="dashboardPage">
+          <p>Welcome: {this.context.currentUser}</p>
           <div className="dashboardButtonContainer">
             <div className="buttonImageCombo">
               <img className="dashimage"src={planetblue} alt=""/>

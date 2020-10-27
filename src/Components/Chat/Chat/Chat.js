@@ -12,7 +12,7 @@ import './Chat.css';
 
 let socket;
 
-const Chat = ({ location }) => {
+const Chat = ({ userName, chatRoom }) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');
@@ -20,10 +20,13 @@ const Chat = ({ location }) => {
   const [messages, setMessages] = useState([]);
   const [flag, setFlag] = useState(0);
   const ENDPOINT = 'http://localhost:4000/';
+  const endRouteChat = `?name=${userName}&room=${chatRoom}`;
 
   useEffect(() => {
-    const { name, room } = queryString.parse(location.search);
-
+    const { name, room } = queryString.parse(endRouteChat); //location.search was her before in place of endRouteChat
+    
+      
+      //console.log("LOCATION SEARCH", location.search);
     socket = io(ENDPOINT);
 
     setRoom(room);
@@ -35,7 +38,7 @@ const Chat = ({ location }) => {
         alert(error);
       }
     });
-  }, [ENDPOINT, location.search]);
+  }, [ENDPOINT, endRouteChat]); //location.search was her before in place of endRouteChat
 
   useEffect(() => {
     socket.on('message', message => {
@@ -57,7 +60,7 @@ const Chat = ({ location }) => {
 
   if (flag) {
     return (
-      <Redirect to="/" />
+      <Redirect to="/game" />
     )
   }
 

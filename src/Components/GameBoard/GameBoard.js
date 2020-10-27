@@ -5,12 +5,20 @@ import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
 // import HealthBar from "./HealthBar/HealthBar";
+import ChatWindow from "../Chat/ChatWindow/ChatWindow"
+import Join from "../Chat/Join/Join"
+import Chat from "../Chat/Chat/Chat"
+import Context from "../../Context"
+
 
 class GameBoard extends Component {
+  static contextType = Context;
+  
   constructor() {
     super();
     this.playerMove = this.playerMove.bind(this);
     this.state = {
+      show: false,
       idfromBoard: "",
       //player
       id: 1,
@@ -42,6 +50,15 @@ class GameBoard extends Component {
       active_game: true,
     };
   }
+  
+  showChat = () => {
+    this.setState({ show: true });
+  };
+  
+  hideChat = () => {
+    this.setState({ show: false });
+  };
+  
   componentDidMount() {
     BattleshipAPI.getState(1).then((data) => {
       const gameState = data.gameState;
@@ -135,6 +152,10 @@ class GameBoard extends Component {
   }
 
   render() {
+    //These need to be changed to the actual user and the gameboard ID so both
+    //users can talk to each other
+    const name = "TestUser";
+    const room = "TestRoom";
     return (
       <>
         <div className="gamePage">
@@ -166,6 +187,12 @@ class GameBoard extends Component {
           {!this.state.active_game && (
             <NewGame data={this.state} handleClick={this.newGame} />
           */}
+          <ChatWindow show={this.state.show} handleClose={this.hideChat}>
+            {/* <Join name={"Test User"} room={"test room"}></Join> */}
+            <Chat userName={name} chatRoom={room}/>
+            {/* Add Join Chat here */}
+          </ChatWindow>
+          <button type="button" onClick={this.showChat}>Chat</button>
         </div>
       </>
     );
