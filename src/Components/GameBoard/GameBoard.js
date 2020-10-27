@@ -62,16 +62,7 @@ class GameBoard extends Component {
   newGame = (playerBoard) => {
     let initialState = {
       p1_board: playerBoard,
-      p2_board: [
-        [0, 0, 7, 4, 4, 4, 4, 4],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [1, 1, 1, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [2, 2, 2, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [3, 3, 3, 3, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-      ],
+      p2_board: playerBoard,//!temporary for demo
       p1_health: [2, 3, 3, 4, 5],
       p2_health: [2, 3, 3, 4, 5],
       player_turn: true,
