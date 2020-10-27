@@ -91,6 +91,16 @@ class GameBoard extends Component {
     });
   };
 
+  hitSound = (bef, aft) => {
+    for(let i=0; i<bef.length; i++) {
+      (bef[i] !== 0 && aft[i] === 0)
+        && Audio.attackSound(true, true);
+      (bef[i] > aft[i] && aft[i] !== 0)
+        && Audio.attackSound(true);
+    }
+    return aft;
+  };
+
   getAiMove = () => {
     const gameId = this.state.id;
     BattleshipAPI.getAiMove(gameId).then((data) => {
@@ -110,16 +120,6 @@ class GameBoard extends Component {
       });
     });
   };
-
-  hitSound = (bef, aft) => {
-    for(let i=0; i<bef.length; i++) {
-      (bef[i] !== 0 && aft[i] === 0)
-        && Audio.attackSound(true, true);
-      (bef[i] > aft[i] && aft[i] !== 0)
-        && Audio.attackSound(true);
-    }
-    return aft;
-  }
 
   postMove = () => {
     Audio.laser()
