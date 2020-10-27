@@ -9,6 +9,10 @@
   background: #0000004f;
   outline-style: none;
 }
+.slot.disabled {
+  cursor: not-allowed;
+}
+
 .image {
   width: 45px;
   height: 45px;

@@ -24,6 +24,7 @@ const BattleshipAPI = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
+  
   newGame(gameState) {
     return fetch(`${config.API_ENDPOINT}/game/newgame/`, {
       method: "POST",

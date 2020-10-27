@@ -9,6 +9,7 @@ import HealthBar from "../GameBoard/HealthBar/HealthBar";
 // import destroyer from "../../Images/destroyer.png";
 // import submarine from "../../Images/submarine.png";
 import createShips from "../../Utils/GameHelpers";
+import TriggerTest from "./TriggerTest";
 
 export default class PlayerBoardRender extends Component {
   constructor() {
@@ -94,9 +95,7 @@ export default class PlayerBoardRender extends Component {
 
   checkCells = (anchorX, anchorY, dirX, dirY) => {
     const shipId = this.state.shipId;
-    console.log("PlayerBoardRender -> checkCells -> shipId", shipId);
     const shipLength = this.shipLength(shipId);
-    console.log("PlayerBoardRender -> checkCells -> shipLength", shipLength);
     let newBoard = [...this.state.board];
     let allClear = true;
 
@@ -124,6 +123,16 @@ export default class PlayerBoardRender extends Component {
     this.setState({ board: [...newBoard], validPlacement: true });
   };
 
+  findNextShip(arr) {
+    let index = arr
+      .slice()
+      .reverse()
+      .findIndex((v) => v === 1);
+    var count = arr.length - 1;
+    var finalIndex = index >= 0 ? count - index : index;
+    return finalIndex;
+  }
+
   updateBoard = () => {
     //TODO do sound effect for successful ship placement
     let { board, savedBoard, shipId, shipsToPlace } = this.state;
@@ -136,13 +145,7 @@ export default class PlayerBoardRender extends Component {
     }
 
     shipsToPlace[shipId] = 0;
-    // if (shipId > 0) shipId -= 1;
-    // else shipId = 4;
-    let shipsLeft = shipsToPlace.findIndex(v => v === 1)
-    console.log("PlayerBoardRender -> updateBoard -> shipsLeft", shipsLeft)
-    if (shipsLeft >= 0){
-      shipId = shipsLeft
-    }
+    shipId = this.findNextShip(shipsToPlace);
 
     this.setState({
       savedBoard: savedBoard,
@@ -198,11 +201,6 @@ export default class PlayerBoardRender extends Component {
   selectShip = (e) => {
     e.preventDefault();
     let newSelection = parseInt(e.target.id);
-    console.log(
-      "PlayerBoardRender -> selectShip -> newSelection",
-      newSelection
-    );
-
     this.setState({
       shipId: newSelection,
     });
@@ -244,8 +242,16 @@ export default class PlayerBoardRender extends Component {
     }
   };
 
-  clearBoard = (e) => {
+  newGameSubmit = () => {
+    
+  };
+
+  reset = (e) => {
     e.preventDefault();
+    this.clearBoard();
+  };
+
+  clearBoard = () => {
     this.setState({
       id: "",
       board: [
@@ -282,14 +288,11 @@ export default class PlayerBoardRender extends Component {
 
   render() {
     const { ships, shipsToPlace } = this.state;
-    console.log("PlayerBoardRender -> render -> shipsToPlace", shipsToPlace)
     const board = [...this.state.board];
     const H = <img className="image" src={boom} alt="hit" />;
     const M = <img className="image" src={miss} alt="miss" />;
-    const remainingShips = this.state.shipsToPlace.reduce(
-      (accumulator, currentValue) => accumulator + currentValue
-    );
-    
+    const remainingShips = this.state.shipsToPlace.reduce((a, c) => a + c);
+
     //console.log("State Updated: ", this.state);
 
     return (
@@ -297,8 +300,8 @@ export default class PlayerBoardRender extends Component {
         <div className="shipcontainer">
           {remainingShips === 0 && (
             <div>
-              <button onClick={this.newGameSubmit}>Start new game!</button>
-              <button onClick={this.clearBoard}>Reset Board</button>
+              <button onClick={() => this.props.newGame(board)}>Start new game!</button>
+              <button onClick={this.reset}>Reset Board</button>
             </div>
           )}
           {ships.createShips.map((i) => (
@@ -318,6 +321,10 @@ export default class PlayerBoardRender extends Component {
           </div>
           <div className="boardContainer">
             <div className="board">
+              {!this.props.disabled && (
+                <TriggerTest func={this.clearBoard}></TriggerTest>
+              )}
+
               {board[0].map((i, index) => (
                 <button
                   onMouseOut={this.resetBoard}
@@ -327,6 +334,7 @@ export default class PlayerBoardRender extends Component {
                   id={`0.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}{" "}
                 </button>
@@ -340,6 +348,7 @@ export default class PlayerBoardRender extends Component {
                   id={`1.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -353,6 +362,7 @@ export default class PlayerBoardRender extends Component {
                   id={`2.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -366,6 +376,7 @@ export default class PlayerBoardRender extends Component {
                   id={`3.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -379,6 +390,7 @@ export default class PlayerBoardRender extends Component {
                   id={`4.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -392,6 +404,7 @@ export default class PlayerBoardRender extends Component {
                   id={`5.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -405,6 +418,7 @@ export default class PlayerBoardRender extends Component {
                   id={`6.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>
@@ -418,6 +432,7 @@ export default class PlayerBoardRender extends Component {
                   id={`7.${index}`}
                   value={i}
                   className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
                 </button>

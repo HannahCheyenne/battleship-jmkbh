@@ -58,33 +58,26 @@ class GameBoard extends Component {
       });
     });
   }
-  newGame = () => {
+
+  newGame = (playerBoard) => {
     let initialState = {
-      p1_board: [
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-      ],
+      p1_board: playerBoard,
       p2_board: [
-        [7, 4, 4, 4, 4, 4, 7, 7],
-        [7, 7, 7, 7, 7, 7, 2, 7],
-        [7, 7, 7, 7, 7, 7, 2, 7],
-        [7, 7, 0, 0, 7, 7, 2, 7],
+        [0, 0, 7, 4, 4, 4, 4, 4],
         [7, 7, 7, 7, 7, 7, 7, 7],
+        [1, 1, 1, 7, 7, 7, 7, 7],
         [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 1, 1, 1, 7, 7],
-        [7, 3, 3, 3, 3, 7, 7, 7],
+        [2, 2, 2, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [3, 3, 3, 3, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
       ],
       p1_health: [2, 3, 3, 4, 5],
       p2_health: [2, 3, 3, 4, 5],
       player_turn: true,
       active_game: true,
     };
+
     BattleshipAPI.newGame(initialState).then((data) => {
       const gameState = data.gameState;
       this.setState({
@@ -135,14 +128,18 @@ class GameBoard extends Component {
   }
 
   render() {
+
+    console.log("main game state", this.state)
     return (
       <>
         <div className="gamePage">
           <div className="gameBoard">
             <div className="player" id="player">
               <PlayerBoardRender
-                test={this.state.p2_board}
-                key={this.state.p2_board}
+                newGame={this.newGame}
+                disabled={this.state.active_game}
+                test={this.state.p1_board}
+                key={this.state.p1_board}
                 ships={this.state.p1_health}
                 p1_health={this.state.p1_health}
               />
@@ -155,7 +152,7 @@ class GameBoard extends Component {
                 key={this.state.p2_board}
                 playerMove={this.playerMove}
                 p2_health={this.state.p2_health}
-
+                disabled={!this.state.active_game}
               />
             </div>
           </div>

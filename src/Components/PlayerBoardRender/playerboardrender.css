@@ -29,6 +29,10 @@
     background: rgba(0, 0, 0, 0.187);
     border: 1px solid  #fffbef93;
 }
+.cell:disabled {
+  cursor: not-allowed;
+}
+
 .boardContainer{
   max-width: 450px;
   max-height: 450px;
