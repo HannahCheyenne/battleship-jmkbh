@@ -9,6 +9,7 @@ import HealthBar from "../GameBoard/HealthBar/HealthBar";
 // import destroyer from "../../Images/destroyer.png";
 // import submarine from "../../Images/submarine.png";
 import createShips from "../../Utils/GameHelpers";
+import TriggerTest from "./TriggerTest";
 
 export default class PlayerBoardRender extends Component {
   constructor() {
@@ -17,164 +18,193 @@ export default class PlayerBoardRender extends Component {
       id: "",
       board: [
         [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 0, 0, 7, 7, 1, 7, 7],
-        [7, 7, 7, 7, 7, 1, 7, 7],
-        [7, 7, 7, 7, 7, 1, 7, 7],
-        [3, 7, 7, 7, 7, 7, 7, 7],
-        [3, 7, 7, 7, 7, 7, 7, 7],
-        [3, 7, 4, 4, 4, 4, 7, 7],
-        [3, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
       ],
-     
+      savedBoard: [
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+      ],
       ships: createShips,
-      selectedShip: "",
-      curx: 0,
-      cury: 0,
-      anchorx: 0,
-      anchory: 0,
+      currX: 0,
+      currY: 0,
+      anchorX: 0,
+      anchorY: 0,
       isAnchor: false,
+      shipId: 4,
+      shipsToPlace: [1, 1, 1, 1, 1],
+      validPlacement: false,
     };
   }
-  // placementListener = function (e) {
+
   resetBoard = (e) => {
     e.preventDefault();
-    console.log("PlayerBoardRender -> resetBoard -> this.state", this.state)
-    const oldBoard = [
-      [7, 7, 7, 7, 7, 7, 7, 7],
-      [7, 0, 0, 7, 7, 1, 7, 7],
-      [7, 7, 7, 7, 7, 1, 7, 7],
-      [7, 7, 7, 7, 7, 1, 7, 7],
-      [3, 7, 7, 7, 7, 7, 7, 7],
-      [3, 7, 7, 7, 7, 7, 7, 7],
-      [3, 7, 4, 4, 4, 4, 7, 7],
-      [3, 7, 7, 7, 7, 7, 7, 7],
-    ]
-    
-    this.setState({
-      board: oldBoard,
-    });
-    
-    console.log("PlayerBoardRender -> resetBoard -> this.state", this.state)
+    let savedBoard = this.state.savedBoard;
+    const board = this.state.board;
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        board[i][j] = savedBoard[i][j];
+      }
+    }
+    this.setState({ board: board, validPlacement: false });
   };
 
+  shipLength(shipId) {
+    if (shipId === 4) {
+      return 5;
+    } else if (shipId === 3) {
+      return 4;
+    } else if (shipId === 2) {
+      return 3;
+    } else if (shipId === 1) {
+      return 3;
+    } else if (shipId === 0) {
+      return 2;
+    } else {
+      return 0;
+    }
+  }
+
+  saveOldBoard = () => {
+    //TODO set anchor sound effect here
+    const board = this.state.board;
+    let savedBoard = this.deepCopy(board);
+    console.log("saved old board", savedBoard);
+  };
+
+  deepCopy = (arr) => {
+    let copy = [];
+    arr.forEach((elem) => {
+      if (Array.isArray(elem)) {
+        copy.push(this.deepCopy(elem));
+      }
+    });
+    return copy;
+  };
+
+  checkCells = (anchorX, anchorY, dirX, dirY) => {
+    const shipId = this.state.shipId;
+    const shipLength = this.shipLength(shipId);
+    let newBoard = [...this.state.board];
+    let allClear = true;
+
+    for (let i = 0; i < shipLength; i++) {
+      let x = anchorX + i * dirX;
+      let y = anchorY + i * dirY;
+      if (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
+        if (newBoard[x][y] !== 7) {
+          allClear = false;
+        }
+      } else {
+        allClear = false;
+      }
+    }
+    if (this.state.shipsToPlace[shipId] === 0) {
+      allClear = false;
+    }
+    if (allClear) {
+      for (let i = 0; i < shipLength; i++) {
+        let x = anchorX + i * dirX;
+        let y = anchorY + i * dirY;
+        newBoard[x][y] = 6;
+      }
+    }
+    this.setState({ board: [...newBoard], validPlacement: true });
+  };
+
+  findNextShip(arr) {
+    let index = arr
+      .slice()
+      .reverse()
+      .findIndex((v) => v === 1);
+    var count = arr.length - 1;
+    var finalIndex = index >= 0 ? count - index : index;
+    return finalIndex;
+  }
+
+  updateBoard = () => {
+    //TODO do sound effect for successful ship placement
+    let { board, savedBoard, shipId, shipsToPlace } = this.state;
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        if (board[i][j] === 6) {
+          savedBoard[i][j] = shipId;
+        }
+      }
+    }
+
+    shipsToPlace[shipId] = 0;
+    shipId = this.findNextShip(shipsToPlace);
+
+    this.setState({
+      savedBoard: savedBoard,
+      isAnchor: false,
+      validPlacement: false,
+      shipsToPlace: shipsToPlace,
+      shipId: shipId,
+    });
+  };
 
   placementMouseover = (e) => {
     e.preventDefault();
-    let teddy = this.state
-    console.log(teddy, 'teddy was here')
-    let newBoard = this.state.board;
-    console.log("PlayerBoardRender -> placementMouseover -> newBoard", newBoard)
-  
+    let newBoard = [...this.state.board];
     let split = e.target.id.split(".");
-    let newx = Number(split[0]);
-    let newy = Number(split[1]);
-    let anchory = this.state.anchory;
-    let anchorx = this.state.anchorx;
+    let newX = Number(split[0]);
+    let newY = Number(split[1]);
+    let anchorY = this.state.anchorY;
+    let anchorX = this.state.anchorX;
+    //console.log("x", newX, "y", newY);
 
-    console.log("x", newx, "y", newy);
-    
-    if (newBoard[newx][newy]) {
+    if (newBoard[newX][newY]) {
       this.setState({
-        x: newx,
-        y: newy,
+        x: newX,
+        y: newY,
       });
     }
 
     if (this.state.isAnchor) {
-      const diffx = anchorx - newx;
-      const diffy = anchory - newy;
-
-      if (!(diffx !== 0 && diffy !== 0)) {
-        if (Math.abs(diffx) > Math.abs(diffy)) {
-          console.log("diff x is greater");
-          if (diffx > 0) {
+      const diffX = anchorX - newX;
+      const diffY = anchorY - newY;
+      if (!(diffX !== 0 && diffY !== 0)) {
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX > 0) {
             //up
-            console.log("diff x is positive - up");
-            if (
-              //check valid
-              newBoard[anchorx][anchory] === 7 &&
-              newBoard[anchorx - 1][anchory] === 7 &&
-              newBoard[anchorx - 2][anchory] === 7
-            ) {
-              newBoard[anchorx][anchory] = 6;
-              newBoard[anchorx - 1][anchory] = 6;
-              newBoard[anchorx - 2][anchory] = 6;
-              this.setState({ board: newBoard });
-              //validMove = true;
-            }
-          } else if (diffx < 0) {
-            console.log("diff x is negative - down"); //down
-            if (
-              //checklvalid
-              newBoard[anchorx][anchory] === 7 &&
-              newBoard[anchorx + 1][anchory] === 7 &&
-              newBoard[anchorx + 2][anchory] === 7
-            ) {
-              newBoard[anchorx][anchory] = 6;
-              newBoard[anchorx + 1][anchory] = 6;
-              newBoard[anchorx + 2][anchory] = 6;
-              this.setState({ board: newBoard });
-              //validMove = true;
-            }
+            this.checkCells(anchorX, anchorY, -1, 0);
+          } else if (diffX < 0) {
+            //down
+            this.checkCells(anchorX, anchorY, 1, 0);
           }
-        } else if (Math.abs(diffy) > Math.abs(diffx)) {
-          console.log("diff y is greater");
-
-          if (diffy > 0) {
+        } else if (Math.abs(diffY) > Math.abs(diffX)) {
+          if (diffY > 0) {
             //left
-            console.log("diff y is positive - left?");
-            if (
-              //check valid
-              newBoard[anchorx][anchory] === 7 &&
-              newBoard[anchorx][anchory - 1] === 7 &&
-              newBoard[anchorx][anchory - 2] === 7
-            ) {
-              newBoard[anchorx][anchory] = 6;
-              newBoard[anchorx][anchory - 1] = 6;
-              newBoard[anchorx][anchory - 2] = 6;
-              this.setState({ board: newBoard });
-              //validMove = true;
-            }
-          } else if (diffy < 0) {
+            this.checkCells(anchorX, anchorY, 0, -1);
+          } else if (diffY < 0) {
             //right
-            console.log("diff y is negative - right?");
-            if (
-              //checklvalid
-              newBoard[anchorx][anchory] === 7 &&
-              newBoard[anchorx][anchory + 1] === 7 &&
-              newBoard[anchorx][anchory + 2] === 7
-            ) {
-              newBoard[anchorx][anchory] = 6;
-              newBoard[anchorx][anchory + 1] = 6;
-              newBoard[anchorx][anchory + 2] = 6;
-              this.setState({ board: newBoard });
-              //validMove = true;
-            }
+            this.checkCells(anchorX, anchorY, 0, 1);
           }
         }
       }
     }
   };
 
-  /*+++++++++++++++++++++++++++++
- 
-        let id = `${x}.${y}`;
-        console.log(id);
-        const element = document.getElementById(id);
-        console.log(element);
-        element.className += " " + "shipLength";
-
-++++++++++++++++++++++++++++++*/
-
-  // selectShip = (e) => {
-  //   e.preventDefault()
-  //   let newSelection = e.target.id
-  //   let ship =
-  //   this.setState = ({
-  //     selectedShip:newSelection
-  //   })
-  //   console.log(this.state.selectedShip)
-  // }
+  selectShip = (e) => {
+    e.preventDefault();
+    let newSelection = parseInt(e.target.id);
+    this.setState({
+      shipId: newSelection,
+    });
+  };
 
   placementOnClick = (e) => {
     e.preventDefault();
@@ -183,167 +213,232 @@ export default class PlayerBoardRender extends Component {
     const y = this.state.y;
 
     if (!isAnchor) {
+      this.saveOldBoard();
       let id = `${x}.${y}`;
       const element = document.getElementById(id);
-
       element.className += " selected";
       this.setState({
-        anchorx: x,
-        anchory: y,
+        anchorX: x,
+        anchorY: y,
         isAnchor: true,
       });
     } else {
-      const anchorx = this.state.anchorx;
-      const anchory = this.state.anchory;
-
-      if (x === anchorx && y === anchory) {
+      const anchorX = this.state.anchorX;
+      const anchorY = this.state.anchorY;
+      if (x === anchorX && y === anchorY) {
         let id = `${x}.${y}`;
         const element = document.getElementById(id);
         element.className = "slot";
-
         this.setState({
-          anchorx: 0,
-          anchory: 0,
+          anchorX: 0,
+          anchorY: 0,
           isAnchor: false,
         });
       } else {
-        //need the length of the ship
-        //get the x plus one highlight each box if vert
-        //get the y plus one highlight each box if horiz
+        if (this.state.validPlacement) {
+          this.updateBoard();
+        }
       }
     }
-    // add size to each index
-    //this needs to set the ship in place
-    // once it is set in place it needs to be removed from the roster.
-    // i think that function can be created in the ship container as an onclick
-    //like while active and onClick then remove from roster
+  };
+
+  newGameSubmit = () => {
+    
+  };
+
+  reset = (e) => {
+    e.preventDefault();
+    this.clearBoard();
+  };
+
+  clearBoard = () => {
+    this.setState({
+      id: "",
+      board: [
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+      ],
+      savedBoard: [
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+      ],
+      ships: createShips,
+      currX: 0,
+      currY: 0,
+      anchorX: 0,
+      anchorY: 0,
+      isAnchor: false,
+      shipId: 4,
+      shipsToPlace: [1, 1, 1, 1, 1],
+      validPlacement: false,
+    });
   };
 
   render() {
-    const { ships, board } = this.state;
+    const { ships, shipsToPlace, savedBoard } = this.state;
+    const board = [...this.state.board];
     const H = <img className="image" src={boom} alt="hit" />;
     const M = <img className="image" src={miss} alt="miss" />;
-    console.log(this.state.selectedShip);
+    const remainingShips = this.state.shipsToPlace.reduce((a, c) => a + c);
+
+    //console.log("State Updated: ", this.state);
+
     return (
       <div className="playerContainer">
-        
         <div className="shipcontainer">
+          {remainingShips === 0 && (
+            <div>
+              <button onClick={() => this.props.newGame(savedBoard)}>Start new game!</button>
+              <button onClick={this.reset}>Reset Board</button>
+            </div>
+          )}
           {ships.createShips.map((i) => (
-            <button className="ship" onClick={this.selectShip} id={`${i.type}`}>
+            <button
+              className={`ship active${shipsToPlace[i.shipId]}`}
+              onClick={this.selectShip}
+              id={`${i.shipId}`}
+            >
               {i.type}
             </button>
           ))}
         </div>
         <span>
-        <div>Health<HealthBar health={this.props.p1_health} /></div>
-        <div className="boardContainer">
-          <div className="board">
-            {board[0].map((i, index) => (
-              <button
-              onMouseOut={this.resetBoard}
-              onClick={this.placementOnClick}
-                onMouseEnter={this.placementMouseover}
-                key={`0.${index}`}
-                id={`0.${index}`}
-                value={i}
-                className={`slot bg${i}`}
-              >
-                {i === 9 ? M : i === 8 ? H : ""}
-              </button>
-            ))}
-            {board[1].map((i, index) => (
-              <button
-              onMouseOut={this.resetBoard}
-              onClick={this.placementOnClick}
-                onMouseEnter={this.placementMouseover}
-                key={`1.${index}`}
-                id={`1.${index}`}
-                value={i}
-                className={`slot bg${i}`}
-              >
-                {i === 9 ? M : i === 8 ? H : ""}
-              </button>
-            ))}
-            {board[2].map((i, index) => (
-              <button
-              onMouseOut={this.resetBoard}
-              onClick={this.placementOnClick}
-                onMouseEnter={this.placementMouseover}
-                key={`2.${index}`}
-                id={`2.${index}`}
-                value={i}
-                className={`slot bg${i}`}
-              >
-                {i === 0 ? M : i === 8 ? H : ""}
-              </button>
-            ))}
-            {board[3].map((i, index) => (
-              <button
-              onMouseOut={this.resetBoard}
-              onClick={this.placementOnClick}
-                onMouseEnter={this.placementMouseover}
-                key={`3.${index}`}
-                id={`3.${index}`}
-                value={i}
-                className={`slot bg${i}`}
-              >
-                {i === 9 ? M : i === 8 ? H : ""}
-              </button>
-            ))}
-            {board[4].map((i, index) => (
-              <button
-                onMouseOut={this.resetBoard}
-                onClick={this.placementOnClick}
-                onMouseEnter={this.placementMouseover}
-                key={`4.${index}`}
-                id={`4.${index}`}
-                value={i}
-                className={`slot bg${i}`}
-              >
-                {i === 9 ? M : i === 8 ? H : ""}
-              </button>
-            ))}
-            {board[5].map((i, index) => (
-              <button
-              onMouseOut={this.resetBoard}
-              onClick={this.placementOnClick}
-                onMouseEnter={this.placementMouseover}
-                key={`5.${index}`}
-                id={`5.${index}`}
-                value={i}
-                className={`slot bg${i}`}
-              >
-                {i === 9 ? M : i === 8 ? H : ""}
-              </button>
-            ))}
-            {board[6].map((i, index) => (
-              <button
-              onMouseOut={this.resetBoard}
-              onClick={this.placementOnClick}
-                onMouseEnter={this.placementMouseover}
-                key={`6.${index}`}
-                id={`6.${index}`}
-                value={i}
-                className={`slot bg${i}`}
-              >
-                {i === 9 ? M : i === 8 ? H : ""}
-              </button>
-            ))}
-            {board[7].map((i, index) => (
-              <button
-              onMouseOut={this.resetBoard}
-              onClick={this.placementOnClick}
-                onMouseEnter={this.placementMouseover}
-                key={`7.${index}`}
-                id={`7.${index}`}
-                value={i}
-                className={`slot bg${i}`}
-              >
-                {i === 9 ? M : i === 8 ? H : ""}
-              </button>
-            ))}
+          <div>
+            Health
+            <HealthBar health={this.props.p1_health} />
           </div>
-        </div>
+          <div className="boardContainer">
+            <div className="board">
+              {!this.props.disabled && (
+                <TriggerTest func={this.clearBoard}></TriggerTest>
+              )}
+
+              {board[0].map((i, index) => (
+                <button
+                  onMouseOut={this.resetBoard}
+                  onClick={this.placementOnClick}
+                  onMouseEnter={this.placementMouseover}
+                  key={`0.${index}`}
+                  id={`0.${index}`}
+                  value={i}
+                  className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
+                >
+                  {i === 9 ? M : i === 8 ? H : ""}{" "}
+                </button>
+              ))}
+              {board[1].map((i, index) => (
+                <button
+                  onMouseOut={this.resetBoard}
+                  onClick={this.placementOnClick}
+                  onMouseEnter={this.placementMouseover}
+                  key={`1.${index}`}
+                  id={`1.${index}`}
+                  value={i}
+                  className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
+                >
+                  {i === 9 ? M : i === 8 ? H : ""}
+                </button>
+              ))}
+              {board[2].map((i, index) => (
+                <button
+                  onMouseOut={this.resetBoard}
+                  onClick={this.placementOnClick}
+                  onMouseEnter={this.placementMouseover}
+                  key={`2.${index}`}
+                  id={`2.${index}`}
+                  value={i}
+                  className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
+                >
+                  {i === 9 ? M : i === 8 ? H : ""}
+                </button>
+              ))}
+              {board[3].map((i, index) => (
+                <button
+                  onMouseOut={this.resetBoard}
+                  onClick={this.placementOnClick}
+                  onMouseEnter={this.placementMouseover}
+                  key={`3.${index}`}
+                  id={`3.${index}`}
+                  value={i}
+                  className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
+                >
+                  {i === 9 ? M : i === 8 ? H : ""}
+                </button>
+              ))}
+              {board[4].map((i, index) => (
+                <button
+                  onMouseOut={this.resetBoard}
+                  onClick={this.placementOnClick}
+                  onMouseEnter={this.placementMouseover}
+                  key={`4.${index}`}
+                  id={`4.${index}`}
+                  value={i}
+                  className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
+                >
+                  {i === 9 ? M : i === 8 ? H : ""}
+                </button>
+              ))}
+              {board[5].map((i, index) => (
+                <button
+                  onMouseOut={this.resetBoard}
+                  onClick={this.placementOnClick}
+                  onMouseEnter={this.placementMouseover}
+                  key={`5.${index}`}
+                  id={`5.${index}`}
+                  value={i}
+                  className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
+                >
+                  {i === 9 ? M : i === 8 ? H : ""}
+                </button>
+              ))}
+              {board[6].map((i, index) => (
+                <button
+                  onMouseOut={this.resetBoard}
+                  onClick={this.placementOnClick}
+                  onMouseEnter={this.placementMouseover}
+                  key={`6.${index}`}
+                  id={`6.${index}`}
+                  value={i}
+                  className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
+                >
+                  {i === 9 ? M : i === 8 ? H : ""}
+                </button>
+              ))}
+              {board[7].map((i, index) => (
+                <button
+                  onMouseOut={this.resetBoard}
+                  onClick={this.placementOnClick}
+                  onMouseEnter={this.placementMouseover}
+                  key={`7.${index}`}
+                  id={`7.${index}`}
+                  value={i}
+                  className={`slot bg${i}`}
+                  disabled={this.props.disabled ? "disabled" : ""}
+                >
+                  {i === 9 ? M : i === 8 ? H : ""}
+                </button>
+              ))}
+            </div>
+          </div>
         </span>
       </div>
     );
