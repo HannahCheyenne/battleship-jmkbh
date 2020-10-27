@@ -251,7 +251,6 @@ export default class PlayerBoardRender extends Component {
     e.preventDefault();
     this.clearBoard();
   };
-
   clearBoard = () => {
     this.setState({
       id: "",
@@ -310,6 +309,7 @@ export default class PlayerBoardRender extends Component {
               className={`ship active${shipsToPlace[i.shipId]}`}
               onClick={this.selectShip}
               id={`${i.shipId}`}
+              key={`${i.shipId}`}
               //this is where the unique key prop error is coming from
             >
               {i.type}

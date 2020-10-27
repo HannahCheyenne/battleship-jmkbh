@@ -2,27 +2,27 @@ const createShips = [
   {
     type: "Battleship",
     size: 5,
-    positions: [],
+    shipId: 4,
   },
   {
     type: "Space Carrier",
     size: 4,
-    positions: [],
+    shipId: 3,
   },
   {
     type: "Cruiser",
     size: 3,
-    positions: [],
+    shipId: 2,
   },
   {
     type: "Destroyer",
     size: 3,
-    positions: [],
+    shipId: 1,
   },
   {
     type: "Patrol Ship",
     size: 2,
-    positions: [],
+    shipId: 0,
   },
 ];
 

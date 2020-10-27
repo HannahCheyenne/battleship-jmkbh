@@ -1,0 +1,72 @@
+.slot {
+  width: 50px;
+  height: 50px;
+  margin: 1px 2px;
+  color: #ffffff;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #fffbef93;
+  background: #0000004f;
+  outline-style: none;
+}
+.slot.disabled {
+  cursor: not-allowed;
+}
+
+.image {
+  width: 45px;
+  height: 45px;
+  justify-content: center;
+  display: block;
+  padding: 0px;
+}
+.board {
+  width: 450px;
+  height: 450px;
+}
+.slot:hover {
+  background: #ec7513d2;
+}
+.boardContainer {
+  display: flex;
+}
+/* import battleship from "../../Images/battleship.png";
+import carrier from "../../Images/carrier.png";
+import patrolboat from "../../Images/patrolboat.png";
+import destroyer from "../../Images/destroyer.png";
+import submarine from "../../Images/submarine.png"; */
+.slot.bg0 {
+  background:rgba(255, 122, 248, 0.712);
+}
+.slot.bg1 {
+  background: rgba(255, 122, 248, 0.712);
+} 
+.slot.bg2 {
+  background: rgba(0, 60, 255, 0.712);
+}
+.slot.bg3 {
+  background: rgba(252, 106, 69, 0.712);
+}
+.slot.bg4 {
+  background: rgba(255, 213, 122, 0.712);
+}
+.slot.bg6 {
+  background: rgba(0, 213, 122, 0.712);
+}
+@media all and (max-width: 700px) {
+  .boardContainer {
+    flex-direction: column;
+  }
+  .slot {
+    width: 30px;
+    height: 30px;
+  }
+  .board {
+    width: 300px;
+    height: 300px;
+  }
+  .image {
+    width: 25px;
+    height: 25px;
+  }
+}
