@@ -25,7 +25,7 @@
     border: 1px solid  #fffbef93;
 }
 
-@media all and (max-width:700px){
+@media all and (max-width:800px){
     .gamePage{
         flex-direction: column;
     }

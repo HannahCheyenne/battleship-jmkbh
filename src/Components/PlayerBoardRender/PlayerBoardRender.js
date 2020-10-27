@@ -72,7 +72,7 @@ export default class PlayerBoardRender extends Component {
     let anchorx = this.state.anchorx;
 
     console.log("x", newx, "y", newy);
-
+    
     if (newBoard[newx][newy]) {
       this.setState({
         x: newx,
