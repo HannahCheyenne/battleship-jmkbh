@@ -12,7 +12,7 @@ import './Chat.css';
 
 let socket;
 
-const Chat = ({ userName, chatRoom }) => {
+const Chat = ({ userName, chatRoom }) => { //location was pass through here 
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');
@@ -23,7 +23,7 @@ const Chat = ({ userName, chatRoom }) => {
   const endRouteChat = `?name=${userName}&room=${chatRoom}`;
 
   useEffect(() => {
-    const { name, room } = queryString.parse(endRouteChat); //location.search was her before in place of endRouteChat
+    const { name, room } = queryString.parse(endRouteChat); //location.search was here before in place of endRouteChat
     
       
       //console.log("LOCATION SEARCH", location.search);

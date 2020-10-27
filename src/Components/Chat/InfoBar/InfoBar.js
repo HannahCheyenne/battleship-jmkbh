@@ -1,6 +1,6 @@
 import React from 'react';
 import './InfoBar.css';
-import closeIcon from '../Icons/closeIcon.png';
+//import closeIcon from '../Icons/closeIcon.png';
 import onlineIcon from '../Icons/onlineIcon.png';
 
 const InfoBar = ({ room }) => (

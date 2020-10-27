@@ -9,7 +9,6 @@ import Context from "../../Context";
 import Audio from '../../services/audio'
 // import HealthBar from "./HealthBar/HealthBar";
 import ChatWindow from "../Chat/ChatWindow/ChatWindow"
-import Join from "../Chat/Join/Join"
 import Chat from "../Chat/Chat/Chat"
 
 
@@ -162,8 +161,8 @@ class GameBoard extends Component {
   }
 
   render() {
-    //These need to be changed to the actual user and the gameboard ID so both
-    //users can talk to each other
+    //TODO These need to be changed to the actual user and the gameboard ID so
+    //both users can talk to each other. Use context maybe?
     const name = "TestUser";
     const room = "TestRoom";
 
