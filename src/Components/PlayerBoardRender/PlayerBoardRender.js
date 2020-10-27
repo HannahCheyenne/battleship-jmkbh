@@ -77,6 +77,7 @@ export default class PlayerBoardRender extends Component {
     }
   }
 
+<<<<<<< HEAD
   saveOldBoard = () => {
     Audio.click();
     const board = this.state.board;
@@ -84,6 +85,8 @@ export default class PlayerBoardRender extends Component {
     console.log("saved old board", savedBoard);
   };
 
+=======
+>>>>>>> 9a14e1f39d928e346aa0dc1cfebb2ea45f2853d0
   deepCopy = (arr) => {
     let copy = [];
     arr.forEach((elem) => {
@@ -214,7 +217,7 @@ export default class PlayerBoardRender extends Component {
     const y = this.state.y;
 
     if (!isAnchor) {
-      this.saveOldBoard();
+      Audio.click();
       let id = `${x}.${y}`;
       const element = document.getElementById(id);
       element.className += " selected";

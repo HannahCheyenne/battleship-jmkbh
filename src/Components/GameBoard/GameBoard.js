@@ -40,8 +40,8 @@ class GameBoard extends Component {
         [1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1],
       ],
-      p1_health: [0, 0, 0, 0, 0],
-      p2_health: [0, 0, 0, 0, 0],
+      p1_health: [2, 3, 3, 4, 5],
+      p2_health: [2, 3, 3, 4, 5],
       player_turn: true,
       //whether game is over
       active_game: true,
@@ -94,6 +94,24 @@ class GameBoard extends Component {
     });
   };
 
+  hitSound = (bef, aft) => {
+    let hit = false;
+    for(let i=0; i<bef.length; i++) {
+      if(bef[i] !== 0 && aft[i] === 0){
+        Audio.laser();
+        Audio.attackSound(true, true);
+        hit = true
+      }
+      if(bef[i] > aft[i] && aft[i] !== 0){
+        Audio.laser();
+        Audio.attackSound(true);
+        hit = true
+      }
+    }
+    hit === false && Audio.attackSound(false)
+    return aft;
+  };
+
   getAiMove = () => {
     const gameId = this.state.id;
     BattleshipAPI.getAiMove(gameId).then((data) => {
@@ -115,11 +133,12 @@ class GameBoard extends Component {
   };
 
   postMove = () => {
-    Audio.laser()
+    //Audio.laser()
     let gameId = this.state.id;
     let split = this.state.idfromBoard.split(".");
     let x = Number(split[0]);
     let y = Number(split[1]);
+    let p2Health = this.state.p2_health
     BattleshipAPI.postMove(gameId, x, y).then((data) => {
       const gameState = data.gameState;
       this.setState({
@@ -134,7 +153,9 @@ class GameBoard extends Component {
         player_turn: gameState.player_turn,
         //whether game is over
         active_game: gameState.active_game,
-      });
+      },
+      () => p2Health = this.hitSound(p2Health, gameState.p2_health)
+      )
     });
   };
   playerMove(id) {
