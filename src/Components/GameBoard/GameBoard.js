@@ -92,12 +92,20 @@ class GameBoard extends Component {
   };
 
   hitSound = (bef, aft) => {
+    let hit = false;
     for(let i=0; i<bef.length; i++) {
-      (bef[i] !== 0 && aft[i] === 0)
-        && Audio.attackSound(true, true);
-      (bef[i] > aft[i] && aft[i] !== 0)
-        && Audio.attackSound(true);
+      if(bef[i] !== 0 && aft[i] === 0){
+        Audio.laser();
+        Audio.attackSound(true, true);
+        hit = true
+      }
+      if(bef[i] > aft[i] && aft[i] !== 0){
+        Audio.laser();
+        Audio.attackSound(true);
+        hit = true
+      }
     }
+    hit === false && Audio.attackSound(false)
     return aft;
   };
 
@@ -122,7 +130,7 @@ class GameBoard extends Component {
   };
 
   postMove = () => {
-    Audio.laser()
+    //Audio.laser()
     let gameId = this.state.id;
     let split = this.state.idfromBoard.split(".");
     let x = Number(split[0]);
