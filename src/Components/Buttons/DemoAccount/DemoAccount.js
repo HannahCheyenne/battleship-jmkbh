@@ -13,7 +13,6 @@ class DemoAccount extends Component{
 
     handleDemoAccount = (ev) => {
         ev.preventDefault();
-        this.context.handleTheme('ambiance.mp3')
         const username = "demo"
         const password = "pass"
         AuthApiService.postLogin({

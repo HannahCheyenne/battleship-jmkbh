@@ -6,8 +6,9 @@ import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
 import SetPlayerBoardRender from "../SetPlayerBoardRender/SetPlayerBoardRender";
 import Context from "../../Context";
+import Audio from '../../services/audio'
 // import HealthBar from "./HealthBar/HealthBar";
-
+import GetAiMove from "./GetAiMove";
 class GameBoard extends Component {
   constructor() {
     super();
@@ -65,7 +66,7 @@ class GameBoard extends Component {
     this.context.handleTheme('game.mp3');
     let initialState = {
       p1_board: playerBoard,
-      p2_board: playerBoard,//!temporary for demo
+      p2_board: playerBoard, //!temporary for demo
       p1_health: [2, 3, 3, 4, 5],
       p2_health: [2, 3, 3, 4, 5],
       player_turn: true,
@@ -90,7 +91,28 @@ class GameBoard extends Component {
     });
   };
 
+  getAiMove = () => {
+    const gameId = this.state.id;
+    BattleshipAPI.getAiMove(gameId).then((data) => {
+      const gameState = data.gameState;
+      this.setState({
+        idfromBoard: "",
+        id: gameState.id,
+        //player
+        p1_board: gameState.p1_board,
+        //opponent
+        p2_board: gameState.p2_board,
+        p1_health: gameState.p1_health,
+        p2_health: gameState.p2_health,
+        player_turn: gameState.player_turn,
+        //whether game is over
+        active_game: gameState.active_game,
+      });
+    });
+  };
+
   postMove = () => {
+    Audio.laser()
     let gameId = this.state.id;
     let split = this.state.idfromBoard.split(".");
     let x = Number(split[0]);
@@ -128,6 +150,9 @@ class GameBoard extends Component {
       <>
         <div className="gamePage">
           <div className="gameBoard">
+
+            {!this.state.player_turn && 
+            <GetAiMove func={this.getAiMove}></GetAiMove>}
             <div className="player" id="player">
               {!this.state.active_game && 
               <PlayerBoardRender

@@ -30,10 +30,6 @@ async function playEffect(effect) {
     sound.connect(vol).start()
 };
 
-function laserSound() {
-    !isMuted && playEffect('mp3s/laser.mp3')
-};
-
 function hitSound(){
     !isMuted && playEffect('mp3s/hit.mp3')
 };
@@ -74,8 +70,7 @@ const Audio = {
         theme.connect(vol).start()
     },
 
-    attackSound(hit, destroyed=false) {
-        laserSound()
+    hitSound(hit, destroyed=false) {
         hit === true
           ? destroyed === true
             ? setTimeout(destroyedSound, 200)
@@ -85,6 +80,10 @@ const Audio = {
 
     setVol(val) {
         vol.volume.value = val
+    },
+
+    laser() {
+        !isMuted && playEffect('mp3s/laser.mp3')
     },
 
     soft() {
