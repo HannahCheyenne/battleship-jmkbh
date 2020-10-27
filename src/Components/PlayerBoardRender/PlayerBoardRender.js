@@ -77,16 +77,6 @@ export default class PlayerBoardRender extends Component {
     }
   }
 
-<<<<<<< HEAD
-  saveOldBoard = () => {
-    Audio.click();
-    const board = this.state.board;
-    let savedBoard = this.deepCopy(board);
-    console.log("saved old board", savedBoard);
-  };
-
-=======
->>>>>>> 9a14e1f39d928e346aa0dc1cfebb2ea45f2853d0
   deepCopy = (arr) => {
     let copy = [];
     arr.forEach((elem) => {
