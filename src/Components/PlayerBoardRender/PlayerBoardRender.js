@@ -251,7 +251,6 @@ export default class PlayerBoardRender extends Component {
     e.preventDefault();
     this.clearBoard();
   };
-
   clearBoard = () => {
     this.setState({
       id: "",

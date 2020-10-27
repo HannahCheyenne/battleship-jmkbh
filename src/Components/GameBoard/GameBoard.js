@@ -4,6 +4,7 @@ import BoardRender from "../BoardRender/BoardRender";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
+import SetPlayerBoardRender from "../SetPlayerBoardRender/SetPlayerBoardRender";
 import Context from "../../Context";
 // import HealthBar from "./HealthBar/HealthBar";
 
@@ -60,7 +61,6 @@ class GameBoard extends Component {
     });
   }
   static contextType = Context;
-
   newGame = (playerBoard) => {
     this.context.handleTheme('game.mp3');
     let initialState = {
@@ -122,7 +122,7 @@ class GameBoard extends Component {
   }
 
   render() {
-    
+
     console.log("main game state", this.state)
     return (
       <>
@@ -138,7 +138,7 @@ class GameBoard extends Component {
               />
               }
               {this.state.active_game &&
-                <BoardRender
+                <SetPlayerBoardRender
                 test={this.state.p1_board}
                 key={this.state.p1_board}
                 disabled={true}
@@ -155,13 +155,6 @@ class GameBoard extends Component {
               />
             </div>
           </div>
-
-          {/* <div className="opponentShips">
-            <ShipContainer data={this.state.p2_health} />
-          </div>
-          {!this.state.active_game && (
-            <NewGame data={this.state} handleClick={this.newGame} />
-          */}
         </div>
       </>
     );
