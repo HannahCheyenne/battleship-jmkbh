@@ -1,18 +1,5 @@
 import * as Tone from 'tone';
 
-/* 
-// --- Integrate into game's attack function for appropriate sound ---
-
-// This function takes one or two boolean parameters.
-// 1. Was it a hit? (required)
-// 2. If it was a hit, was it destroyed? (not required, defaults to false)
-
-    handleAttack = () => {
-        Audio.attackSound(true)
-    }
-
- */
-
 let theme = null;
 let isMuted = false;
 let vol = new Tone.Volume().toDestination();
@@ -70,7 +57,7 @@ const Audio = {
         theme.connect(vol).start()
     },
 
-    hitSound(hit, destroyed=false) {
+    attackSound(hit=false, destroyed=false) {
         hit === true
           ? destroyed === true
             ? setTimeout(destroyedSound, 200)

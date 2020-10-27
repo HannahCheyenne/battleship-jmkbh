@@ -111,13 +111,23 @@ class GameBoard extends Component {
     });
   };
 
+  hitSound = (bef, aft) => {
+    for(let i=0; i<bef.length; i++) {
+      (bef[i] !== 0 && aft[i] === 0)
+        && Audio.attackSound(true, true);
+      (bef[i] > aft[i] && aft[i] !== 0)
+        && Audio.attackSound(true);
+    }
+    return aft;
+  }
+
   postMove = () => {
     Audio.laser()
     let gameId = this.state.id;
     let split = this.state.idfromBoard.split(".");
     let x = Number(split[0]);
     let y = Number(split[1]);
-    const p2Health = this.state.p2_health
+    let p2Health = this.state.p2_health
     BattleshipAPI.postMove(gameId, x, y).then((data) => {
       const gameState = data.gameState;
       this.setState({
@@ -132,7 +142,9 @@ class GameBoard extends Component {
         player_turn: gameState.player_turn,
         //whether game is over
         active_game: gameState.active_game,
-      }, ()=>{console.log(gameState.p2_health, p2Health)});
+      },
+      () => p2Health = this.hitSound(p2Health, gameState.p2_health)
+      )
     });
   };
   playerMove(id) {
