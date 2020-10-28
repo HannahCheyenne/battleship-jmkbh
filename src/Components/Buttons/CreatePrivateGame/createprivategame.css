@@ -1,17 +1,4 @@
-/* .gameButton{
-    height:150px;
-    width: 300px;
-    margin: 10px;
-    font-size: 30px;
-    border-radius: 30px;
-    border: none;
-    box-shadow: 2px 2px 2px #707070;
-    background:linear-gradient(to bottom, rgb(255, 0, 0), rgb(0, 174, 255));
 
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-} */
 .gameButton{
     font-size: 25px;
     padding: 10px;
