@@ -36,19 +36,22 @@ class ContactPage extends Component {
             <img className="devImg" src={workoutspaceman} alt=""/>
             <h3>Brett Westerlund</h3>
               <p>Logic, back end</p>
-              <a target="" href="">Portfolio</a>
+              <p>www.drbretto.com</p>
+              <a target="_blank" href=" https://drbretto.com/">Portfolio</a>
             </div>
             <div className="devContainers" name="kameron">
             <img className="devImg" src={coffeespaceman} alt=""/>
               <h3>Kameron Masullo</h3>
               <p>Sound technician, front end</p>
-              <a target="" href="">Portfolio</a>
+              <p>www.kameronmasullo.com</p>
+              <a target="_blank" href="http://kameronmasullo.com/">Portfolio</a>
             </div>
             <div className="devContainers" name="hanna">
             <img className="devImg" src={bubbateaspaceman} alt=""/>
               <h3>Hanna Hart</h3>
-              <p>Server side, client side</p>
-              <a target="" href="">Portfolio</a>
+              <p>Server side, client side, testing</p>
+              <p>www.hannahcheyenne.github.io/my-portfolio</p>
+              <a target="_blank" href="https://hannahcheyenne.github.io/my-portfolio/">Portfolio</a>
             </div>
             <div className="devContainers" name="teddy">
             <img className="devImg" src={professionalspaceman} alt=""/>
