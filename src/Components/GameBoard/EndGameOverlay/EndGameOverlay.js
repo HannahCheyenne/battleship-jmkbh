@@ -6,8 +6,8 @@
 //need to find a better way to refactor this so it's not so glitchy.
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import chickenwhite from './chickenwhite.png'
-import skullwhite from './skullwhite.png'
+import explosion from './explosion.png'
+import rocketman from './rocketman.png'
 
 import "./endgameoverlay.css";
 export default class EndGameOverlay extends Component {
@@ -23,13 +23,13 @@ export default class EndGameOverlay extends Component {
     if (p1 !== 17) {
       if (p2 === 0) {
         message = <div className="endGameOverlay">
-            <img className="endgameImages" src={chickenwhite} alt="chicken"/>
+            <img className="endgameImages" src={rocketman} alt="chicken"/>
             <h2>You are victorious!</h2>
             </div>;
       }
       if (p1 === 0) {
         message = <div className="endGameOverlay">
-        <img className="endgameImages" src={skullwhite} alt="skull"/>
+        <img className="endgameImages" src={explosion} alt="skull"/>
         <h2>You have been defeated!</h2>
         </div>;
       }
