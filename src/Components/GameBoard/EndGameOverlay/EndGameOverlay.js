@@ -6,6 +6,9 @@
 //need to find a better way to refactor this so it's not so glitchy.
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import chickenwhite from './chickenwhite.png'
+import skullwhite from './skullwhite.png'
+
 import "./endgameoverlay.css";
 export default class EndGameOverlay extends Component {
   endGame = () => {
@@ -19,16 +22,22 @@ export default class EndGameOverlay extends Component {
     let message = <></>;
     if (p1 !== 17) {
       if (p2 === 0) {
-        message = <h2>You are victorious!</h2>;
+        message = <div className="endGameOverlay">
+            <img className="endgameImages" src={chickenwhite} alt="chicken"/>
+            <h2>You are victorious!</h2>
+            </div>;
       }
       if (p1 === 0) {
-        message = <h2>You have lost the battle!</h2>;
+        message = <div className="endGameOverlay">
+        <img className="endgameImages" src={skullwhite} alt="skull"/>
+        <h2>You have been defeated!</h2>
+        </div>;
       }
       return (
         <>
-          <div className="endGameOverlay">{message}</div>
-          <button onClick={this.props.func}>Play Again</button>
-          <Link to="/dashboard"><button>Quit</button></Link>
+          <div>{message}</div>
+          <button className="playButton" onClick={this.props.func}>Play Again</button>
+          <Link to="/dashboard"><button className="quitButton">Quit</button></Link>
         </>
       )
     }else{
@@ -44,8 +53,8 @@ export default class EndGameOverlay extends Component {
                 When all ships have been destroyed, the game is over.
                 Good luck!</p>
           </div>
-          <button onClick={this.props.func}>Begin</button>
-          <Link to="/dashboard"><button>Quit</button></Link>
+          <button className="playButton" onClick={this.props.func}>Begin</button>
+          <Link to="/dashboard"><button className="quitButton">Quit</button></Link>
         </>
       );
     }
