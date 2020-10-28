@@ -134,7 +134,6 @@ class GameBoard extends Component {
   };
 
   postMove = () => {
-    //Audio.laser()
     let gameId = this.state.id;
     let split = this.state.idfromBoard.split(".");
     let x = Number(split[0]);

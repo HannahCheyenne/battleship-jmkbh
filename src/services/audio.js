@@ -73,20 +73,12 @@ const Audio = {
         }
     },
 
-    getMisses() {
-        return missCount;
-    },
-
     setVol(val) {
         vol.volume.value = val
     },
 
     laser() {
         !isMuted && playEffect('mp3s/laser.mp3')
-    },
-
-    squeak() {
-        !isMuted && playEffect('mp3s/squeak.mp3')
     },
 
     soft() {
