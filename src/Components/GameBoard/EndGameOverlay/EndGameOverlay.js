@@ -6,6 +6,7 @@
 //need to find a better way to refactor this so it's not so glitchy.
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Audio from '../../../services/audio'
 import "./endgameoverlay.css";
 export default class EndGameOverlay extends Component {
   endGame = () => {
@@ -19,9 +20,11 @@ export default class EndGameOverlay extends Component {
     let message = <></>;
     if (p1 !== 17) {
       if (p2 === 0) {
+        Audio.playTheme('win.mp3')
         message = <h2>You are victorious!</h2>;
       }
       if (p1 === 0) {
+        Audio.playTheme('lose.mp3')
         message = <h2>You have lost the battle!</h2>;
       }
       return (
