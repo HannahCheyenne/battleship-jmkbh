@@ -19,20 +19,21 @@ export default class EndGameOverlay extends Component {
     let p1 = p1_health.reduce((a, b) => {
       return a + b;
     });
+    console.log(p1)
     let p2 = p2_health.reduce((a, b) => {
       return a + b;
     });
     let message = <></>;
     if (p1 !== 17) {
       if (p2 === 0) {
-        Audio.playTheme('win.mp3')
+        // Audio.playTheme('win.mp3')
         message = <div className="endGameOverlay">
             <img className="endgameImages" src={rocketman} alt="chicken"/>
             <h2>You are victorious!</h2>
             </div>;
       }
       if (p1 === 0) {
-        Audio.playTheme('lose.mp3')
+        // Audio.playTheme('lose.mp3')
         message = <div className="endGameOverlay">
         <img className="endgameImages" src={explosion} alt="skull"/>
         <h2>You have been defeated!</h2>
