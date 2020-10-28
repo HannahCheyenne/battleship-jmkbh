@@ -10,16 +10,28 @@
   width: 150px;
   height: inherit;
   color: #ffffff;
-  border: 1px solid #49494993;;
-  background: #1818184f;
+  /* border: 1px solid #49494993; */
+  /* background: #1818184f; */
+  
 }
-.shipContainerButtons{
-  background:  rgba(0, 180, 102, 0.712);
+.ship{
+  background: none;
   margin: 3px;
   border: none;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 17px;
+  border-radius: 20px;
+  height: 25px;
+}
+.shipContainerButtons{
+  background:  rgb(0, 146, 83);
+  margin: 3px;
+  border: none;
+  color: #ffffff;
+  font-size: 15px;
   width: 130px;
+  height: 25px;
+  border-radius: 20px;
 }
 .shipContainerButtons:hover{
   outline-style: none;
@@ -30,23 +42,17 @@
 }
 .ship:focus{
   outline-style: none;
-  background:  rgba(66, 255, 173, 0.712);
+  background:  rgb(66, 255, 173);
 }
 .buttonBorder{
-  border: solid 1px #49494998;
+  /* border: solid 1px #49494998; */
   margin: 2px;
   padding: 2px;
 }
 .shipContainerButtons:disabled{
-  background:  rgba(7, 97, 58, 0.712);
+  background:  rgb(7, 97, 58);
 }
-.ship{
-  background: none;
-  margin: 3px;
-  border: none;
-  color: #ffffff;
-  font-size: 20px;
-}
+
 
 .cell {
   display: flex;  
@@ -64,40 +70,7 @@
   max-width: 450px;
   max-height: 450px;
 }
-  /* .imageBattleship{
-    width: 50px;
-    height: 250px;
-    justify-content: center;
-    display: block;
-  }
-  .imageSubmarine{
-    width: 50px;
-    height: 150px;
-    justify-content: center;
-    display: block;
-  }
-  .imageCarrier{
-    width: 50px;
-    height: 200px;
-    justify-content: center;
-    display: block;
-  }
-  .imagePatrolboat{
-    width: 50px;
-    height: 100px;
-    justify-content: center;
-    display: block;
-  }
-  .imageDestroyer{
-    width: 50px;
-    height: 150px;
-    justify-content: center;
-    display: block;
-  }
-  .shipLength{
-    background: #03ff18;
-  }
-   */
+ 
   .slot.bg0 {
     background: rgba(222, 222, 255, 0.712);
   }
@@ -122,7 +95,7 @@
   }
 
   .active1 {
-    background:  rgba(0, 214, 121, 0.712);
+    background:  rgb(0, 143, 81);
   }
   
   

@@ -11,6 +11,7 @@ import Audio from '../../services/audio'
 import GetAiMove from "./GetAiMove";
 import EndGameTrigger from "./EndGame/EndGameTrigger";
 import EndGameOverlay from './EndGameOverlay/EndGameOverlay'
+import HealthBar from "./HealthBar/HealthBar";
 class GameBoard extends Component {
   constructor() {
     super();
@@ -184,9 +185,10 @@ class GameBoard extends Component {
       <>
         <div className="gamePage">
           <div className="gameBoard">
+          {this.state.active_game && <HealthBar health={this.state.p1_health}/>}
           {!this.state.active_game &&
           <EndGameTrigger func={this.gameOver}/>}
-            {this.state.endScreen && <EndGameOverlay func={this.gameOn}/>}
+            {this.state.endScreen && <EndGameOverlay func={this.gameOn} state={this.state}/>}
             {!this.state.player_turn && 
             <GetAiMove func={this.getAiMove}></GetAiMove>}
             <div className="player" id="player">
@@ -207,6 +209,7 @@ class GameBoard extends Component {
             </div>
           </div>
           <div className="gameBoard">
+          {this.state.active_game && <HealthBar health={this.state.p2_health}/>}
             <div className="opponent" id="opponent">
               {this.state.active_game && 
                 <BoardRender
