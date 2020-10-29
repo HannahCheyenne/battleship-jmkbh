@@ -1,0 +1,35 @@
+.gamePage{
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    /* height: calc(100vh - 3px); */
+    /* background:url(../../Images/backgroundGamepage.jpg); */
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
+    /* background-attachment: fixed; */
+    /* background-position: center; */
+    /* width: 100vw; */
+    
+}
+.gameBoard{
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.shipPlacement{
+    height: 300px;
+    width: 300px;
+    border: 1px solid  #fffbef93;
+}
+
+@media all and (max-width:800px){
+    .gamePage{
+        flex-direction: column;
+    }
+    .gameBoard{
+        flex-direction: column;
+    }
+}

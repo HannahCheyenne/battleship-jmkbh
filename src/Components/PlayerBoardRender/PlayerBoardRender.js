@@ -285,7 +285,7 @@ export default class PlayerBoardRender extends Component {
   render() {
     const { ships, shipsToPlace, savedBoard } = this.state;
     const board = [...this.state.board];
-    const H = <img className="image" src={boom} alt="hit" />;
+    const H = <img className="image" src={boom} alt="hit" /> //!
     const M = <img className="image" src={miss} alt="miss" />;
 
     //console.log("State Updated: ", this.state);
