@@ -25,6 +25,18 @@ const BattleshipAPI = {
     );
   },
 
+  generateBoard() {
+    return fetch(`${config.API_ENDPOINT}/game/genboard`, {
+      method: "GET",
+      headers: {
+        authorization: `bearer ${TokenService.getAuthToken()}`,
+        "Content-Type": "application/json",
+      },
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
+
   newGame(gameState) {
     return fetch(`${config.API_ENDPOINT}/game/newgame/`, {
       method: "POST",
