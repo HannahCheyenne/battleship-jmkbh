@@ -10,6 +10,10 @@ import GetAiMove from "./GetAiMove";
 import EndGameTrigger from "./EndGame/EndGameTrigger";
 import EndGameOverlay from './EndGameOverlay/EndGameOverlay'
 import HealthBar from "./HealthBar/HealthBar";
+import ChatWindow from "../Chat/ChatWindow/ChatWindow"
+import Chat from "../Chat/Chat/Chat"
+
+
 class RandomGameBoard extends Component {
   constructor() {
     super();
@@ -64,6 +68,15 @@ class RandomGameBoard extends Component {
   //   });
   // }
   static contextType = Context;
+  
+  showChat = () => {
+    this.setState({ show: true });
+  };
+
+  hideChat = () => {
+    this.setState({ show: false });
+  };
+  
   newGame = (playerBoard) => {
     this.context.handleTheme('game.mp3');
     let initialState = {
@@ -181,6 +194,12 @@ class RandomGameBoard extends Component {
   render() {
 
     console.log("main game state", this.state)
+    //TODO These need to be changed to the actual user and the gameboard ID so
+    //both users can talk to each other. Use context maybe?
+
+    //TODO make room a concatenation of player names
+    const name = "TestUser";
+    const room = "TestRoom";
     return (
       <>
         <div className="gamePage">
@@ -220,6 +239,12 @@ class RandomGameBoard extends Component {
               />}
             </div>
           </div>
+          <ChatWindow show={this.state.show} handleClose={this.hideChat}>
+            {/* <Join name={"Test User"} room={"test room"}></Join> */}
+            <Chat userName={name} chatRoom={room} />
+            {/* Add Join Chat here */}
+          </ChatWindow>
+          <button type="button" onClick={this.showChat}>Chat</button>
         </div>
       </>
     );

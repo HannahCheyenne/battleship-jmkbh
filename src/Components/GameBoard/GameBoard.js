@@ -8,8 +8,6 @@ import SetPlayerBoardRender from "../SetPlayerBoardRender/SetPlayerBoardRender";
 import Context from "../../Context";
 import Audio from '../../services/audio'
 // import HealthBar from "./HealthBar/HealthBar";
-import ChatWindow from "../Chat/ChatWindow/ChatWindow"
-import Chat from "../Chat/Chat/Chat"
 
 
 
@@ -57,15 +55,7 @@ class GameBoard extends Component {
       endScreen:false,
     };
   }
-  
-  showChat = () => {
-    this.setState({ show: true });
-  };
-  
-  hideChat = () => {
-    this.setState({ show: false });
-  };
-  
+
   componentDidMount() {
     BattleshipAPI.getState(1).then((data) => {
       const gameState = data.gameState;
@@ -206,13 +196,7 @@ class GameBoard extends Component {
     }, () => this.context.handleTheme('menu.mp3'))
   }
   render() {
-    //TODO These need to be changed to the actual user and the gameboard ID so
-    //both users can talk to each other. Use context maybe?
-    
-    //TODO make room a concatenation of player names
-    const name = "TestUser";
-    const room = "TestRoom";
-
+  
     console.log("main game state", this.state)
     return (
       <>
@@ -260,13 +244,7 @@ class GameBoard extends Component {
           {!this.state.active_game && (
             <NewGame data={this.state} handleClick={this.newGame} />
           */}
-          <ChatWindow show={this.state.show} handleClose={this.hideChat}>
-            {/* <Join name={"Test User"} room={"test room"}></Join> */}
-            <Chat userName={name} chatRoom={room}/>
-            {/* Add Join Chat here */}
-          </ChatWindow>
-          <button type="button" onClick={this.showChat}>Chat</button>
-        </div>
+          </div>
       </>
     );
   }
