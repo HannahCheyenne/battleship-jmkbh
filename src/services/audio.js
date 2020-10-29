@@ -63,8 +63,8 @@ const Audio = {
         } else {
              missCount++
              missCount % 10 === 0
-                ? playEffect('mp3s/squeak.mp3')
-                : playEffect('mp3s/laser.mp3')
+                ? !isMuted && playEffect('mp3s/squeak.mp3')
+                : !isMuted && playEffect('mp3s/laser.mp3')
         }
     },
 
