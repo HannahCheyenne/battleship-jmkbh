@@ -10,6 +10,17 @@ import GetAiMove from "./GetAiMove";
 import EndGameTrigger from "./EndGame/EndGameTrigger";
 import EndGameOverlay from './EndGameOverlay/EndGameOverlay'
 import HealthBar from "./HealthBar/HealthBar";
+
+//id needs to be unique for users to not join same game
+//queue of people
+//sessions that has player count, unique id
+
+//creates game session, adds first person from queue, adds next person in queue
+//when player count hits 2, creates new game session adds next person in queue
+//repeats process
+
+//user_id attached to p1_board and p2_board for tracking stats and which player board belongs to who
+
 class RandomGameBoard extends Component {
   constructor() {
     super();
