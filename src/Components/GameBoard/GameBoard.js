@@ -11,6 +11,7 @@ import Audio from '../../services/audio'
 import GetAiMove from "./GetAiMove";
 import EndGameTrigger from "./EndGame/EndGameTrigger";
 import EndGameOverlay from './EndGameOverlay/EndGameOverlay'
+import HealthBar from "./HealthBar/HealthBar";
 class GameBoard extends Component {
   constructor() {
     super();
@@ -44,26 +45,26 @@ class GameBoard extends Component {
       p2_health: [2, 3, 3, 4, 5],
       player_turn: true,
       //whether game is over
-      active_game: true,
+      active_game: false,
       endScreen:false,
     };
   }
-  componentDidMount() {
-    BattleshipAPI.getState(1).then((data) => {
-      const gameState = data.gameState;
-      this.setState({
-        id: gameState.id,
-        p1_board: gameState.p1_board,
-        //opponent
-        p2_board: gameState.p2_board,
-        p1_health: gameState.p1_health,
-        p2_health: gameState.p2_health,
-        player_turn: gameState.player_turn,
-        //whether game is over
-        active_game: gameState.active_game,
-      });
-    });
-  }
+  // componentDidMount() {
+  //   BattleshipAPI.getState(1).then((data) => {
+  //     const gameState = data.gameState;
+  //     this.setState({
+  //       id: gameState.id,
+  //       p1_board: gameState.p1_board,
+  //       //opponent
+  //       p2_board: gameState.p2_board,
+  //       p1_health: gameState.p1_health,
+  //       p2_health: gameState.p2_health,
+  //       player_turn: gameState.player_turn,
+  //       //whether game is over
+  //       active_game: gameState.active_game,
+  //     });
+  //   });
+  // }
   static contextType = Context;
   newGame = (playerBoard) => {
     this.context.handleTheme('game.mp3');
@@ -112,6 +113,16 @@ class GameBoard extends Component {
     return aft;
   }; //!
 
+  winTheme = (p2) => {
+    p2.reduce((a, b) => a + b) === 0
+      && this.context.handleTheme('win.mp3')
+  };
+
+  loseTheme = (p1) => {
+    p1.reduce((a, b) => a + b) === 0
+      && this.context.handleTheme('lose.mp3')
+  }
+
   getAiMove = () => {
     const gameId = this.state.id;
     BattleshipAPI.getAiMove(gameId).then((data) => {
@@ -129,11 +140,10 @@ class GameBoard extends Component {
         //whether game is over
         active_game: gameState.active_game,
       });
-    });
+    }).then(()=> this.loseTheme(this.state.p1_health));
   };
 
   postMove = () => {
-    //Audio.laser()
     let gameId = this.state.id;
     let split = this.state.idfromBoard.split(".");
     let x = Number(split[0]);
@@ -156,7 +166,7 @@ class GameBoard extends Component {
       },
       () => p2Health = this.hitSound(p2Health, gameState.p2_health)
       )
-    });
+    }).then(()=> this.winTheme(p2Health));
   };
   playerMove(id) {
     this.setState(
@@ -176,7 +186,7 @@ class GameBoard extends Component {
     console.log("running")
     this.setState({
       endScreen:false
-    })
+    }, () => Audio.playTheme('menu.mp3'))
   }
   render() {
 
@@ -185,9 +195,10 @@ class GameBoard extends Component {
       <>
         <div className="gamePage">
           <div className="gameBoard">
+          {this.state.active_game && <HealthBar health={this.state.p1_health}/>}
           {!this.state.active_game &&
           <EndGameTrigger func={this.gameOver}/>}
-            {this.state.endScreen && <EndGameOverlay func={this.gameOn}/>}
+            {this.state.endScreen && <EndGameOverlay func={this.gameOn} state={this.state}/>}
             {!this.state.player_turn && 
             <GetAiMove func={this.getAiMove}></GetAiMove>}
             <div className="player" id="player">
@@ -208,6 +219,7 @@ class GameBoard extends Component {
             </div>
           </div>
           <div className="gameBoard">
+          {this.state.active_game && <HealthBar health={this.state.p2_health}/>}
             <div className="opponent" id="opponent">
               {this.state.active_game && 
                 <BoardRender

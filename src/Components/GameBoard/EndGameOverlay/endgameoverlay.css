@@ -1,3 +1,41 @@
 .endGameOverlay{
     color: #ffffff;
+    max-width: 400px;
+    background: #50159970;
+    border-radius: 10px;
+}
+.endGameOverlay p{
+    text-align: left;
+    padding: 5px 20px;
+}
+.endGameOverlay h2{
+    padding: 5px 20px;
+    margin: 0 10px;
+}
+.endgameImages{
+    margin: 10px;
+    width: 200px;
+    height: 100%;
+}
+
+.playButton, .quitButton{
+    font-size: 20px;
+    padding: 10px;
+    min-width: 100px;
+    color: white;
+    border: none;
+    outline-style: none;
+    margin:10px 10px 30px 10px;
+    border-radius: 30px;
+    background: #48BE9F;
+    box-shadow:2px 2px 1px #646464;
+}
+.playButton:active, .quitButton:active{
+    background: #6de2d6;
+}
+
+@media all and (max-width:400px){
+    .endGameOverlay{
+        max-width: 300px;
+    }
 }

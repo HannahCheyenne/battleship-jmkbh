@@ -22,7 +22,7 @@
 }
 
 .dropdown:hover, .dropButton:hover {
-    background-color: #ec7513;
+    /* background-color: #ec7513; */
 }
 
 .dropdownContent {
@@ -35,12 +35,12 @@
 
 .dropdown:hover .dropdownContent {
     display: block;
-    background-color: #ec7513;
+    /* background-color: #ec7513; */
 }
 
 .muteButton {
-    color: rgb(79, 0, 79);
-    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-size: 25px;
     font-weight: bold;
     background: none;
     height: 30px;
@@ -50,13 +50,13 @@
 }
 
 .muteButton:hover {
-    background-color: purple;
-    color: #ec7513;
+    /* background-color: purple; */
+    color: #fcab15;
 }
 
 .muteButton:active {
-    background-color: rgb(196, 0, 196);
-    color: #ec7513;
+    /* background-color: rgb(196, 0, 196); */
+    color: #ffa227;
 }
 
 .volRange {
@@ -84,7 +84,7 @@ input[type=range]::-webkit-slider-runnable-track {
     height: 12px;
     cursor: pointer;
     box-shadow: 1px 1px 1px #000000;
-    background: purple;
+    background: #530992;
     border-radius: 0px;
     border: 1px solid #000000;
 }
@@ -94,13 +94,14 @@ input[type=range]::-webkit-slider-thumb {
     height: 28px;
     width: 10px;
     border-radius: 10px;
-    background: #00c1ce;
+    background: #48BE9F;
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -9.5px;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
     background: purple;
+    
 }
 input[type=range]::-moz-range-track {
     width: 150px;

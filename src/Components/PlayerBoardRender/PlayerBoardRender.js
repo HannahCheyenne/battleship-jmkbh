@@ -294,25 +294,28 @@ export default class PlayerBoardRender extends Component {
       <div className="playerContainer">
         <div className="shipcontainer">
           <div className="buttonBorder">
-            <button className="shipContainerButtons"
-              disabled={this.validateAllPlaced()}
-              onClick={() => this.props.newGame(savedBoard)}
-            >
-              Start game!
+            {ships.createShips.map((i) => (
+              <button
+                className={`ship active${shipsToPlace[i.shipId]}`}
+                onClick={this.selectShip}
+                id={`${i.shipId}`}
+                key={`${i.shipId}`}
+              >
+                {i.type}
+              </button>
+            ))}
+            <button className="shipContainerButtons" onClick={this.reset}>
+              Reset Board
             </button>
-            <button className="shipContainerButtons" 
-            onClick={this.reset}>Reset Board</button>
+          
+          <button
+            className="shipContainerButtons"
+            disabled={this.validateAllPlaced()}
+            onClick={() => this.props.newGame(savedBoard)}
+          >
+            Start game!
+          </button>
           </div>
-          {ships.createShips.map((i) => (
-            <button
-              className={`ship active${shipsToPlace[i.shipId]}`}
-              onClick={this.selectShip}
-              id={`${i.shipId}`}
-              key={`${i.shipId}`}
-            >
-              {i.type}
-            </button>
-          ))}
         </div>
         <span>
           <div>Health</div>

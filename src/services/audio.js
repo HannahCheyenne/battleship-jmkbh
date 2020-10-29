@@ -23,10 +23,6 @@ function hitSound(){
     !isMuted && playEffect('mp3s/hit.mp3')
 };
 
-function missSound(){
-    !isMuted && playEffect('mp3s/miss.mp3')
-};
-
 function destroyedSound(){
     !isMuted && playEffect('mp3s/destroyed.mp3')
 };
@@ -34,7 +30,7 @@ function destroyedSound(){
 const Audio = {
     
     async playTheme(file) {
-        theme && await theme.stop()
+        theme && await theme.dispose()
         if(file !== 'win.mp3' && file !== 'lose.mp3'){
             theme = new Tone.Player({
                 url: `${path}mp3s/${file}`,
@@ -69,12 +65,7 @@ const Audio = {
              missCount % 10 === 0
                 ? playEffect('mp3s/squeak.mp3')
                 : playEffect('mp3s/laser.mp3')
-                    && setTimeout(missSound, 200)
         }
-    },
-
-    getMisses() {
-        return missCount;
     },
 
     setVol(val) {
@@ -83,10 +74,6 @@ const Audio = {
 
     laser() {
         !isMuted && playEffect('mp3s/laser.mp3')
-    },
-
-    squeak() {
-        !isMuted && playEffect('mp3s/squeak.mp3')
     },
 
     soft() {
