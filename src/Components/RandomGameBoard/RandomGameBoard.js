@@ -198,7 +198,7 @@ class RandomGameBoard extends Component {
     //both users can talk to each other. Use context maybe?
 
     //TODO make room a concatenation of player names
-    const name = "TestUser";
+    const name = this.context.currentUser;
     const room = "TestRoom";
     return (
       <>

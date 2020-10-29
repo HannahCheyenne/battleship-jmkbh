@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import queryString from 'query-string';
 import io from "socket.io-client";
 import { Redirect } from 'react-router';
@@ -11,6 +11,10 @@ import Input from '../Input/Input';
 import './Chat.css';
 
 let socket;
+
+// var socket = io();
+// var socket = io({ transports: ['websocket'], upgrade: false });
+
 
 const Chat = ({ userName, chatRoom }) => { //location was pass through here 
   const [name, setName] = useState('');
@@ -25,9 +29,9 @@ const Chat = ({ userName, chatRoom }) => { //location was pass through here
   useEffect(() => {
     const { name, room } = queryString.parse(endRouteChat); //location.search was here before in place of endRouteChat
     
-      
+      console.log("USERS: ", users);
       //console.log("LOCATION SEARCH", location.search);
-    socket = io(ENDPOINT);
+    socket = io(ENDPOINT, { transports: ['websocket'], upgrade: false });
 
     setRoom(room);
     setName(name)
@@ -38,9 +42,37 @@ const Chat = ({ userName, chatRoom }) => { //location was pass through here
         alert(error);
       }
     });
+    
+    return () => {
+      console.log("DISCONNECT");
+      
+      socket.emit('disconnect', () => {
+        socket.disconnect();
+      })
+    }
+    
   }, [ENDPOINT, endRouteChat]); //location.search was her before in place of endRouteChat
+  
+  // useEffect(() => {
+  //   const { name, room } = queryString.parse(endRouteChat); //location.search was here before in place of endRouteChat
 
-  useEffect(() => {
+  //   console.log("USERS: ", users);
+  //   //console.log("LOCATION SEARCH", location.search);
+  //   socket = io(ENDPOINT);
+
+  //   setRoom(room);
+  //   setName(name)
+
+  //   socket.emit('disconnect', (error) => {
+  //     if (error) {
+  //       setFlag(1);
+  //       alert(error);
+  //     }
+  //   })
+  // }, []);
+  
+  
+    useEffect(() => {
     socket.on('message', message => {
       setMessages(messages => [...messages, message]);
     });
@@ -60,9 +92,11 @@ const Chat = ({ userName, chatRoom }) => { //location was pass through here
 
   if (flag) {
     return (
-      <Redirect to="/game" />
+      <Redirect to="/" />
     )
   }
+  
+  
 
   return (
     <div className="outerContainer">

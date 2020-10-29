@@ -7,13 +7,11 @@ import './TextContainer.css';
 const TextContainer = ({ users }) => (
   <div className="textContainer">
     <div>
-      <h1>Space Chat<span role="img" aria-label="emoji">🤖💬</span></h1>
+      <h1><span role="img" aria-label="emoji">🤖💬</span></h1>
     </div>
-    {
-      users
-        ? (
+    {users ? (
           <div>
-            <h2>Pilots:</h2>
+            <h2>Space Chat:</h2>
             <div className="activeContainer">
               <h3>
                 {users.map(({ name }) => (
