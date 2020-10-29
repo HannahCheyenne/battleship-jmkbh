@@ -322,12 +322,12 @@ export default class PlayerBoardRender extends Component {
               Reset Board
             </button>
 
-            <button
+            {/* <button
               className="shipContainerButtons"
               onClick={this.generateBoard}
             >
               Generate
-            </button>
+            </button> */}
 
             <button
               className="shipContainerButtons"

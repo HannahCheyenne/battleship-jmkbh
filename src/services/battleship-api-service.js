@@ -29,7 +29,6 @@ const BattleshipAPI = {
     return fetch(`${config.API_ENDPOINT}/game/genboard`, {
       method: "GET",
       headers: {
-        authorization: `bearer ${TokenService.getAuthToken()}`,
         "Content-Type": "application/json",
       },
     }).then((res) =>
