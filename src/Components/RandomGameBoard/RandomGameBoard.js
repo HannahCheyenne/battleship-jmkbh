@@ -1,18 +1,16 @@
 import React, { Component } from "react";
 import BoardRender from "../BoardRender/BoardRender";
-// import ShipContainer from "../ShipContainer/ShipContainer";
 import BattleshipAPI from "../../services/battleship-api-service";
-import "./gameboard.css";
+import './randomgameboard.css';
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
 import SetPlayerBoardRender from "../SetPlayerBoardRender/SetPlayerBoardRender";
 import Context from "../../Context";
 import Audio from '../../services/audio'
-// import HealthBar from "./HealthBar/HealthBar";
 import GetAiMove from "./GetAiMove";
 import EndGameTrigger from "./EndGame/EndGameTrigger";
 import EndGameOverlay from './EndGameOverlay/EndGameOverlay'
 import HealthBar from "./HealthBar/HealthBar";
-class GameBoard extends Component {
+class RandomGameBoard extends Component {
   constructor() {
     super();
     this.playerMove = this.playerMove.bind(this);
@@ -32,14 +30,14 @@ class GameBoard extends Component {
       ],
       //opponent
       p2_board: [
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
-        [7, 7, 7, 7, 7, 7, 7, 7],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
       ],
       p1_health: [2, 3, 3, 4, 5],
       p2_health: [2, 3, 3, 4, 5],
@@ -111,37 +109,29 @@ class GameBoard extends Component {
     }
     hit === false && Audio.attackSound(false)
     return aft;
-  }; //!
-
-  winTheme = (p2) => {
-    p2.reduce((a, b) => a + b) === 0
-      && this.context.handleTheme('win.mp3')
   };
 
-  loseTheme = (p1) => {
-    p1.reduce((a, b) => a + b) === 0
-      && this.context.handleTheme('lose.mp3')
-  }
+  // getAiMove = () => {
+  //   const gameId = this.state.id;
+  //   BattleshipAPI.getAiMove(gameId).then((data) => {
+  //     const gameState = data.gameState;
+  //     this.setState({
+  //       idfromBoard: "",
+  //       id: gameState.id,
+  //       //player
+  //       p1_board: gameState.p1_board,
+  //       //opponent
+  //       p2_board: gameState.p2_board,
+  //       p1_health: gameState.p1_health,
+  //       p2_health: gameState.p2_health,
+  //       player_turn: gameState.player_turn,
+  //       //whether game is over
+  //       active_game: gameState.active_game,
+  //     });
+  //   });
+  // };
 
-  getAiMove = () => {
-    const gameId = this.state.id;
-    BattleshipAPI.getAiMove(gameId).then((data) => {
-      const gameState = data.gameState;
-      this.setState({
-        idfromBoard: "",
-        id: gameState.id,
-        //player
-        p1_board: gameState.p1_board,
-        //opponent
-        p2_board: gameState.p2_board,
-        p1_health: gameState.p1_health,
-        p2_health: gameState.p2_health,
-        player_turn: gameState.player_turn,
-        //whether game is over
-        active_game: gameState.active_game,
-      });
-    }).then(()=> this.loseTheme(this.state.p1_health));
-  };
+  
 
   postMove = () => {
     let gameId = this.state.id;
@@ -166,7 +156,7 @@ class GameBoard extends Component {
       },
       () => p2Health = this.hitSound(p2Health, gameState.p2_health)
       )
-    }).then(()=> this.winTheme(p2Health));
+    });
   };
   playerMove(id) {
     this.setState(
@@ -186,7 +176,7 @@ class GameBoard extends Component {
     console.log("running")
     this.setState({
       endScreen:false
-    }, () => this.context.handleTheme('menu.mp3'))
+    }, () => Audio.playTheme('menu.mp3'))
   }
   render() {
 
@@ -235,4 +225,4 @@ class GameBoard extends Component {
     );
   }
 }
-export default GameBoard;
+export default RandomGameBoard;
