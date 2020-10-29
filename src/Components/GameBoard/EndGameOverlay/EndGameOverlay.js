@@ -6,35 +6,35 @@
 //need to find a better way to refactor this so it's not so glitchy.
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import chickenwhite from './chickenwhite.png';
-import skullwhite from './skullwhite.png';
-import Context from '../../../Context';
+import explosion from './explosion.png'
+import rocketman from './rocketman.png'
+import chickenwhite from './chickenwhite.png'
+import skullwhite from './skullwhite.png'
+
 import "./endgameoverlay.css";
 
 export default class EndGameOverlay extends Component {
-  static contextType = Context;
 
   endGame = () => {
     const { p1_health, p2_health } = this.props.state;
     let p1 = p1_health.reduce((a, b) => {
       return a + b;
     });
+    console.log(p1)
     let p2 = p2_health.reduce((a, b) => {
       return a + b;
     });
     let message = <></>;
     if (p1 !== 17) {
       if (p2 === 0) {
-        //this.context.handleTheme('win.mp3')
         message = <div className="endGameOverlay">
-            <img className="endgameImages" src={chickenwhite} alt="chicken"/>
+            <img className="endgameImages" src={rocketman} alt="chicken"/>
             <h2>You are victorious!</h2>
             </div>;
       }
       if (p1 === 0) {
-        //this.context.handleTheme('lose.mp3')
         message = <div className="endGameOverlay">
-        <img className="endgameImages" src={skullwhite} alt="skull"/>
+        <img className="endgameImages" src={explosion} alt="skull"/>
         <h2>You have been defeated!</h2>
         </div>;
       }

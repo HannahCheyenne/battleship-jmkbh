@@ -21,14 +21,14 @@ class GameBoard extends Component {
       //player
       id: 1,
       p1_board: [
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
       ],
       //opponent
       p2_board: [
@@ -45,26 +45,26 @@ class GameBoard extends Component {
       p2_health: [2, 3, 3, 4, 5],
       player_turn: true,
       //whether game is over
-      active_game: true,
+      active_game: false,
       endScreen:false,
     };
   }
-  componentDidMount() {
-    BattleshipAPI.getState(1).then((data) => {
-      const gameState = data.gameState;
-      this.setState({
-        id: gameState.id,
-        p1_board: gameState.p1_board,
-        //opponent
-        p2_board: gameState.p2_board,
-        p1_health: gameState.p1_health,
-        p2_health: gameState.p2_health,
-        player_turn: gameState.player_turn,
-        //whether game is over
-        active_game: gameState.active_game,
-      });
-    });
-  }
+  // componentDidMount() {
+  //   BattleshipAPI.getState(1).then((data) => {
+  //     const gameState = data.gameState;
+  //     this.setState({
+  //       id: gameState.id,
+  //       p1_board: gameState.p1_board,
+  //       //opponent
+  //       p2_board: gameState.p2_board,
+  //       p1_health: gameState.p1_health,
+  //       p2_health: gameState.p2_health,
+  //       player_turn: gameState.player_turn,
+  //       //whether game is over
+  //       active_game: gameState.active_game,
+  //     });
+  //   });
+  // }
   static contextType = Context;
   newGame = (playerBoard) => {
     this.context.handleTheme('game.mp3');
