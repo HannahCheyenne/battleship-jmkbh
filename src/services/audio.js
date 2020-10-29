@@ -94,6 +94,7 @@ const Audio = {
 
     stop() {
         theme && theme.stop()
+        theme && theme.dispose()
     },
 
     mute() {

@@ -7,13 +7,13 @@ import Context from '../../../Context'
 class JoinRandomGame extends Component{
     static contextType = Context;
 
-    handleClick = () => {
-        this.context.handleTheme('menu.mp3')
-    }
+    // handleClick = () => {
+    //     this.context.handleTheme('menu.mp3')
+    // }
 
     render(){
         return(
-            <button className="gameButton" onClick={this.handleClick}>Random Game</button>
+            <button className="gameButton">Random Game</button>
         )
     }
 }

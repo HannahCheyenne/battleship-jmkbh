@@ -186,7 +186,7 @@ class GameBoard extends Component {
     console.log("running")
     this.setState({
       endScreen:false
-    }, () => Audio.playTheme('menu.mp3'))
+    }, () => this.context.handleTheme('menu.mp3'))
   }
   render() {
 
