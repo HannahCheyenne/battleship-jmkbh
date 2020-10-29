@@ -4,6 +4,7 @@ import Login from "../Login/Login";
 import LandingPage from "../LandingPage/LandingPage";
 import Dashboard from "../Dashboard/Dashboard";
 import QuickGame from '../QuickGame/QuickGame';
+import RandomGameBoard from '../RandomGameBoard/RandomGameBoard';
 import ContactPage from '../ContactPage/ContactPage';
 import Demo from "../Demo/Demo";
 import Register from "../Register/Register";
@@ -69,6 +70,7 @@ export default class App extends Component {
             <PrivateOnlyRoute component={Demo} path="/demo"/>
             <PrivateOnlyRoute component={QuickGame} path="/quickgame"/>
             <PrivateOnlyRoute component={GameBoard} path="/game"/>
+            <PrivateOnlyRoute component={RandomGameBoard} path="/randomgame"/>
           </Switch>
         </Context.Provider>
       </div>
