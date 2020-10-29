@@ -96,6 +96,7 @@ export default class App extends Component {
             <PrivateOnlyRoute component={Demo} path="/demo"/>
             <PrivateOnlyRoute component={QuickGame} path="/quickgame"/>
             <PrivateOnlyRoute component={GameBoard} path="/game"/>
+            <PrivateOnlyRoute component={GameBoard} path="/randomGame" />
           </Switch>
         </Context.Provider>
       </div>
