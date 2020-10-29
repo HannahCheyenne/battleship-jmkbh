@@ -12,7 +12,7 @@
 }
 .devContainers{
     width: 300px;
-    height: 400px;
+    height: 420px;
     padding: 10px;
     text-align: center;
     margin: 10px auto;
@@ -32,6 +32,7 @@
     text-decoration: none;
     padding: 5px 20px 5px 20px;
     color: white;
+    margin: 10px;
     border-radius: 30px;
     background: #48BE9F;
 }
@@ -39,7 +40,7 @@
     margin: 2px;
 }
 .devContainers p{
-    margin: 5px;
+    margin: 10px;
     height: 40px;
 }
 

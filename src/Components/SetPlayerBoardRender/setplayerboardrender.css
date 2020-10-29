@@ -63,7 +63,7 @@ import submarine from "../../Images/submarine.png"; */
   }
   .board {
     width: 300px;
-    height: 300px;
+    height: 260px;
   }
   .image {
     width: 25px;

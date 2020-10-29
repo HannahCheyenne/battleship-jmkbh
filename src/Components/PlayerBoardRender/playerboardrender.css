@@ -8,18 +8,55 @@
   align-self: center;
   margin: 5px;
   width: 150px;
-  height: 160px;
+  height: inherit;
   color: #ffffff;
-  border: 1px solid #fffbef93;;
-  background: #0000004f;
+  background: #501599ad;
+  border-radius: 10px;
+  
 }
 .ship{
   background: none;
   margin: 3px;
   border: none;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 17px;
+  height: 25px;
+  text-decoration: line-through;
 }
+.shipContainerButtons{
+  background:  #48BE9F;
+  margin: 3px;
+  border: none;
+  color: #ffffff;
+  font-size: 15px;
+  width: 130px;
+  height: 25px;
+  border-radius: 10px;
+  box-shadow:2px 2px 1px #646464;
+}
+.shipContainerButtons:hover{
+  outline-style: none;
+}
+.shipContainerButtons:focus{
+  outline-style: none;
+}
+.ship:focus{
+  outline-style: none;
+}
+.active1 {
+  text-decoration: none;
+}
+.buttonBorder{
+  margin: 2px;
+  padding: 2px;
+}
+.shipContainerButtons:disabled{
+  background: #1F395A;
+}
+.shipContainerButtons:active{
+  background: #52d4b2;
+}
+
 
 .cell {
   display: flex;  
@@ -37,40 +74,7 @@
   max-width: 450px;
   max-height: 450px;
 }
-  .imageBattleship{
-    width: 50px;
-    height: 250px;
-    justify-content: center;
-    display: block;
-  }
-  .imageSubmarine{
-    width: 50px;
-    height: 150px;
-    justify-content: center;
-    display: block;
-  }
-  .imageCarrier{
-    width: 50px;
-    height: 200px;
-    justify-content: center;
-    display: block;
-  }
-  .imagePatrolboat{
-    width: 50px;
-    height: 100px;
-    justify-content: center;
-    display: block;
-  }
-  .imageDestroyer{
-    width: 50px;
-    height: 150px;
-    justify-content: center;
-    display: block;
-  }
-  .shipLength{
-    background: #03ff18;
-  }
-  
+ 
   .slot.bg0 {
     background: rgba(222, 222, 255, 0.712);
   }
@@ -94,9 +98,7 @@
     border: 1px solid red
   }
 
-  .active1 {
-    background:  rgba(0, 213, 122, 0.712);
-  }
+ 
   
   
   @media all and (max-width:700px){

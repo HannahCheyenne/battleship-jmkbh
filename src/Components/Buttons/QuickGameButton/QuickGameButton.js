@@ -13,7 +13,7 @@ class QuickGameButton extends Component{
 
     handleQuickGame = (ev) => {
         ev.preventDefault();
-        this.context.handleTheme('menu.mp3')
+        //this.context.handleTheme('menu.mp3')
         const username = "demo"
         const password = "pass"
         AuthApiService.postLogin({

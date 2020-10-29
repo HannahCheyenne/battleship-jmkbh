@@ -10,7 +10,7 @@ import HealthBar from "../GameBoard/HealthBar/HealthBar";
 // import submarine from "../../Images/submarine.png";
 import createShips from "../../Utils/GameHelpers";
 import TriggerTest from "./TriggerTest";
-import Audio from '../../services/audio'
+import Audio from "../../services/audio";
 
 export default class PlayerBoardRender extends Component {
   constructor() {
@@ -77,13 +77,6 @@ export default class PlayerBoardRender extends Component {
     }
   }
 
-  saveOldBoard = () => {
-    Audio.click()
-    const board = this.state.board;
-    let savedBoard = this.deepCopy(board);
-    console.log("saved old board", savedBoard);
-  };
-
   deepCopy = (arr) => {
     let copy = [];
     arr.forEach((elem) => {
@@ -135,7 +128,7 @@ export default class PlayerBoardRender extends Component {
   }
 
   updateBoard = () => {
-    Audio.positioned()
+    Audio.positioned();
     let { board, savedBoard, shipId, shipsToPlace } = this.state;
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
@@ -214,7 +207,7 @@ export default class PlayerBoardRender extends Component {
     const y = this.state.y;
 
     if (!isAnchor) {
-      this.saveOldBoard();
+      Audio.click();
       let id = `${x}.${y}`;
       const element = document.getElementById(id);
       element.className += " selected";
@@ -243,9 +236,7 @@ export default class PlayerBoardRender extends Component {
     }
   };
 
-  newGameSubmit = () => {
-    
-  };
+  newGameSubmit = () => {};
 
   reset = (e) => {
     e.preventDefault();
@@ -285,41 +276,49 @@ export default class PlayerBoardRender extends Component {
       validPlacement: false,
     });
   };
-
+  validateAllPlaced() {
+    const remainingShips = this.state.shipsToPlace.reduce((a, c) => a + c);
+    if (remainingShips !== 0) {
+      return "Must place all ships";
+    }
+  }
   render() {
     const { ships, shipsToPlace, savedBoard } = this.state;
     const board = [...this.state.board];
-    const H = <img className="image" src={boom} alt="hit" />;
+    const H = <img className="image" src={boom} alt="hit" /> //!
     const M = <img className="image" src={miss} alt="miss" />;
-    const remainingShips = this.state.shipsToPlace.reduce((a, c) => a + c);
 
     //console.log("State Updated: ", this.state);
 
     return (
       <div className="playerContainer">
         <div className="shipcontainer">
-          {remainingShips === 0 && (
-            <div>
-              <button onClick={() => this.props.newGame(savedBoard)}>Start new game!</button>
-              <button onClick={this.reset}>Reset Board</button>
-            </div>
-          )}
-          {ships.createShips.map((i) => (
-            <button
-              className={`ship active${shipsToPlace[i.shipId]}`}
-              onClick={this.selectShip}
-              id={`${i.shipId}`}
-              key={`${i.shipId}`}
-              //this is where the unique key prop error is coming from
-            >
-              {i.type}
+          <div className="buttonBorder">
+            {ships.createShips.map((i) => (
+              <button
+                className={`ship active${shipsToPlace[i.shipId]}`}
+                onClick={this.selectShip}
+                id={`${i.shipId}`}
+                key={`${i.shipId}`}
+              >
+                {i.type}
+              </button>
+            ))}
+            <button className="shipContainerButtons" onClick={this.reset}>
+              Reset Board
             </button>
-          ))}
+          
+          <button
+            className="shipContainerButtons"
+            disabled={this.validateAllPlaced()}
+            onClick={() => this.props.newGame(savedBoard)}
+          >
+            Start game!
+          </button>
+          </div>
         </div>
         <span>
-          <div>
-            Health
-          </div>
+          <div>Health</div>
           <div className="boardContainer">
             <div className="board">
               {!this.props.disabled && (
