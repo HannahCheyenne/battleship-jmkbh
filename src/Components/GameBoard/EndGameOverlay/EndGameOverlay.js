@@ -8,12 +8,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import explosion from './explosion.png'
 import rocketman from './rocketman.png'
-import Audio from '../../../services/audio'
 import chickenwhite from './chickenwhite.png'
 import skullwhite from './skullwhite.png'
 
 import "./endgameoverlay.css";
+
 export default class EndGameOverlay extends Component {
+
   endGame = () => {
     const { p1_health, p2_health } = this.props.state;
     let p1 = p1_health.reduce((a, b) => {
@@ -26,14 +27,12 @@ export default class EndGameOverlay extends Component {
     let message = <></>;
     if (p1 !== 17) {
       if (p2 === 0) {
-        // Audio.playTheme('win.mp3')
         message = <div className="endGameOverlay">
             <img className="endgameImages" src={rocketman} alt="chicken"/>
             <h2>You are victorious!</h2>
             </div>;
       }
       if (p1 === 0) {
-        // Audio.playTheme('lose.mp3')
         message = <div className="endGameOverlay">
         <img className="endgameImages" src={explosion} alt="skull"/>
         <h2>You have been defeated!</h2>
@@ -46,7 +45,7 @@ export default class EndGameOverlay extends Component {
           <Link to="/dashboard"><button className="quitButton">Quit</button></Link>
         </>
       )
-    }else{
+    } else {
       return (
         <>
           <div className="endGameOverlay">

@@ -32,14 +32,14 @@ class GameBoard extends Component {
       ],
       //opponent
       p2_board: [
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
+        [7, 7, 7, 7, 7, 7, 7, 7],
       ],
       p1_health: [2, 3, 3, 4, 5],
       p2_health: [2, 3, 3, 4, 5],
@@ -111,7 +111,17 @@ class GameBoard extends Component {
     }
     hit === false && Audio.attackSound(false)
     return aft;
+  }; //!
+
+  winTheme = (p2) => {
+    p2.reduce((a, b) => a + b) === 0
+      && this.context.handleTheme('win.mp3')
   };
+
+  loseTheme = (p1) => {
+    p1.reduce((a, b) => a + b) === 0
+      && this.context.handleTheme('lose.mp3')
+  }
 
   getAiMove = () => {
     const gameId = this.state.id;
@@ -130,7 +140,7 @@ class GameBoard extends Component {
         //whether game is over
         active_game: gameState.active_game,
       });
-    });
+    }).then(()=> this.loseTheme(this.state.p1_health));
   };
 
   postMove = () => {
@@ -156,7 +166,7 @@ class GameBoard extends Component {
       },
       () => p2Health = this.hitSound(p2Health, gameState.p2_health)
       )
-    });
+    }).then(()=> this.winTheme(p2Health));
   };
   playerMove(id) {
     this.setState(
