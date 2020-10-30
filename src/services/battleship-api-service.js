@@ -68,7 +68,7 @@ const BattleshipAPI = {
     );
   },
   postMove(gameId, x, y) {
-    return fetch(`${config.API_ENDPOINT}/game/${gameId}`, {
+    return fetch(`${config.API_ENDPOINT}/game/gamestate/${gameId}`, {
       method: "PATCH",
       headers: {
         authorization: `bearer ${TokenService.getAuthToken()}`,

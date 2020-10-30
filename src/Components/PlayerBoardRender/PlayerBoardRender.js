@@ -241,8 +241,10 @@ export default class PlayerBoardRender extends Component {
   generateBoard = (e) => {
     e.preventDefault()
     BattleshipAPI.generateBoard().then((data) => {
-      const board = data;
+      const board = data.board;
+      console.log("PlayerBoardRender -> generateBoard -> board", board)
       this.setState({
+        board: board,
         savedBoard: board,
         shipsToPlace: [0, 0, 0, 0, 0],
         validPlacement: true,
@@ -322,12 +324,12 @@ export default class PlayerBoardRender extends Component {
               Reset Board
             </button>
 
-            {/* <button
+            <button
               className="shipContainerButtons"
               onClick={this.generateBoard}
             >
               Generate
-            </button> */}
+            </button>
 
             <button
               className="shipContainerButtons"

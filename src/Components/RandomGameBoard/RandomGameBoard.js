@@ -58,22 +58,7 @@ class RandomGameBoard extends Component {
       endScreen:false,
     };
   }
-  // componentDidMount() {
-  //   BattleshipAPI.getState(1).then((data) => {
-  //     const gameState = data.gameState;
-  //     this.setState({
-  //       id: gameState.id,
-  //       p1_board: gameState.p1_board,
-  //       //opponent
-  //       p2_board: gameState.p2_board,
-  //       p1_health: gameState.p1_health,
-  //       p2_health: gameState.p2_health,
-  //       player_turn: gameState.player_turn,
-  //       //whether game is over
-  //       active_game: gameState.active_game,
-  //     });
-  //   });
-  // }
+
   static contextType = Context;
   newGame = (playerBoard) => {
     this.context.handleTheme('game.mp3');
