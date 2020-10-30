@@ -12,7 +12,7 @@ class CreatePrivateGame extends Component{
 
     render(){
         return(
-            <button className="gameButton">Private Game</button>
+            <button disabled={true} className="gameButton">Private Game</button>
         )
     }
 }
