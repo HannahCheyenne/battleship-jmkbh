@@ -10,6 +10,7 @@ import planetred from '../../Images/Planets/planetred.png'
 import planetgreenstripe from '../../Images/Planets/planetgreenstripe.png'
 import planetgreenstripecomingsoon from '../../Images/Planets/planetgreenstripecomingsoon.png'
 import planetyellow from '../../Images/Planets/planetyellow.png'
+import planetyellowcomingsoon from '../../Images/Planets/planetyellowcomingsoon.png'
 
 export default class Dashboard extends Component {
   componentDidMount() {
@@ -31,7 +32,7 @@ export default class Dashboard extends Component {
           </div>
           <div className="dashboardButtonContainer">
             <div className="buttonImageCombo">
-              <img className="dashimage"src={planetyellow} alt=""/>
+              <img className="dashimage"src={planetyellowcomingsoon} alt=""/>
               <JoinPublicGame />
             </div>
             <div className="buttonImageCombo">

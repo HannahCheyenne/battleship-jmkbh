@@ -8,12 +8,15 @@ export default class SetPlayerBoard extends Component {
         super();
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-          id: ''
+          id: '',
+          disabled:false
         };
       }
       handleClick(event) {
+        console.log("this.props")
         this.setState({
-          id: event.target.id
+          id: event.target.id,
+          disabled:true
         },() => this.props.playerMove(this.state.id));
     
       }
@@ -21,6 +24,8 @@ export default class SetPlayerBoard extends Component {
         //! -- New value for miss (9)
   render() {
       const { test } = this.props
+      const id = this.state.id
+      console.log(id, 'id')
       const H = <img className ="image" src={boom} alt="hit"/>
       const M = <img className= 'image' src={miss} alt="miss"/>
     return (<>

@@ -152,7 +152,7 @@ class GameBoard extends Component {
     }).then(()=> this.winTheme(p2Health));
   };
   playerMove(id) {
-    console.log("click")
+    console.log("id", id)
     this.setState(
       {
         idfromBoard: id,
@@ -160,11 +160,6 @@ class GameBoard extends Component {
       () => this.postMove()
     );
   }
-  celldisabled=()=>{
-    this.setState({
-      disabled:false
-    })
-  };
   gameOver = () => {
     this.setState({
       endScreen:true
