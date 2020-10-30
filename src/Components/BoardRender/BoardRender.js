@@ -10,13 +10,18 @@ export default class Board extends Component {
         super();
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-          id: ''
+          id: '',
+          disabled:false,
         };
       }
       handleClick(event) {
+        console.log(this.state.disabled)
         this.setState({
-          id: event.target.id
-        },() => this.props.playerMove(this.state.id));
+          id: event.target.id,
+          disabled:true,
+        },
+        () => this.props.playerMove(this.state.id, this.state.disabled)
+        );
     
       }
 

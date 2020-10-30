@@ -8,7 +8,7 @@ import workoutspaceman from './images/workoutspaceman.png'
 
 import "./contactpage.css";
 
-class ContactPage extends Component {
+export default class ContactPage extends Component {
   render() {
     return (
       <>
@@ -67,4 +67,3 @@ class ContactPage extends Component {
   }
 }
 
-export default ContactPage;

@@ -6,7 +6,7 @@ class QuickGame extends Component{
         return(
             <div className="quickgamePage">
             <div><h2>Quick Game</h2></div>
-            <p>Play a quick game agains the AI</p>
+            <p>Play a quick game against the AI</p>
             </div>
         )
     }

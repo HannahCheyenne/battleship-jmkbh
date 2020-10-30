@@ -4,15 +4,15 @@ import AuthApiService from "../../../services/auth-api-service";
 import Context from '../../../Context'
 
 import './demoaccount.css'
-class DemoAccount extends Component{
+export default class DemoAccount extends Component{
+  static contextType = Context;
     state = {
         error:''
     }
 
-    static contextType = Context;
-
     handleDemoAccount = (ev) => {
         ev.preventDefault();
+        this.setState({ error: null });
         const username = "demo"
         const password = "pass"
         AuthApiService.postLogin({
@@ -21,7 +21,8 @@ class DemoAccount extends Component{
         })
           .then((res) => {
             TokenService.saveAuthToken(res.authToken);
-            this.props.history.push("/dashboard");
+            this.props.history.push('/dashboard');
+            console.log(this.props.history)
           })
           .catch((res) => {
             this.setState({ error: res.error });
@@ -33,5 +34,3 @@ class DemoAccount extends Component{
         )
     }
 }
-
-export default DemoAccount

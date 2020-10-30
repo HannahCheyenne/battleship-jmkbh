@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import BoardRender from "../BoardRender/BoardRender";
-// import ShipContainer from "../ShipContainer/ShipContainer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
 import SetPlayerBoardRender from "../SetPlayerBoardRender/SetPlayerBoardRender";
 import Context from "../../Context";
 import Audio from '../../services/audio'
-// import HealthBar from "./HealthBar/HealthBar";
 import GetAiMove from "./GetAiMove";
 import EndGameTrigger from "./EndGame/EndGameTrigger";
 import EndGameOverlay from './EndGameOverlay/EndGameOverlay'
@@ -47,24 +45,9 @@ class GameBoard extends Component {
       //whether game is over
       active_game: false,
       endScreen:false,
+      disabled:false,
     };
   }
-  // componentDidMount() {
-  //   BattleshipAPI.getState(1).then((data) => {
-  //     const gameState = data.gameState;
-  //     this.setState({
-  //       id: gameState.id,
-  //       p1_board: gameState.p1_board,
-  //       //opponent
-  //       p2_board: gameState.p2_board,
-  //       p1_health: gameState.p1_health,
-  //       p2_health: gameState.p2_health,
-  //       player_turn: gameState.player_turn,
-  //       //whether game is over
-  //       active_game: gameState.active_game,
-  //     });
-  //   });
-  // }
   static contextType = Context;
   newGame = (playerBoard) => {
     this.context.handleTheme('game.mp3');
@@ -172,6 +155,7 @@ class GameBoard extends Component {
     this.setState(
       {
         idfromBoard: id,
+        disabled:true
       },
       () => this.postMove()
     );
