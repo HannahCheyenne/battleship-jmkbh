@@ -35,8 +35,9 @@ import carrier from "../../Images/carrier.png";
 import patrolboat from "../../Images/patrolboat.png";
 import destroyer from "../../Images/destroyer.png";
 import submarine from "../../Images/submarine.png"; */
+ 
 .slot.bg0 {
-  background:rgba(255, 122, 248, 0.712);
+  background: rgba(222, 222, 255, 0.712);
 }
 .slot.bg1 {
   background: rgba(255, 122, 248, 0.712);
