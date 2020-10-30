@@ -6,7 +6,7 @@
   text-align: center;
   vertical-align: middle;
   border: 1px solid #fffbef93;
-  background: #0000008e;
+  background: #000000b7;
   outline-style: none;
 }
 .slot.disabled {
@@ -29,22 +29,22 @@
   display: flex;
 }
 .slot.bg0 {
-  background: rgba(222, 222, 255, 0.712);
+  background: #5852ff;
 }
 .slot.bg1 {
-  background: rgba(255, 122, 248, 0.712);
+  background:#5852ff;
 } 
 .slot.bg2 {
-  background: rgba(25, 54, 148, 0.712);
+  background: #5852ff;
 }
 .slot.bg3 {
-  background: rgba(252, 106, 69, 0.712);
+  background:#5852ff;
 }
 .slot.bg4 {
-  background: rgba(255, 213, 122, 0.712);
+  background:#5852ff;
 }
 .slot.bg6 {
-  background: rgba(0, 213, 122, 0.712);
+  background: #40AB91;
 }
 @media all and (max-width: 700px) {
   .boardContainer {
