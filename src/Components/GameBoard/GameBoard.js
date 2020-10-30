@@ -161,20 +161,17 @@ class GameBoard extends Component {
     );
   }
   gameOver = () => {
-    console.log("running")
     this.setState({
       endScreen:true
     })
   }
   gameOn = () => {
-    console.log("running")
     this.setState({
       endScreen:false
     }, () => this.context.handleTheme('menu.mp3'))
   }
   render() {
 
-    console.log("main game state", this.state)
     return (
       <>
         <div className="gamePage">

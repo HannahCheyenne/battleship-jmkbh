@@ -380,7 +380,6 @@ class Board extends React.Component {
       this.handlePlacingClick(tab, index, placing);
     } else if (whoisplaying > -1) {
       if (whoisplaying !== tab) {
-        console.log('Not your turn!');
         this.writeMessage('Not your turn', 'danger', 2000);
         return;
       }
@@ -510,7 +509,6 @@ class Board extends React.Component {
     this.writeMessage('Player' + (this.state.winner + 1) + ' has won!', 'success', 2000);
 
     const playerName = this.state['name' + (tab === 0 ? 1 : 0)];
-    console.log('playerName', playerName);
     if (!playerName) return;
 
     let battleShipLeaderBoard = localStorage.getItem('battleShipLeaderBoard');

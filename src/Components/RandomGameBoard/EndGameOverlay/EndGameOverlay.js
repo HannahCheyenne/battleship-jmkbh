@@ -19,7 +19,6 @@ export default class EndGameOverlay extends Component {
     let p1 = p1_health.reduce((a, b) => {
       return a + b;
     });
-    console.log(p1)
     let p2 = p2_health.reduce((a, b) => {
       return a + b;
     });
