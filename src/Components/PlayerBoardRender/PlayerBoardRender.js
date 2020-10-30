@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./playerboardrender.css";
 import boom from "../../Images/boom.png";
 import miss from "../../Images/miss.png";
-import HealthBar from "../GameBoard/HealthBar/HealthBar";
+// import HealthBar from "../GameBoard/HealthBar/HealthBar";
 // import battleship from "../../Images/battleship.png";
 // import carrier from "../../Images/carrier.png";
 // import patrolboat from "../../Images/patrolboat.png";

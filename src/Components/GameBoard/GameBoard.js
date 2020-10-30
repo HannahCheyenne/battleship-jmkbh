@@ -49,11 +49,12 @@ class GameBoard extends Component {
     };
   }
   static contextType = Context;
+  
   newGame = (playerBoard) => {
     this.context.handleTheme('game.mp3');
     let initialState = {
       p1_board: playerBoard,
-      p2_board: playerBoard, //!temporary for demo
+      p2_board: playerBoard, 
       p1_health: [2, 3, 3, 4, 5],
       p2_health: [2, 3, 3, 4, 5],
       player_turn: true,
