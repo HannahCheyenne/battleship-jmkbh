@@ -51,6 +51,11 @@ class RandomGameBoard extends Component {
       endScreen:false,
     };
   }
+  
+  // componentWillUnmount(){
+  //   window.location.reload();
+  // }
+  
   // componentDidMount() {
   //   BattleshipAPI.getState(1).then((data) => {
   //     const gameState = data.gameState;
@@ -77,6 +82,7 @@ class RandomGameBoard extends Component {
     this.setState({ show: false });
   };
   
+    
   newGame = (playerBoard) => {
     this.context.handleTheme('game.mp3');
     let initialState = {
@@ -199,7 +205,7 @@ class RandomGameBoard extends Component {
 
     //TODO make room a concatenation of player names
     const name = this.context.currentUser;
-    const room = "TestRoom";
+    const room = this.state.id;
     return (
       <>
         <div className="gamePage">

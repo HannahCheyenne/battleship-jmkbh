@@ -26,6 +26,7 @@ const Chat = ({ userName, chatRoom }) => { //location was pass through here
   const ENDPOINT = 'http://localhost:4000/';
   const endRouteChat = `?name=${userName}&room=${chatRoom}`;
 
+
   useEffect(() => {
     const { name, room } = queryString.parse(endRouteChat); //location.search was here before in place of endRouteChat
     
@@ -44,32 +45,15 @@ const Chat = ({ userName, chatRoom }) => { //location was pass through here
     });
     
     return () => {
-      console.log("DISCONNECT");
-      
+      console.log("CLIENT DISCONNECT");
+      socket = io(ENDPOINT, { transports: ['websocket'], upgrade: false });
+      console.log("SOCKET:", socket);
       socket.emit('disconnect', () => {
         socket.disconnect();
       })
     }
-    
   }, [ENDPOINT, endRouteChat]); //location.search was her before in place of endRouteChat
   
-  // useEffect(() => {
-  //   const { name, room } = queryString.parse(endRouteChat); //location.search was here before in place of endRouteChat
-
-  //   console.log("USERS: ", users);
-  //   //console.log("LOCATION SEARCH", location.search);
-  //   socket = io(ENDPOINT);
-
-  //   setRoom(room);
-  //   setName(name)
-
-  //   socket.emit('disconnect', (error) => {
-  //     if (error) {
-  //       setFlag(1);
-  //       alert(error);
-  //     }
-  //   })
-  // }, []);
   
   
     useEffect(() => {
