@@ -58,7 +58,7 @@
 }
 
 
-.cell {
+/* .cell {
   display: flex;  
   flex-wrap: wrap;
     height: 50px;
@@ -68,14 +68,14 @@
 }
 .cell:disabled {
   cursor: not-allowed;
-}
+} */
 
 .boardContainer{
   max-width: 450px;
   max-height: 450px;
 }
  
-  .slot.bg0 {
+  /* .slot.bg0 {
     background: rgba(222, 222, 255, 0.712);
   }
   .slot.bg1 {
@@ -96,7 +96,7 @@
   .selected{
     background: #ff0000;
     border: 1px solid red
-  }
+  } */
 
  
   

@@ -88,10 +88,6 @@ const Audio = {
         !isMuted && playEffect('mp3s/positioned.mp3')
     },
 
-    err() {
-        !isMuted && playEffect('mp3s/err.mp3')
-    },
-
     stop() {
         theme && theme.stop()
         theme && theme.dispose()

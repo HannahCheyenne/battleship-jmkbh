@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './joinrandomgame.css'
+import './joinpublicgame.css'
 import Context from '../../../Context'
 import { Link } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ class JoinRandomGame extends Component{
 
     render(){
         return(
-            <Link to="/randomgame"><button className="gameButton" onClick={this.handleClick}>Random Game</button></Link>
+            <Link to="/randomgame"><button className="gameButton" onClick={this.handleClick}>Public Game</button></Link>
         )
     }
 }

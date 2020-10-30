@@ -1,28 +1,25 @@
 import React, { Component } from "react";
 import DemoAccount from '../Buttons/DemoAccount/DemoAccount'
 // import spaceBackground from '../../Images/spaceBackground.jpg'
+import { Link } from "react-router-dom";
 import "./landingpage.css";
 import QuickGameButton from "../Buttons/QuickGameButton/QuickGameButton";
 
 class LandingPage extends Component {
+  static defaultProps = {history: {push: ()=> {}} }
+
   render() {
+    console.log(this.props.history.location)
     return (<>
       <div className="landingPage">
         {/* <div className="starmap"><img src={spaceBackground} alt="Logo" /></div> */}
         <fieldset className="aboutContent">
-          <h2>Players</h2>
-            <p>Play vs Player or play a game against the Ai</p>
-          <h2>Goal</h2>
-            <p>Destroy your opponents battleship</p>
-          
-          <h2>Rules</h2>
-            <p>Rule number 1 goes here</p>
-            <p>Rule number 2 goes here, elaborate</p>
-            <p>Rule number 3 goes here with some explanation, lots of explanation</p>
-          
-          <h2>Buttons</h2>
-            <p>Explain what the Demo button does</p>
-            <p>Explain what the quick game does</p>
+          <h2>Welcome to Space Battleship!</h2>
+          <p>To see what our app is all, hit the demo button and take a tour.</p>
+          <p>If you're just interested in playing against our super intelligent AI, 
+            hit the Quick Game button. </p>
+          <p>If you've been here before, <Link to="/login">login</Link>, 
+          or if you're new, <Link to="/register">register</Link> for a new account.</p>
           
         </fieldset>
         <div className="landingPageButtonGroup">

@@ -23,7 +23,6 @@ export default class SetPlayerBoard extends Component {
       const { test } = this.props
       const H = <img className ="image" src={boom} alt="hit"/>
       const M = <img className= 'image' src={miss} alt="miss"/>
-      console.log(test)
     return (<>
       <div className="boardContainer">
         <div className="board">

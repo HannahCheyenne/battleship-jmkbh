@@ -3,18 +3,15 @@ import Audio from '../../services/audio'
 import "./dashboard.css";
 import CreatePrivateGame from "../Buttons/CreatePrivateGame/CreatePrivateGame";
 import CreateAiGame from "../Buttons/CreateAiGame/CreateAiGame";
-import JoinRandomGame from "../Buttons/JoinRandomGame/JoinRandomGame";
+import JoinPublicGame from "../Buttons/JoinPublicGame/JoinPublicGame";
 import StatsButton from "../Buttons/StatsButton/StatsButton";
 import planetblue from '../../Images/Planets/planetblue.png'
-// import planetgreen from '../../Images/Planets/planetgreen.png'
-import planetgreenstripe from '../../Images/Planets/planetgreenstripe.png'
-// import planetpurple from '../../Images/Planets/planetpurple.png'
 import planetred from '../../Images/Planets/planetred.png'
+import planetgreenstripe from '../../Images/Planets/planetgreenstripe.png'
+import planetgreenstripecomingsoon from '../../Images/Planets/planetgreenstripecomingsoon.png'
 import planetyellow from '../../Images/Planets/planetyellow.png'
-// import planetyellowbump from '../../Images/Planets/planetyellowbump.png'
-// import planetyellowring from '../../Images/Planets/planetyellowring.png'
 
-class Dashboard extends Component {
+export default class Dashboard extends Component {
   componentDidMount() {
     Audio.stop()
   }
@@ -35,10 +32,10 @@ class Dashboard extends Component {
           <div className="dashboardButtonContainer">
             <div className="buttonImageCombo">
               <img className="dashimage"src={planetyellow} alt=""/>
-              <JoinRandomGame />
+              <JoinPublicGame />
             </div>
             <div className="buttonImageCombo">
-              <img className="dashimage"src={planetgreenstripe} alt=""/>
+              <img className="dashimage"src={planetgreenstripecomingsoon} alt=""/>
               <CreatePrivateGame />
             </div>
           </div>
@@ -48,4 +45,3 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;

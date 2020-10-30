@@ -242,7 +242,6 @@ export default class PlayerBoardRender extends Component {
     e.preventDefault()
     BattleshipAPI.generateBoard().then((data) => {
       const board = data.board;
-      console.log("PlayerBoardRender -> generateBoard -> board", board)
       this.setState({
         board: board,
         savedBoard: board,
@@ -303,8 +302,6 @@ export default class PlayerBoardRender extends Component {
     const board = [...this.state.board];
     const H = <img className="image" src={boom} alt="hit" />;
     const M = <img className="image" src={miss} alt="miss" />;
-
-    //console.log("State Updated: ", this.state);
 
     return (
       <div className="playerContainer">

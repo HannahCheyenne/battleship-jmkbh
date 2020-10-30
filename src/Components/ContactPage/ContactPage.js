@@ -8,7 +8,7 @@ import workoutspaceman from './images/workoutspaceman.png'
 
 import "./contactpage.css";
 
-class ContactPage extends Component {
+export default class ContactPage extends Component {
   render() {
     return (
       <>
@@ -42,7 +42,7 @@ class ContactPage extends Component {
             <div className="devContainers" name="kameron">
             <img className="devImg" src={coffeespaceman} alt=""/>
               <h3>Kameron Masullo</h3>
-              <p>Sound technician, front end</p>
+              <p>Audio developer, composer, front end</p>
               <p>www.kameronmasullo.com</p>
               <a target="_blank" href="http://kameronmasullo.com/">Portfolio</a>
             </div>
@@ -67,4 +67,3 @@ class ContactPage extends Component {
   }
 }
 
-export default ContactPage;

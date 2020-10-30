@@ -22,7 +22,7 @@ class QuickGameButton extends Component{
         })
           .then((res) => {
             TokenService.saveAuthToken(res.authToken);
-            this.props.history.push("/quickgame");
+            this.props.history.push("/game");
           })
           .catch((res) => {
             this.setState({ error: res.error });

@@ -6,7 +6,6 @@ import Dashboard from "../Dashboard/Dashboard";
 import QuickGame from '../QuickGame/QuickGame';
 import RandomGameBoard from '../RandomGameBoard/RandomGameBoard';
 import ContactPage from '../ContactPage/ContactPage';
-import Demo from "../Demo/Demo";
 import Register from "../Register/Register";
 import PublicOnlyRoute from "../../Utils/PublicOnlyRoute";
 import PrivateOnlyRoute from "../../Utils/PrivateOnlyRoute";
@@ -62,15 +61,14 @@ export default class App extends Component {
            <Route component={Header} path='/' />
           <Switch>
             <PublicOnlyRoute component={Login} path="/login" />
-            <Route component={LandingPage} exact path="/" />
             <Route component={ContactPage} exact path="/contact" />
             <PublicOnlyRoute component={Register} path="/register" />
             <PrivateOnlyRoute component={StatsPage} path="/stats"/>
             <PrivateOnlyRoute component={Dashboard} path="/dashboard"/>
-            <PrivateOnlyRoute component={Demo} path="/demo"/>
             <PrivateOnlyRoute component={QuickGame} path="/quickgame"/>
             <PrivateOnlyRoute component={GameBoard} path="/game"/>
             <PrivateOnlyRoute component={RandomGameBoard} path="/randomgame"/>
+            <Route component={LandingPage} exact path="/" />
           </Switch>
         </Context.Provider>
       </div>

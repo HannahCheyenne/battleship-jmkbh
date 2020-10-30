@@ -166,22 +166,17 @@ class RandomGameBoard extends Component {
   }
 
   gameOver = () => {
-    console.log("running");
     this.setState({
       endScreen: true,
     });
   };
   gameOn = () => {
-    console.log("running");
-    this.setState(
-      {
-        endScreen: false,
-      },
-      () => Audio.playTheme("menu.mp3")
-    );
-  };
+    this.setState({
+      endScreen:false
+    }, () => Audio.playTheme('menu.mp3'))
+  }
   render() {
-    console.log("main game state", this.state);
+
     return (
       <>
         <div className="gamePage">

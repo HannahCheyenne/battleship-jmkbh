@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import BoardRender from "../BoardRender/BoardRender";
-// import ShipContainer from "../ShipContainer/ShipContainer";
 import BattleshipAPI from "../../services/battleship-api-service";
 import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
 import SetPlayerBoardRender from "../SetPlayerBoardRender/SetPlayerBoardRender";
 import Context from "../../Context";
 import Audio from '../../services/audio'
-// import HealthBar from "./HealthBar/HealthBar";
 import GetAiMove from "./GetAiMove";
 import EndGameTrigger from "./EndGame/EndGameTrigger";
 import EndGameOverlay from './EndGameOverlay/EndGameOverlay'
@@ -47,9 +45,9 @@ class GameBoard extends Component {
       //whether game is over
       active_game: false,
       endScreen:false,
+      disabled:false,
     };
   }
-
   static contextType = Context;
   
   newGame = (playerBoard) => {
@@ -155,6 +153,7 @@ class GameBoard extends Component {
     }).then(()=> this.winTheme(p2Health));
   };
   playerMove(id) {
+    console.log("click")
     this.setState(
       {
         idfromBoard: id,
@@ -162,21 +161,23 @@ class GameBoard extends Component {
       () => this.postMove()
     );
   }
+  celldisabled=()=>{
+    this.setState({
+      disabled:false
+    })
+  };
   gameOver = () => {
-    console.log("running")
     this.setState({
       endScreen:true
     })
   }
   gameOn = () => {
-    console.log("running")
     this.setState({
       endScreen:false
     }, () => this.context.handleTheme('menu.mp3'))
   }
   render() {
 
-    console.log("main game state", this.state)
     return (
       <>
         <div className="gamePage">
@@ -212,6 +213,7 @@ class GameBoard extends Component {
                 test={this.state.p2_board}
                 key={this.state.p2_board}
                 playerMove={this.playerMove}
+                celldisabled={this.celldisabled}
                 disabled={!this.state.active_game}
               />}
             </div>
