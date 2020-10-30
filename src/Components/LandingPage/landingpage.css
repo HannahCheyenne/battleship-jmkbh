@@ -10,22 +10,15 @@
   border: none;
   background:#501599d0;
   border-radius: 20px;
-  font-size: 15px;
+  font-size: 20px;
   margin: 40px auto;
   box-shadow:2px 2px 3px #646464;
 }
-.aboutContent ul{
-  font-size: 25px;
-  margin: 10px;
-  padding: 0px;
-  list-style-position: inside;
-}
-.aboutContent li{
-  font-size: 20px;
-  margin: 0px;
-}
 .landingPage p {
   padding: 0px 30px 0px 30px;
+}
+.landingPage a{
+  color: #ffffff;
 }
 .landingPageButtonGroup{
   display: flex;
