@@ -1,6 +1,7 @@
 .endGameOverlay{
     color: #ffffff;
     max-width: 400px;
+    height: 300px;
     background: #50159970;
     border-radius: 10px;
 }
@@ -15,7 +16,7 @@
 .endgameImages{
     margin: 10px;
     width: 200px;
-    height: 100%;
+    height: 200px;
 }
 
 .playButton, .quitButton{
