@@ -16,7 +16,7 @@ class JoinRandomGame extends Component{
 
     render(){
         return(
-            <Link to="/randomgame"><button className="gameButton" onClick={this.handleClick}>Public Game</button></Link>
+            <Link to="/randomgame"><button disabled={true} className="gameButton" onClick={this.handleClick}>Public Game</button></Link>
         )
     }
 }
