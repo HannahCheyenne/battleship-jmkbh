@@ -1,16 +1,7 @@
-//display who won, do you want to play again, do you want to go back
-//close button
-//button to link to dashboard
-//will be able to close out websocket in the future
-//super hacky when the page initially loads, you can see the game component render, then the overlay pop up
-//need to find a better way to refactor this so it's not so glitchy.
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import explosion from './explosion.png'
 import rocketman from './rocketman.png'
-import chickenwhite from './chickenwhite.png'
-import skullwhite from './skullwhite.png'
-
 import "./endgameoverlay.css";
 
 export default class EndGameOverlay extends Component {
