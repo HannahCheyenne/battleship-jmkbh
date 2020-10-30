@@ -16,7 +16,7 @@ let socket;
 // var socket = io({ transports: ['websocket'], upgrade: false });
 
 
-const Chat = ({ userName, chatRoom }) => { //location was pass through here 
+const Chat = ({ location }) => { //location was pass through here 
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');
@@ -24,11 +24,12 @@ const Chat = ({ userName, chatRoom }) => { //location was pass through here
   const [messages, setMessages] = useState([]);
   const [flag, setFlag] = useState(0);
   const ENDPOINT = 'http://localhost:4000/';
-  const endRouteChat = `?name=${userName}&room=${chatRoom}`;
+  
+  //const endRouteChat = `?name=${userName}&room=${chatRoom}`;
 
 
   useEffect(() => {
-    const { name, room } = queryString.parse(endRouteChat); //location.search was here before in place of endRouteChat
+    const { name, room } = queryString.parse(location.search); //location.search was here before in place of endRouteChat
     
       console.log("USERS: ", users);
       //console.log("LOCATION SEARCH", location.search);
@@ -44,15 +45,15 @@ const Chat = ({ userName, chatRoom }) => { //location was pass through here
       }
     });
     
-    return () => {
-      console.log("CLIENT DISCONNECT");
-      socket = io(ENDPOINT, { transports: ['websocket'], upgrade: false });
-      console.log("SOCKET:", socket);
-      socket.emit('disconnect', () => {
-        socket.disconnect();
-      })
-    }
-  }, [ENDPOINT, endRouteChat]); //location.search was her before in place of endRouteChat
+    // return () => {
+    //   console.log("CLIENT DISCONNECT");
+    //   socket = io(ENDPOINT, { transports: ['websocket'], upgrade: false });
+    //   console.log("SOCKET:", socket);
+    //   socket.emit('disconnect', () => {
+    //     socket.disconnect();
+    //   })
+    // }
+  }, [ENDPOINT, location.search]); //location.search was her before in place of endRouteChat
   
   
   
@@ -76,7 +77,7 @@ const Chat = ({ userName, chatRoom }) => { //location was pass through here
 
   if (flag) {
     return (
-      <Redirect to="/" />
+      <Redirect to="/dashboard" />
     )
   }
   

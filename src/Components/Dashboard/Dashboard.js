@@ -13,6 +13,7 @@ import planetred from '../../Images/Planets/planetred.png'
 import planetyellow from '../../Images/Planets/planetyellow.png'
 // import planetyellowbump from '../../Images/Planets/planetyellowbump.png'
 // import planetyellowring from '../../Images/Planets/planetyellowring.png'
+import JoinChat from '../Buttons/JoinChat/JoinChat'
 import Context from "../../Context"
 
 class Dashboard extends Component {
@@ -44,6 +45,9 @@ class Dashboard extends Component {
             <div className="buttonImageCombo">
               <img className="dashimage"src={planetgreenstripe} alt=""/>
               <CreatePrivateGame />
+            </div>
+            <div className="buttonImageCombo">
+              <JoinChat />
             </div>
           </div>
         </div>

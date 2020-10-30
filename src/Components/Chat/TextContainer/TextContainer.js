@@ -6,21 +6,21 @@ import onlineIcon from '../Icons/onlineIcon.png';
 import './TextContainer.css';
 const TextContainer = ({ users }) => (
   <div className="textContainer">
-    <div>
+    
       <h1><span role="img" aria-label="emoji">🤖💬</span></h1>
-    </div>
+    
     {users ? (
           <div>
-            <h2>Space Chat:</h2>
+            <h1>Space Chat:</h1>
             <div className="activeContainer">
-              <h3>
+              <h2>
                 {users.map(({ name }) => (
                   <div key={name} className="activeItem">
                     {name}
                     <img alt="Online Icon" src={onlineIcon} />
                   </div>
                 ))}
-              </h3>
+              </h2>
             </div>
           </div>
         )
