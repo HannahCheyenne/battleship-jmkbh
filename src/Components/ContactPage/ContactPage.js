@@ -42,7 +42,7 @@ export default class ContactPage extends Component {
             <div className="devContainers" name="kameron">
             <img className="devImg" src={coffeespaceman} alt=""/>
               <h3>Kameron Masullo</h3>
-              <p>Sound technician, front end</p>
+              <p>Audio developer, composer, front end</p>
               <p>www.kameronmasullo.com</p>
               <a target="_blank" href="http://kameronmasullo.com/">Portfolio</a>
             </div>
