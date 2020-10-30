@@ -13,6 +13,7 @@ const BattleshipAPI = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
+
   getState(id) {
     return fetch(`${config.API_ENDPOINT}/game/${id}`, {
       method: "GET",
@@ -44,12 +45,36 @@ const BattleshipAPI = {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        id: gameState.id,
         p1_board: gameState.p1_board,
         p2_board: gameState.p2_board,
         p1_health: gameState.p1_health,
         p2_health: gameState.p2_health,
         player_turn: gameState.player_turn,
         active_game: gameState.active_game,
+      }),
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
+
+  newMPGame(gameState) {
+    console.log("newMPGame -> gameState", gameState)
+    return fetch(`${config.API_ENDPOINT}/game/mp/newgame/`, {
+      method: "POST",
+      headers: {
+        authorization: `bearer ${TokenService.getAuthToken()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: gameState.id,
+        p1_board: gameState.p1_board,
+        p2_board: gameState.p2_board,
+        p1_health: gameState.p1_health,
+        p2_health: gameState.p2_health,
+        player_turn: gameState.player_turn,
+        active_game: gameState.active_game,
+        client_player: gameState.client_player,
       }),
     }).then((res) =>
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
@@ -67,6 +92,7 @@ const BattleshipAPI = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
+  
   postMove(gameId, x, y) {
     return fetch(`${config.API_ENDPOINT}/game/gamestate/${gameId}`, {
       method: "PATCH",

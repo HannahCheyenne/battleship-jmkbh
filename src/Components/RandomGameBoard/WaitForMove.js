@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-export default class GetAiMove extends Component {
+export default class WaitForMove extends Component {
   componentDidMount() {
     this.props.func();
   }
 
   render() {
-    return <div></div>;
+    return <div>Waiting for opponent</div>;
   }
 }
