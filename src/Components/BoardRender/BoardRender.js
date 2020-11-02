@@ -13,8 +13,6 @@ export default class Board extends Component {
         };
       }
       handleClick(event) {
-       
-        console.log(this.state.disabled)
         this.setState({
           id: event.target.id,
           disabled:true

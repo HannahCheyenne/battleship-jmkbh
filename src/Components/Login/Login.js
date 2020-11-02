@@ -37,7 +37,6 @@ class Login extends Component {
       .catch((res) => {
         this.setState({ error: res.error });
       });
-      console.log(this.props.history)
   };
   render() {
     const { error } = this.state;

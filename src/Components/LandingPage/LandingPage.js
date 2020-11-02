@@ -9,7 +9,6 @@ class LandingPage extends Component {
   static defaultProps = {history: {push: ()=> {}} }
 
   render() {
-    console.log(this.props.history.location)
     return (<>
       <div className="landingPage">
         {/* <div className="starmap"><img src={spaceBackground} alt="Logo" /></div> */}

@@ -153,8 +153,6 @@ class GameBoard extends Component {
     }).then(()=> this.winTheme(p2Health));
   };
   playerMove(id, disabled) {
-    console.log("id", id)
-    console.log(disabled)
     this.setState(
       {
         idfromBoard: id,

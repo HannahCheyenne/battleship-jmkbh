@@ -22,7 +22,6 @@ export default class DemoAccount extends Component{
           .then((res) => {
             TokenService.saveAuthToken(res.authToken);
             this.props.history.push('/dashboard');
-            console.log(this.props.history)
           })
           .catch((res) => {
             this.setState({ error: res.error });

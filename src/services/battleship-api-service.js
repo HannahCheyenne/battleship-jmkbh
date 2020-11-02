@@ -59,7 +59,6 @@ const BattleshipAPI = {
   },
 
   newMPGame(gameState) {
-    console.log("newMPGame -> gameState", gameState)
     return fetch(`${config.API_ENDPOINT}/game/mp/newgame/`, {
       method: "POST",
       headers: {

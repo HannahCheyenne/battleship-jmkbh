@@ -160,8 +160,6 @@ export default class PlayerBoardRender extends Component {
     let newY = Number(split[1]);
     let anchorY = this.state.anchorY;
     let anchorX = this.state.anchorX;
-    //console.log("x", newX, "y", newY);
-
     if (newBoard[newX][newY]) {
       this.setState({
         x: newX,

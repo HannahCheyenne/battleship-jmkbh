@@ -13,7 +13,6 @@ export default class SetPlayerBoard extends Component {
         };
       }
       handleClick(event) {
-        console.log(this.props)
         event.preventDefault()
         if(event.target.id){
           return null
@@ -29,7 +28,6 @@ export default class SetPlayerBoard extends Component {
   render() {
       const { test } = this.props
       const id = this.state.id
-      console.log(id, 'id')
       const H = <img className ="image" src={boom} alt="hit"/>
       const M = <img className= 'image' src={miss} alt="miss"/>
     return (<>
