@@ -9,8 +9,7 @@ import { Link } from "react-router-dom";
 import explosion from './explosion.png'
 import rocketman from './rocketman.png'
 import Audio from '../../../services/audio'
-import chickenwhite from './chickenwhite.png'
-import skullwhite from './skullwhite.png'
+
 
 import "./endgameoverlay.css";
 export default class EndGameOverlay extends Component {
