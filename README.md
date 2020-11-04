@@ -10,7 +10,7 @@ The app has 9 main page views. The components for each page view are found in th
 
 ### Landing Page
 The landing page gives new users a brief description of the app and its purpose.<br>
-<em>[placeholder for screenshot]</em>
+<em><img alt="Landing Page" src="src/Images/Screenshots/Landing.png"></em>
 
 ### Login Page
 From the Landing Page users can view the Login Page. Already registered users can log in here. New users can click the link to create an account. A demo user account is also available to allow new users to try out the app as well.<br>
