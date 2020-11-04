@@ -14,38 +14,38 @@ The landing page gives new users a brief description of the app and its purpose.
 
 ### Login Page
 From the Landing Page users can view the Login Page. Already registered users can log in here. New users can click the link to create an account. A demo user account is also available to allow new users to try out the app as well.<br>
-<em>[placeholder for screenshot]</em>
+<em><img alt="Login Page" src="src/Images/Screenshots/Login.png"></em>
 
 ### Registration Page
 The registration page is for new users to create an account. If you already have an account, you can click on a link that will redirect you to the login page.<br>
-<em>[placeholder for screenshot]</em>
+<em><img alt="Registration Page" src="src/Images/Screenshots/Registration.png"></em>
 
 ### Contact Page
 The contact page is for any user to view the people who worked very hard on Space Battleship and look at their portfolios.<br>
-<em>[placeholder for screenshot]</em>
+<em><img alt="Contact Page" src="src/Images/Screenshots/Contact.png"></em>
 
 ### Dashboard Page
 The dashboard page is where users can choose to view stats or select which game version to play<br>
-<em>[placeholder for screenshot]</em>
+<em><img alt="Dashboard Page" src="src/Images/Screenshots/Login.png"></em>
 
 ### Stats Page
 The stats page is where the user can see all of their game related stats<br>
-<em>[placeholder for screenshot]</em>
+<em><img alt="Stats Page" src="src/Images/Screenshots/Stats.png"></em>
 
 
 ### Game Page
 The game page is where the user can choose to begin a game or quit, place ships on their board and battle an AI<br>
-<em>[placeholder for screenshot]</em>
+<em><img alt="Game Page" src="src/Images/Screenshots/Game.png"></em>
 
 
 ### Quickgame Page
 The quick game page is where a user who wants to just play a game without signing in or tracking their stats can place ships on their board and battle an AI<br>
-<em>[placeholder for screenshot]</em>
+<em><img alt="QuickGame Page" src="src/Images/Screenshots/QuickGame.png"></em>
 
 
 ### Random Game Page
 The random game page is where a user can play a game with a random other user on the web, place ships and battle for dominance<br>
-<em>[placeholder for screenshot]</em>
+<em><img alt="RandomGame Page" src="src/Images/Screenshots/RandomGame.png"></em>
 
 
 ## Stack
