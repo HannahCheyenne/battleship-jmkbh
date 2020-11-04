@@ -45,7 +45,7 @@ class GameBoard extends Component {
       //whether game is over
       active_game: false,
       endScreen: false,
-      disabled: false,
+      //disabled: false,
     };
   }
   static contextType = Context;
@@ -140,7 +140,6 @@ class GameBoard extends Component {
           const gameState = data.gameState;
           this.setState(
             {
-              idfromBoard: "",
               id: gameState.id,
               //player
               p1_board: gameState.p1_board,
@@ -158,11 +157,10 @@ class GameBoard extends Component {
         .then(() => this.winTheme(p2Health));
     }
   };
-  playerMove(id, disabled) {
+  playerMove(id) {
     this.setState(
       {
         idfromBoard: id,
-        disabled: true,
       },
       () => this.postMove()
     );
@@ -181,6 +179,7 @@ class GameBoard extends Component {
     );
   };
   render() {
+    console.log("GameBoard -> this.state", this.state)
     return (
       <>
         <div className="gamePage">
