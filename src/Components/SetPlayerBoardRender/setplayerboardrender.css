@@ -32,20 +32,24 @@
   background: #5852ff;
 }
 .slot.bg1 {
-  background:#5852ff;
-} 
+  background: #5852ff;
+}
 .slot.bg2 {
   background: #5852ff;
 }
 .slot.bg3 {
-  background:#5852ff;
+  background: #5852ff;
 }
 .slot.bg4 {
-  background:#5852ff;
+  background: #5852ff;
 }
 .slot.bg6 {
-  background: #40AB91;
+  background: #40ab91;
 }
+.slot.selected {
+  background: #A00000;
+}
+
 @media all and (max-width: 700px) {
   .boardContainer {
     flex-direction: column;

@@ -189,6 +189,12 @@ export default class PlayerBoardRender extends Component {
           }
         }
       }
+      // else {
+      //   this.resetBoard(e)
+      //   this.setState({
+      //     isAnchor: false
+      //   })
+      // }
     }
   };
 
@@ -205,22 +211,21 @@ export default class PlayerBoardRender extends Component {
     this.placementMouseover(e);
 
     let isAnchor = this.state.isAnchor;
-    const x = this.state.x;
-    const y = this.state.y;
+    const { x, y, anchorX, anchorY } = this.state;
 
     if (!isAnchor) {
-      Audio.click();
-      let id = `${x}.${y}`;
-      const element = document.getElementById(id);
-      element.className += " selected";
-      this.setState({
-        anchorX: x,
-        anchorY: y,
-        isAnchor: true,
-      });
+      if (this.state.board[x][y] === 7) {
+        Audio.click();
+        let id = `${x}.${y}`;
+        const element = document.getElementById(id);
+        element.className += " selected";
+        this.setState({
+          anchorX: x,
+          anchorY: y,
+          isAnchor: true,
+        });
+      }
     } else {
-      const anchorX = this.state.anchorX;
-      const anchorY = this.state.anchorY;
       if (x === anchorX && y === anchorY) {
         let id = `${x}.${y}`;
         const element = document.getElementById(id);
@@ -239,7 +244,7 @@ export default class PlayerBoardRender extends Component {
   };
 
   generateBoard = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     BattleshipAPI.generateBoard().then((data) => {
       const board = data.board;
       this.setState({
