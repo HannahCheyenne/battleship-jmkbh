@@ -202,6 +202,8 @@ export default class PlayerBoardRender extends Component {
 
   placementOnClick = (e) => {
     e.preventDefault();
+    this.placementMouseover(e);
+
     let isAnchor = this.state.isAnchor;
     const x = this.state.x;
     const y = this.state.y;
