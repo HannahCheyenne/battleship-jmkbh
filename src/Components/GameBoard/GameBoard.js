@@ -179,7 +179,6 @@ class GameBoard extends Component {
     );
   };
   render() {
-    console.log("GameBoard -> this.state", this.state)
     return (
       <>
         <div className="gamePage">

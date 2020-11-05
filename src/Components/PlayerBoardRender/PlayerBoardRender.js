@@ -93,7 +93,6 @@ export default class PlayerBoardRender extends Component {
     let { board, savedBoard } = this.state;
     board[x][y] = 5;
     savedBoard[x][y] = 5;
-    console.log("Anchor set", this.state);
     this.setState({
       savedBoard: savedBoard,
       board: board,
@@ -107,7 +106,6 @@ export default class PlayerBoardRender extends Component {
     let { anchorX, anchorY, board, savedBoard } = this.state;
     if (savedBoard[anchorX][anchorY] === 5) savedBoard[anchorX][anchorY] = 7;
     if (board[anchorX][anchorY] === 5) board[anchorX][anchorY] = 7;
-    console.log("Anchor removed", this.state);
     this.setState({
       savedBoard: savedBoard,
       board: board,
@@ -172,11 +170,6 @@ export default class PlayerBoardRender extends Component {
       for (let i = 0; i < 8; i++) {
         for (let j = 0; j < 8; j++) {
           if (board[i][j] === 6 || board[i][j] === 5) {
-            console.log(
-              "PlayerBoardRender -> savedBoard[i][j]",
-              savedBoard[i][j]
-            );
-            console.log("PlayerBoardRender -> board[i][j]", board[i][j]);
             savedBoard[i][j] = shipId;
             board[i][j] = shipId;
           }
@@ -331,7 +324,6 @@ export default class PlayerBoardRender extends Component {
     const H = <img className="image" src={boom} alt="hit" />;
     const M = <img className="image" src={miss} alt="miss" />;
 
-    console.log("state changed: ", this.state);
 
     return (
       <div className="playerContainer">
