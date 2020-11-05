@@ -43,11 +43,11 @@
 .slot.bg4 {
   background: #5852ff;
 }
+.slot.bg5 {
+  background: #A00000;
+}
 .slot.bg6 {
   background: #40ab91;
-}
-.slot.selected {
-  background: #A00000;
 }
 
 @media all and (max-width: 700px) {

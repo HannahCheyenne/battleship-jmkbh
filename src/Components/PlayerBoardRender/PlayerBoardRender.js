@@ -42,8 +42,8 @@ export default class PlayerBoardRender extends Component {
       ships: createShips,
       currX: 0,
       currY: 0,
-      anchorX: 0,
-      anchorY: 0,
+      anchorX: -1,
+      anchorY: -1,
       isAnchor: false,
       shipId: 4,
       shipsToPlace: [1, 1, 1, 1, 1],
@@ -53,8 +53,8 @@ export default class PlayerBoardRender extends Component {
 
   resetBoard = (e) => {
     e.preventDefault();
-    let savedBoard = this.state.savedBoard;
-    const board = this.state.board;
+    const savedBoard = this.state.savedBoard;
+    let board = this.state.board;
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
         board[i][j] = savedBoard[i][j];
@@ -89,13 +89,42 @@ export default class PlayerBoardRender extends Component {
     return copy;
   };
 
-  checkCells = (anchorX, anchorY, dirX, dirY) => {
+  setAnchor(x, y) {
+    let { board, savedBoard } = this.state;
+    board[x][y] = 5;
+    savedBoard[x][y] = 5;
+    console.log("Anchor set", this.state);
+    this.setState({
+      savedBoard: savedBoard,
+      board: board,
+      anchorX: x,
+      anchorY: y,
+      isAnchor: true,
+    });
+  }
+
+  removeAnchor() {
+    let { anchorX, anchorY, board, savedBoard } = this.state;
+    if (savedBoard[anchorX][anchorY] === 5) savedBoard[anchorX][anchorY] = 7;
+    if (board[anchorX][anchorY] === 5) board[anchorX][anchorY] = 7;
+    console.log("Anchor removed", this.state);
+    this.setState({
+      savedBoard: savedBoard,
+      board: board,
+      anchorX: -1,
+      anchorY: -1,
+      isAnchor: false,
+    });
+  }
+
+  checkCells = (dirX, dirY) => {
+    let { anchorX, anchorY } = this.state;
     const shipId = this.state.shipId;
     const shipLength = this.shipLength(shipId);
     let newBoard = [...this.state.board];
     let allClear = true;
 
-    for (let i = 0; i < shipLength; i++) {
+    for (let i = 1; i < shipLength; i++) {
       let x = anchorX + i * dirX;
       let y = anchorY + i * dirY;
       if (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
@@ -131,25 +160,41 @@ export default class PlayerBoardRender extends Component {
 
   updateBoard = () => {
     Audio.positioned();
-    let { board, savedBoard, shipId, shipsToPlace } = this.state;
-    for (let i = 0; i < 8; i++) {
-      for (let j = 0; j < 8; j++) {
-        if (board[i][j] === 6) {
-          savedBoard[i][j] = shipId;
+    let {
+      board,
+      savedBoard,
+      shipId,
+      shipsToPlace,
+      validPlacement,
+    } = this.state;
+
+    if (validPlacement) {
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          if (board[i][j] === 6 || board[i][j] === 5) {
+            console.log(
+              "PlayerBoardRender -> savedBoard[i][j]",
+              savedBoard[i][j]
+            );
+            console.log("PlayerBoardRender -> board[i][j]", board[i][j]);
+            savedBoard[i][j] = shipId;
+            board[i][j] = shipId;
+          }
         }
       }
+
+      this.removeAnchor();
+      shipsToPlace[shipId] = 0;
+      shipId = this.findNextShip(shipsToPlace);
+
+      this.setState({
+        savedBoard: savedBoard,
+        board: board,
+        validPlacement: false,
+        shipsToPlace: shipsToPlace,
+        shipId: shipId,
+      });
     }
-
-    shipsToPlace[shipId] = 0;
-    shipId = this.findNextShip(shipsToPlace);
-
-    this.setState({
-      savedBoard: savedBoard,
-      isAnchor: false,
-      validPlacement: false,
-      shipsToPlace: shipsToPlace,
-      shipId: shipId,
-    });
   };
 
   placementMouseover = (e) => {
@@ -174,18 +219,18 @@ export default class PlayerBoardRender extends Component {
         if (Math.abs(diffX) > Math.abs(diffY)) {
           if (diffX > 0) {
             //up
-            this.checkCells(anchorX, anchorY, -1, 0);
+            this.checkCells(-1, 0);
           } else if (diffX < 0) {
             //down
-            this.checkCells(anchorX, anchorY, 1, 0);
+            this.checkCells(1, 0);
           }
         } else if (Math.abs(diffY) > Math.abs(diffX)) {
           if (diffY > 0) {
             //left
-            this.checkCells(anchorX, anchorY, 0, -1);
+            this.checkCells(0, -1);
           } else if (diffY < 0) {
             //right
-            this.checkCells(anchorX, anchorY, 0, 1);
+            this.checkCells(0, 1);
           }
         }
       }
@@ -202,33 +247,17 @@ export default class PlayerBoardRender extends Component {
 
   placementOnClick = (e) => {
     e.preventDefault();
-    this.placementMouseover(e);
-
     let isAnchor = this.state.isAnchor;
-    const { x, y, anchorX, anchorY } = this.state;
-
+    this.placementMouseover(e);
+    const { x, y, anchorX, anchorY, board } = this.state;
     if (!isAnchor) {
-      if (this.state.board[x][y] === 7) {
+      if (board[x][y] === 7) {
         Audio.click();
-        let id = `${x}.${y}`;
-        const element = document.getElementById(id);
-        element.className += " selected";
-        this.setState({
-          anchorX: x,
-          anchorY: y,
-          isAnchor: true,
-        });
+        this.setAnchor(x, y);
       }
     } else {
       if (x === anchorX && y === anchorY) {
-        let id = `${x}.${y}`;
-        const element = document.getElementById(id);
-        element.className = "slot";
-        this.setState({
-          anchorX: 0,
-          anchorY: 0,
-          isAnchor: false,
-        });
+        this.removeAnchor();
       } else {
         if (this.state.validPlacement) {
           this.updateBoard();
@@ -254,8 +283,6 @@ export default class PlayerBoardRender extends Component {
 
   reset = (e) => {
     e.preventDefault();
-    e.className = "slot";
-
     this.clearBoard();
   };
   clearBoard = () => {
@@ -284,8 +311,8 @@ export default class PlayerBoardRender extends Component {
       ships: createShips,
       currX: 0,
       currY: 0,
-      anchorX: 0,
-      anchorY: 0,
+      anchorX: -1,
+      anchorY: -1,
       isAnchor: false,
       shipId: 4,
       shipsToPlace: [1, 1, 1, 1, 1],
@@ -303,6 +330,8 @@ export default class PlayerBoardRender extends Component {
     const board = [...this.state.board];
     const H = <img className="image" src={boom} alt="hit" />;
     const M = <img className="image" src={miss} alt="miss" />;
+
+    console.log("state changed: ", this.state);
 
     return (
       <div className="playerContainer">
