@@ -189,12 +189,6 @@ export default class PlayerBoardRender extends Component {
           }
         }
       }
-      // else {
-      //   this.resetBoard(e)
-      //   this.setState({
-      //     isAnchor: false
-      //   })
-      // }
     }
   };
 
@@ -260,6 +254,8 @@ export default class PlayerBoardRender extends Component {
 
   reset = (e) => {
     e.preventDefault();
+    e.className = "slot";
+
     this.clearBoard();
   };
   clearBoard = () => {
