@@ -171,12 +171,14 @@ class RandomGameBoard extends Component {
     });
   };
   gameOn = () => {
-    this.setState({
-      endScreen:false
-    }, () => Audio.playTheme('menu.mp3'))
-  }
+    this.setState(
+      {
+        endScreen: false,
+      },
+      () => Audio.playTheme("menu.mp3")
+    );
+  };
   render() {
-
     return (
       <>
         <div className="gamePage">
