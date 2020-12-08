@@ -35,7 +35,7 @@ export default class ContactPage extends Component {
             <div className="devContainers" name="brett">
             <img className="devImg" src={workoutspaceman} alt=""/>
             <h3>Brett Westerlund</h3>
-              <p>Logic, back end</p>
+              <p>Interactivity, Game logic, AI</p>
               <p>www.drbretto.com</p>
               <a target="_blank" href=" https://drbretto.com/">Portfolio</a>
             </div>

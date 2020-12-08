@@ -5,16 +5,22 @@ import "./gameboard.css";
 import PlayerBoardRender from "../PlayerBoardRender/PlayerBoardRender";
 import SetPlayerBoardRender from "../SetPlayerBoardRender/SetPlayerBoardRender";
 import Context from "../../Context";
-import Audio from "../../services/audio";
+//import Audio from "../../services/audio";
 import GetAiMove from "./GetAiMove";
 import EndGameTrigger from "./EndGame/EndGameTrigger";
 import EndGameOverlay from "./EndGameOverlay/EndGameOverlay";
 import HealthBar from "./HealthBar/HealthBar";
+import ai, { getMask } from "../../Utils/AI-helpers";
+import { NeuralNetwork, cloneValues } from "../../Utils/NN";
+const math = require("mathjs");
+
 class GameBoard extends Component {
   constructor() {
     super();
     this.playerMove = this.playerMove.bind(this);
     this.state = {
+      newBWins: 0,
+      randoWins: 0,
       idfromBoard: "",
       //player
       id: 1,
@@ -39,6 +45,16 @@ class GameBoard extends Component {
         [7, 7, 7, 7, 7, 7, 7, 7],
         [7, 7, 7, 7, 7, 7, 7, 7],
       ],
+      heatMap: [
+        [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+        [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+        [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+        [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+        [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+        [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+        [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+        [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+      ],
       p1_health: [2, 3, 3, 4, 5],
       p2_health: [2, 3, 3, 4, 5],
       player_turn: true,
@@ -47,11 +63,16 @@ class GameBoard extends Component {
       endScreen: false,
       //disabled: false,
     };
+    this.runs = 100;
+    this.nn = new NeuralNetwork(
+      math.matrix(this.state.p1_board),
+      math.matrix(this.state.p2_board)
+    );
   }
   static contextType = Context;
 
   newGame = (playerBoard) => {
-    this.context.handleTheme("game.mp3");
+    //this.context.handleTheme("game.mp3");
     let initialState = {
       p1_board: playerBoard,
       p2_board: playerBoard,
@@ -79,38 +100,102 @@ class GameBoard extends Component {
     });
   };
 
-  hitSound = (bef, aft) => {
-    let hit = false;
-    for (let i = 0; i < bef.length; i++) {
-      if (bef[i] !== 0 && aft[i] === 0) {
-        Audio.laser();
-        Audio.attackSound(true, true);
-        hit = true;
-      }
-      if (bef[i] > aft[i] && aft[i] !== 0) {
-        Audio.laser();
-        Audio.attackSound(true);
-        hit = true;
+  // hitSound = (bef, aft) => {
+  //   let hit = false;
+  //   for (let i = 0; i < bef.length; i++) {
+  //     if (bef[i] !== 0 && aft[i] === 0) {
+  //       //!Audio.laser();
+  //       //!Audio.attackSound(true, true);
+  //       hit = true;
+  //     }
+  //     if (bef[i] > aft[i] && aft[i] !== 0) {
+  //       //!Audio.laser();
+  //       //!Audio.attackSound(true);
+  //       hit = true;
+  //     }
+  //   }
+  //   hit === false && Audio.attackSound(false);
+  //   return aft;
+  // };
+
+  // winTheme = (p2) => {
+  //   p2.reduce((a, b) => a + b) === 0 && this.context.handleTheme("win.mp3");
+  // };
+
+  // loseTheme = (p1) => {
+  //   p1.reduce((a, b) => a + b) === 0 && this.context.handleTheme("lose.mp3");
+  // };
+
+  animateHeatMap = (nn, mask) => {
+    let heatMap = math.clone(nn.output);
+
+    for (let i = 0; i < nn.output._data.length; i++) {
+      for (let j = 0; j < nn.output._data[0].length; j++) {
+        if (mask[i][j] === 1) {
+          heatMap._data[i][j] = "";
+        }
       }
     }
-    hit === false && Audio.attackSound(false);
-    return aft;
-  };
-
-  winTheme = (p2) => {
-    p2.reduce((a, b) => a + b) === 0 && this.context.handleTheme("win.mp3");
-  };
-
-  loseTheme = (p1) => {
-    p1.reduce((a, b) => a + b) === 0 && this.context.handleTheme("lose.mp3");
+    if (!this.state.active_game) {
+      for (let i = 0; i < nn.output._data.length; i++) {
+        for (let j = 0; j < nn.output._data[0].length; j++) {
+          heatMap._data[i][j] = "";
+        }
+      }
+    }
+    this.setState({
+      heatMap: heatMap._data,
+    });
   };
 
   getAiMove = () => {
     const gameId = this.state.id;
-    BattleshipAPI.getAiMove(gameId)
-      .then((data) => {
-        const gameState = data.gameState;
-        this.setState({
+    let board = math.matrix(this.state.p1_board);
+    let mask = ai.getMask(board);
+    const maxAge = 1;
+    let input = ai.scrubVisibleBoard(board, mask);
+    let output = ai.scrubAnswerBoard(board, mask);
+
+    //create and train a new bot to maxAge iterations:
+    let fakeBoard = math.matrix(ai.generateBoard());
+    let fakeInput = ai.scrubVisibleBoard(fakeBoard, mask);
+    let fakeOutput = ai.scrubAnswerBoard(fakeBoard, mask);
+    let dummy = new NeuralNetwork(fakeInput, fakeOutput);
+
+    if (this.nn.age < maxAge && false) {
+      for (let i = 0; i < maxAge; i++) {
+        //train dummy on random board one time:
+        fakeBoard = math.matrix(ai.generateBoard());
+        fakeInput = ai.scrubVisibleBoard(fakeBoard, mask);
+        fakeOutput = ai.scrubAnswerBoard(fakeBoard, mask);
+        dummy.input = fakeInput;
+        dummy.y = fakeOutput;
+        dummy.train();
+
+        //clone dummy and update heatMap with real board predictions:
+        //let preview = cloneValues(dummy, input, output);
+        //preview.feedforward();
+
+        this.nn = cloneValues(dummy, input, output);
+        //console.log("this shouldn't run after the first move");
+      }
+    }
+
+    this.nn.input = input;
+    this.nn.y = output;
+    this.nn.feedforward();
+
+    const { x, y } = ai.getMove(this.nn, mask);
+
+    this.nn.age += 1;
+    this.nn.backprop();
+
+    this.animateHeatMap(this.nn, mask);
+
+    BattleshipAPI.getAiMove(gameId, x, y).then((data) => {
+      const gameState = data.gameState;
+      this.setState(
+        {
           idfromBoard: "",
           id: gameState.id,
           //player
@@ -122,9 +207,11 @@ class GameBoard extends Component {
           player_turn: gameState.player_turn,
           //whether game is over
           active_game: gameState.active_game,
-        });
-      })
-      .then(() => this.loseTheme(this.state.p1_health));
+        },
+        this.postMove()
+      );
+    });
+    //.then(() => this.loseTheme(this.state.p1_health));
   };
 
   postMove = () => {
@@ -134,29 +221,44 @@ class GameBoard extends Component {
     let y = Number(split[1]);
     let p2Health = this.state.p2_health;
 
+    if (this.state.active_game) {
+      //!--- temporary testing edit
+      let validMove = false;
+
+      while (!validMove) {
+        x = math.floor(Math.random() * 8);
+        y = math.floor(Math.random() * 8);
+
+        if (this.state.p2_board[x][y] < 8) {
+          validMove = true;
+        }
+      }
+    }
+    //!--- end temporary testing edit
+
     if (this.state.p2_board[x][y] <= 7) {
-      BattleshipAPI.postMove(gameId, x, y)
-        .then((data) => {
-          const gameState = data.gameState;
-          this.setState(
-            {
-              id: gameState.id,
-              //player
-              p1_board: gameState.p1_board,
-              //opponent
-              p2_board: gameState.p2_board,
-              p1_health: gameState.p1_health,
-              p2_health: gameState.p2_health,
-              player_turn: gameState.player_turn,
-              //whether game is over
-              active_game: gameState.active_game,
-            },
-            () => (p2Health = this.hitSound(p2Health, gameState.p2_health))
-          );
-        })
-        .then(() => this.winTheme(p2Health));
+      BattleshipAPI.postMove(gameId, x, y).then((data) => {
+        const gameState = data.gameState;
+        this.setState(
+          {
+            id: gameState.id,
+            //player
+            p1_board: gameState.p1_board,
+            //opponent
+            p2_board: gameState.p2_board,
+            p1_health: gameState.p1_health,
+            p2_health: gameState.p2_health,
+            player_turn: gameState.player_turn,
+            //whether game is over
+            active_game: gameState.active_game,
+          }
+          //() => (p2Health = this.hitSound(p2Health, gameState.p2_health))
+        );
+      });
+      //.then(() => this.winTheme(p2Health));
     }
   };
+
   playerMove(id) {
     this.setState(
       {
@@ -165,26 +267,70 @@ class GameBoard extends Component {
       () => this.postMove()
     );
   }
+
   gameOver = () => {
-    this.setState({
-      endScreen: true,
-    });
+    let newBWins = this.state.newBWins;
+    let randoWins = this.state.randoWins;
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    let p1 = this.state.p1_health.reduce(reducer);
+    let p2 = this.state.p2_health.reduce(reducer);
+
+    if (p1 === 0) {
+      console.log("NewB wins");
+      newBWins += 1;
+    } else if (p2 === 0) {
+      console.log("Rando wins");
+      randoWins += 1;
+    }
+    this.setState(
+      {
+        randoWins: randoWins,
+        newBWins: newBWins,
+        active_game: false,
+        //endScreen: true,  //!temp edit for testing!
+      },
+      this.animateHeatMap(this.nn, ai.getMask(math.matrix(this.state.p1_board)))
+    );
+
+    const interval = setInterval(() => {
+      if (this.runs > 0) {
+        this.runs -= 1;
+        console.log("runs left", this.runs);
+        console.log("neural network age:", this.nn.age);
+        this.postMove();
+        clearInterval(interval);
+      }
+    }, 3200);
   };
+
   gameOn = () => {
     this.setState(
       {
         endScreen: false,
-      },
-      () => this.context.handleTheme("menu.mp3")
+      }
+      //() => this.context.handleTheme("menu.mp3")
     );
   };
+
   render() {
     return (
       <>
         <div className="gamePage">
           <div className="gameBoard">
             {this.state.active_game && (
-              <HealthBar health={this.state.p1_health} />
+              <div>
+                <p className="wins">
+                  NewB Wins: {this.state.newBWins} (
+                  {(
+                    100 *
+                    (this.state.newBWins /
+                      (this.state.newBWins + this.state.randoWins))
+                  ).toFixed(2)}
+                  %)
+                </p>
+                <HealthBar health={this.state.p1_health} />
+              </div>
             )}
             {!this.state.active_game && <EndGameTrigger func={this.gameOver} />}
             {this.state.endScreen && (
@@ -193,6 +339,7 @@ class GameBoard extends Component {
             {!this.state.player_turn && (
               <GetAiMove func={this.getAiMove}></GetAiMove>
             )}
+
             <div className="player" id="player">
               {!this.state.active_game && !this.state.endScreen && (
                 <PlayerBoardRender
@@ -204,6 +351,7 @@ class GameBoard extends Component {
               )}
               {this.state.active_game && (
                 <SetPlayerBoardRender
+                  heatMap={this.state.heatMap}
                   test={this.state.p1_board}
                   key={this.state.p1_board}
                   disabled={true}
@@ -213,7 +361,18 @@ class GameBoard extends Component {
           </div>
           <div className="gameBoard">
             {this.state.active_game && (
-              <HealthBar health={this.state.p2_health} />
+              <div>
+                <p className="wins">
+                  Rando Wins: {this.state.randoWins}(
+                  {(
+                    100 *
+                    (this.state.randoWins /
+                      (this.state.newBWins + this.state.randoWins))
+                  ).toFixed(2)}
+                  %)
+                </p>
+                <HealthBar health={this.state.p2_health} />
+              </div>
             )}
             <div className="opponent" id="opponent">
               {this.state.active_game && (

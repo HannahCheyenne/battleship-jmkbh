@@ -29,25 +29,69 @@
   display: flex;
 }
 .slot.bg0 {
-  background: #5852ff;
+  border: 4px solid rgb(222, 222, 255);
+  border-radius: 1em;
 }
 .slot.bg1 {
-  background: #5852ff;
+  border: 4px solid rgb(255, 122, 248);
+  border-radius: 1em;
 }
 .slot.bg2 {
-  background: #5852ff;
+  border: 4px solid rgb(0, 60, 255);
+  border-radius: 1em;
 }
 .slot.bg3 {
-  background: #5852ff;
+  border: 4px solid rgb(252, 106, 69);
+  border-radius: 1em;
 }
 .slot.bg4 {
-  background: #5852ff;
+  border: 4px solid rgb(255, 213, 122);
+  border-radius: 1em;
 }
 .slot.bg5 {
-  background: #A00000;
+  border: 4px solid #a00000;
 }
 .slot.bg6 {
-  background: #40ab91;
+  border: 4px solid #40ab91;
+}
+
+.heat0 {
+  background: #000000ff;
+}
+.heat1 {
+  background: #000fff22;
+}
+.heat2 {
+  background: #2200ee44;
+}
+.heat3 {
+  background: #4400dd66;
+}
+.heat4 {
+  background: #6600cc88;
+}
+.heat5 {
+  background: #8800aaaa;
+}
+.heat6 {
+  background: #aa0088bb;
+}
+.heat7 {
+  background: #cc0066cc;
+}
+.heat8 {
+  background: #dd0044dd;
+}
+.heat9 {
+  background: #ee0022ee;
+}
+.heat10 {
+  background: #ff0000ff;
+}
+
+div.board {
+  background-color: #000000aa;
+  padding-top: 1em;
 }
 
 @media all and (max-width: 700px) {

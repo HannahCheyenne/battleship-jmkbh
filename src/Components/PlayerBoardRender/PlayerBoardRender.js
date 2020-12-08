@@ -259,16 +259,19 @@ export default class PlayerBoardRender extends Component {
     }
   };
 
-  generateBoard = (e) => {
-    e.preventDefault();
+  generateBoard = () => {
+    //e.preventDefault(); //!temp edit!
     BattleshipAPI.generateBoard().then((data) => {
       const board = data.board;
-      this.setState({
-        board: board,
-        savedBoard: board,
-        shipsToPlace: [0, 0, 0, 0, 0],
-        validPlacement: true,
-      });
+      this.setState(
+        {
+          board: board,
+          savedBoard: board,
+          shipsToPlace: [0, 0, 0, 0, 0],
+          validPlacement: true,
+        },
+        () => this.props.newGame(board)//!! temp
+      );
     });
   };
 
@@ -312,18 +315,23 @@ export default class PlayerBoardRender extends Component {
       validPlacement: false,
     });
   };
+
   validateAllPlaced() {
     const remainingShips = this.state.shipsToPlace.reduce((a, c) => a + c);
     if (remainingShips !== 0) {
       return "Must place all ships";
     }
   }
+
+  componentDidMount() {
+    this.generateBoard();
+  }
+
   render() {
     const { ships, shipsToPlace, savedBoard } = this.state;
     const board = [...this.state.board];
     const H = <img className="image" src={boom} alt="hit" />;
     const M = <img className="image" src={miss} alt="miss" />;
-
 
     return (
       <div className="playerContainer">
@@ -375,7 +383,7 @@ export default class PlayerBoardRender extends Component {
                   key={`0.${index}`}
                   id={`0.${index}`}
                   value={i}
-                  className={`slot bg${i}`}
+                  className={`slot bg${i} `}
                   disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}{" "}
@@ -389,7 +397,7 @@ export default class PlayerBoardRender extends Component {
                   key={`1.${index}`}
                   id={`1.${index}`}
                   value={i}
-                  className={`slot bg${i}`}
+                  className={`slot bg${i} `}
                   disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
@@ -403,7 +411,7 @@ export default class PlayerBoardRender extends Component {
                   key={`2.${index}`}
                   id={`2.${index}`}
                   value={i}
-                  className={`slot bg${i}`}
+                  className={`slot bg${i} `}
                   disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
@@ -417,7 +425,7 @@ export default class PlayerBoardRender extends Component {
                   key={`3.${index}`}
                   id={`3.${index}`}
                   value={i}
-                  className={`slot bg${i}`}
+                  className={`slot bg${i} `}
                   disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
@@ -431,7 +439,7 @@ export default class PlayerBoardRender extends Component {
                   key={`4.${index}`}
                   id={`4.${index}`}
                   value={i}
-                  className={`slot bg${i}`}
+                  className={`slot bg${i} `}
                   disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
@@ -445,7 +453,7 @@ export default class PlayerBoardRender extends Component {
                   key={`5.${index}`}
                   id={`5.${index}`}
                   value={i}
-                  className={`slot bg${i}`}
+                  className={`slot bg${i} `}
                   disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
@@ -459,7 +467,7 @@ export default class PlayerBoardRender extends Component {
                   key={`6.${index}`}
                   id={`6.${index}`}
                   value={i}
-                  className={`slot bg${i}`}
+                  className={`slot bg${i} `}
                   disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}
@@ -473,7 +481,7 @@ export default class PlayerBoardRender extends Component {
                   key={`7.${index}`}
                   id={`7.${index}`}
                   value={i}
-                  className={`slot bg${i}`}
+                  className={`slot bg${i} `}
                   disabled={this.props.disabled ? "disabled" : ""}
                 >
                   {i === 9 ? M : i === 8 ? H : ""}

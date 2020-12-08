@@ -91,7 +91,7 @@ const BattleshipAPI = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
-  
+
   postMove(gameId, x, y) {
     return fetch(`${config.API_ENDPOINT}/game/gamestate/${gameId}`, {
       method: "PATCH",
@@ -108,13 +108,17 @@ const BattleshipAPI = {
     );
   },
 
-  getAiMove(gameId) {
+  getAiMove(gameId, x, y) {
     return fetch(`${config.API_ENDPOINT}/game/aimove/${gameId}`, {
       method: "PATCH",
       headers: {
         authorization: `bearer ${TokenService.getAuthToken()}`,
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        x: x,
+        y: y,
+      }),
     }).then((res) =>
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );

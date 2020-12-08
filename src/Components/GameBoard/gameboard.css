@@ -17,6 +17,10 @@
     border: 1px solid  #fffbef93;
 }
 
+p.wins{
+    color: white;
+}
+
 @media all and (max-width:800px){
     .gamePage{
         flex-direction: column;
