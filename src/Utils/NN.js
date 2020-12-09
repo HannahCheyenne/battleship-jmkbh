@@ -1,12 +1,12 @@
 const math = require("mathjs");
 const ai = require("./AI-helpers");
 
-function zeroes(x, y) {
+function zeroes(x, y, filler = 0) {
   let zeroed = [];
   for (let i = 0; i < y; i++) {
     let tempArray = [];
     for (let j = 0; j < x; j++) {
-      tempArray.push(0);
+      tempArray.push(filler);
     }
     zeroed.push(tempArray);
   }
@@ -27,7 +27,7 @@ function sigmoid(arr) {
   let newArr = math.clone(arr);
   for (let i = 0; i < newArr._data.length; i++) {
     for (let j = 0; j < newArr._data[0].length; j++) {
-      newArr._data[i][j] = 1 / (1 + Math.exp(-arr._data[i][j] / 10));
+      newArr._data[i][j] = 1 / (1 + Math.exp(-arr._data[i][j] / 1));
     }
   }
   return newArr;
@@ -62,38 +62,6 @@ function times(arr1, arr2) {
   return newArr;
 }
 
-function stringify(board) {
-  let string = "";
-  for (let i = 0; i < board.length; i++) {
-    let line = "\n";
-    for (let j = 0; j < board[0].length; j++) {
-      line = line + " " + board[i][j].toFixed(2) + ",";
-    }
-    string = string + line;
-  }
-
-  return string;
-}
-
-function display(nn) {
-  console.log("");
-
-  console.log("SUMMARY: ----------------------------------------------");
-
-  console.log("Input layer:", stringify(nn.input._data));
-  //console.log("weights 1:", stringify(nn.weights1._data));
-  //console.log("layer1: ", stringify(nn.layer1._data));
-  //console.log("weights 2:", stringify(nn.weights2._data));
-  console.log("Target output:", stringify(nn.y._data));
-  console.log("actual output:", stringify(nn.output._data));
-
-  console.log("Brain Age:", nn.age);
-  console.log(
-    "END SUMMARY: -----------------------------------------------------------"
-  );
-  console.log("");
-}
-
 function cloneValues(nn, input, expectedOutput) {
   let newNN = new NeuralNetwork(input, expectedOutput);
   newNN.weights1 = nn.weights1;
@@ -107,7 +75,7 @@ function zeroPad(grid) {
   const length = grid.length;
   const width = grid[0].length;
 
-  let newGrid = zeroes(length + 2, width + 2);
+  let newGrid = zeroes(length + 2, width + 2, 0.5);
 
   for (let i = 1; i < length + 1; i++) {
     for (let j = 1; j < width + 1; j++) {
@@ -116,6 +84,25 @@ function zeroPad(grid) {
   }
 
   return newGrid;
+}
+
+function dotAdd(grid) {
+  let value = 0;
+  let mask = [
+    [0, 1, 0],
+    [1, 0, 1],
+    [0, 1, 0],
+  ];
+  //let newGrid = math.multiply(grid, mask);
+
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      value += grid[i][j] * mask[i][j];
+    }
+  }
+
+  value = value / (grid.length * grid[0].length);
+  return value;
 }
 
 class NeuralNetwork {
@@ -133,7 +120,9 @@ class NeuralNetwork {
   }
 
   feedforward() {
-    this.layer1 = sigmoid(math.multiply(this.input, this.weights1));
+    this.layer1 = sigmoid(
+      math.multiply(this.convolute(this.input), this.weights1)
+    );
     this.output = sigmoid(math.multiply(this.layer1, this.weights2));
   }
 
@@ -143,8 +132,10 @@ class NeuralNetwork {
     this.age += 1;
   }
 
-  convolute() {
-    
+  convolute(matrix) {
+    let newMatrix = math.clone(matrix);
+    newMatrix._data = this.filter(matrix._data);
+    return newMatrix;
   }
 
   filter(grid) {
@@ -156,31 +147,35 @@ class NeuralNetwork {
     for (let i = 0; i < length; i++) {
       for (let j = 0; j < width; j++) {
         let threeByThree = zeroes(3, 3);
+
         for (let x = 0; x < 3; x++) {
           for (let y = 0; y < 3; y++) {
-            threeByThree[x][y] = zero[1 + x][j + y];
-            console.log("🚀 ~ file: NN.js ~ line 162 ~ NeuralNetwork ~ filter ~ threeByThree[x][y]", threeByThree[x][y])
+            threeByThree[x][y] = zero[i + x][j + y];
           }
         }
+
+        filteredCache[i][j] = dotAdd(threeByThree);
       }
     }
-
     return filteredCache;
   }
 
   backprop() {
+    let y = this.convolute(this.y);
+    let output = this.output;
+    let input = this.convolute(this.input);
     // # application of the chain rule to find derivative of the loss function with respect to weights2 and weights1
-    let loss = double(math.subtract(this.y, this.output));
+    let loss = double(math.subtract(y, output));
     let d_weights2 = math.multiply(
       math.transpose(this.layer1),
-      times(loss, sigmoid_derivative(this.output))
+      times(loss, sigmoid_derivative(output))
     );
 
     let d_weights1 = math.multiply(
-      math.transpose(this.input),
+      math.transpose(input),
       times(
         math.multiply(
-          times(loss, sigmoid_derivative(this.output)),
+          times(loss, sigmoid_derivative(output)),
           math.transpose(this.weights2)
         ),
         sigmoid_derivative(this.layer1)

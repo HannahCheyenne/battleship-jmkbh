@@ -18,14 +18,14 @@ const ai = {
     }
   },
 
-  scrubAnswerBoard(board, mask) {
+  scrubAnswerBoard(board, mask, hide = true) {
     let newBoard = math.clone(board);
     let width = board._data.length;
     let length = board._data[0].length;
 
     for (let i = 0; i < width; i++) {
       for (let j = 0; j < length; j++) {
-        if (mask[i][j] === 1) {
+        if (mask[i][j] === 1 || !hide) {
           if (newBoard._data[i][j] <= 4 || newBoard._data[i][j] === 8) {
             newBoard._data[i][j] = 1;
           } else newBoard._data[i][j] = 0;
@@ -37,14 +37,14 @@ const ai = {
     return newBoard;
   },
 
-  scrubVisibleBoard(board, mask) {
+  scrubVisibleBoard(board, mask, hide = true) {
     let newBoard = math.clone(board);
     let width = board._data.length;
     let length = board._data[0].length;
 
     for (let i = 0; i < width; i++) {
       for (let j = 0; j < length; j++) {
-        if (mask[i][j] === 1) {
+        if (mask[i][j] === 1 || !hide) {
           if (newBoard._data[i][j] <= 6 || newBoard._data[i][j] === 8) {
             newBoard._data[i][j] = 1;
           }

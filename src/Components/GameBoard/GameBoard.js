@@ -63,7 +63,8 @@ class GameBoard extends Component {
       endScreen: false,
       //disabled: false,
     };
-    this.runs = 100;
+    this.runs = 1000;
+    this.turns = 0;
     this.nn = new NeuralNetwork(
       math.matrix(this.state.p1_board),
       math.matrix(this.state.p2_board)
@@ -152,34 +153,27 @@ class GameBoard extends Component {
     const gameId = this.state.id;
     let board = math.matrix(this.state.p1_board);
     let mask = ai.getMask(board);
-    const maxAge = 1;
+    const maxAge = 0;
     let input = ai.scrubVisibleBoard(board, mask);
     let output = ai.scrubAnswerBoard(board, mask);
+    let dummy = new NeuralNetwork(input, output);
 
-    //create and train a new bot to maxAge iterations:
-    let fakeBoard = math.matrix(ai.generateBoard());
-    let fakeInput = ai.scrubVisibleBoard(fakeBoard, mask);
-    let fakeOutput = ai.scrubAnswerBoard(fakeBoard, mask);
-    let dummy = new NeuralNetwork(fakeInput, fakeOutput);
-
-    if (this.nn.age < maxAge && false) {
-      for (let i = 0; i < maxAge; i++) {
-        //train dummy on random board one time:
-        fakeBoard = math.matrix(ai.generateBoard());
-        fakeInput = ai.scrubVisibleBoard(fakeBoard, mask);
-        fakeOutput = ai.scrubAnswerBoard(fakeBoard, mask);
-        dummy.input = fakeInput;
-        dummy.y = fakeOutput;
-        dummy.train();
-
-        //clone dummy and update heatMap with real board predictions:
-        //let preview = cloneValues(dummy, input, output);
-        //preview.feedforward();
-
-        this.nn = cloneValues(dummy, input, output);
-        //console.log("this shouldn't run after the first move");
-      }
-    }
+    // if (this.nn.age < maxAge || true) {
+    //   for (let i = 0; i < maxAge; i++) {
+    //     //train dummy on random board one time:
+    //     let fakeBoard = math.matrix(ai.generateBoard());
+    //     let fakeMask = ai.getMask(fakeBoard);
+    //     let fakeInput = ai.scrubVisibleBoard(fakeBoard, fakeMask, true);
+    //     let fakeOutput = ai.scrubAnswerBoard(fakeBoard, fakeMask, true);
+    //     dummy.input = fakeInput;
+    //     dummy.y = fakeOutput;
+    //     dummy.train();
+    //     dummy.input = input;
+    //     dummy.feedforward();
+    //     this.nn.y = dummy.output;
+    //     this.nn.train();
+    //   }
+    // }
 
     this.nn.input = input;
     this.nn.y = output;
@@ -220,6 +214,8 @@ class GameBoard extends Component {
     let x = Number(split[0]);
     let y = Number(split[1]);
     let p2Health = this.state.p2_health;
+
+    this.turns += 1;
 
     if (this.state.active_game) {
       //!--- temporary testing edit
@@ -277,12 +273,13 @@ class GameBoard extends Component {
     let p2 = this.state.p2_health.reduce(reducer);
 
     if (p1 === 0) {
-      console.log("NewB wins");
+      console.log("NewB wins in", this.turns);
       newBWins += 1;
     } else if (p2 === 0) {
-      console.log("Rando wins");
+      console.log("Rando wins in", this.turns);
       randoWins += 1;
     }
+    this.turns = 0;
     this.setState(
       {
         randoWins: randoWins,
