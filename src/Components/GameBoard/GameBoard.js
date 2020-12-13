@@ -63,8 +63,10 @@ class GameBoard extends Component {
       endScreen: false,
       //disabled: false,
     };
-    this.runs = 1000;
+    this.runs = 10001;
     this.turns = 0;
+    this.streak = 0;
+    this.longStreak = 0;
     this.nn = new NeuralNetwork(
       math.matrix(this.state.p1_board),
       math.matrix(this.state.p2_board)
@@ -153,33 +155,44 @@ class GameBoard extends Component {
     const gameId = this.state.id;
     let board = math.matrix(this.state.p1_board);
     let mask = ai.getMask(board);
+
     const maxAge = 0;
     let input = ai.scrubVisibleBoard(board, mask);
     let output = ai.scrubAnswerBoard(board, mask);
     let dummy = new NeuralNetwork(input, output);
 
-    // if (this.nn.age < maxAge || true) {
-    //   for (let i = 0; i < maxAge; i++) {
-    //     //train dummy on random board one time:
-    //     let fakeBoard = math.matrix(ai.generateBoard());
-    //     let fakeMask = ai.getMask(fakeBoard);
-    //     let fakeInput = ai.scrubVisibleBoard(fakeBoard, fakeMask, true);
-    //     let fakeOutput = ai.scrubAnswerBoard(fakeBoard, fakeMask, true);
-    //     dummy.input = fakeInput;
-    //     dummy.y = fakeOutput;
-    //     dummy.train();
-    //     dummy.input = input;
-    //     dummy.feedforward();
-    //     this.nn.y = dummy.output;
-    //     this.nn.train();
-    //   }
-    // }
+    if (this.nn.age < maxAge || false) {
+      for (let i = 0; i < maxAge; i++) {
+        //train dummy on random board one time:
+        let fakeBoard = math.matrix(ai.generateBoard());
+        let fakeMask = ai.randomizeMask(fakeBoard);
+        let fakeInput = ai.scrubVisibleBoard(fakeBoard, fakeMask, true);
+        let fakeOutput = ai.scrubAnswerBoard(fakeBoard, fakeMask, false);
+        this.nn.input = fakeInput;
+        this.nn.y = fakeOutput;
+        this.nn.train();
+        // dummy.input = input;
+        // dummy.feedforward();
+        // this.nn.y = dummy.output;
+        // this.nn.train();
+      }
+    }
 
     this.nn.input = input;
     this.nn.y = output;
+
     this.nn.feedforward();
 
     const { x, y } = ai.getMove(this.nn, mask);
+
+    mask[x][y] = 1;
+
+    this.nn.y = ai.scrubAnswerBoard(board, mask);
+
+    if (this.turns % 5000 === 0) {
+      console.log("🚀 ~ input", this.nn.input);
+      console.log("🚀 ~ output", this.nn.y);
+    }
 
     this.nn.age += 1;
     this.nn.backprop();
@@ -217,8 +230,8 @@ class GameBoard extends Component {
 
     this.turns += 1;
 
-    if (this.state.active_game) {
-      //!--- temporary testing edit
+    //!--- temporary testing edit
+    if (this.state.active_game && this.runs > 0) {
       let validMove = false;
 
       while (!validMove) {
@@ -273,15 +286,30 @@ class GameBoard extends Component {
     let p2 = this.state.p2_health.reduce(reducer);
 
     if (p1 === 0) {
-      console.log("NewB wins in", this.turns);
       newBWins += 1;
+      this.streak += 1;
+      if (this.streak > this.longStreak) this.longStreak = this.streak
+      console.log("NewB wins #", newBWins);
     } else if (p2 === 0) {
-      console.log("Rando wins in", this.turns);
+      this.streak = 0;
       randoWins += 1;
+      console.log("Rando wins #", randoWins);
     }
-    this.turns = 0;
+
+    console.log(
+      "turns per game:",
+      (this.turns / (newBWins + randoWins)).toFixed(3),
+      "streak:",
+      this.streak,
+      "longest Streak",
+      this.longStreak
+    );
+    //this.turns = 0;
+
     this.setState(
       {
+        p1_health: [2, 3, 3, 4, 5],
+        p2_health: [2, 3, 3, 4, 5],
         randoWins: randoWins,
         newBWins: newBWins,
         active_game: false,
@@ -291,7 +319,7 @@ class GameBoard extends Component {
     );
 
     const interval = setInterval(() => {
-      if (this.runs > 0) {
+      if (this.runs >= 0) {
         this.runs -= 1;
         console.log("runs left", this.runs);
         console.log("neural network age:", this.nn.age);

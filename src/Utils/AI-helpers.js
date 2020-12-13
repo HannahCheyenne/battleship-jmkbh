@@ -45,13 +45,15 @@ const ai = {
     for (let i = 0; i < width; i++) {
       for (let j = 0; j < length; j++) {
         if (mask[i][j] === 1 || !hide) {
-          if (newBoard._data[i][j] <= 6 || newBoard._data[i][j] === 8) {
+          if (newBoard._data[i][j] <= 4 || newBoard._data[i][j] === 8) {
             newBoard._data[i][j] = 1;
           }
-          if (newBoard._data[i][j] === 7) newBoard._data[i][j] = 0;
+          if (newBoard._data[i][j] === 9)
+            newBoard._data[i][j] = 0;
         } else newBoard._data[i][j] = 0.5;
       }
     }
+
     return newBoard;
   },
 

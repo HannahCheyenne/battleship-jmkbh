@@ -75,25 +75,25 @@ function zeroPad(grid) {
   const length = grid.length;
   const width = grid[0].length;
 
-  let newGrid = zeroes(length + 2, width + 2, 0.5);
+  let newGrid = zeroes(length + 4, width + 4, 0.5);
 
-  for (let i = 1; i < length + 1; i++) {
-    for (let j = 1; j < width + 1; j++) {
-      newGrid[i][j] = grid[i - 1][j - 1];
+  for (let i = 2; i < length + 2; i++) {
+    for (let j = 2; j < width + 2; j++) {
+      newGrid[i][j] = grid[i - 2][j - 2];
     }
   }
-
   return newGrid;
 }
 
 function dotAdd(grid) {
   let value = 0;
   let mask = [
-    [0, 1, 0],
-    [1, 0, 1],
-    [0, 1, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1.618, 0, 0],
+    [1, 1.618, .5, 1.618, 1],
+    [0, 0, 1.618, 0, 0],
+    [0, 0, .618, 0, 0],
   ];
-  //let newGrid = math.multiply(grid, mask);
 
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[0].length; j++) {
@@ -101,8 +101,7 @@ function dotAdd(grid) {
     }
   }
 
-  value = value / (grid.length * grid[0].length);
-  return value;
+  return value / (grid.length * grid[0].length);
 }
 
 class NeuralNetwork {
@@ -146,15 +145,15 @@ class NeuralNetwork {
 
     for (let i = 0; i < length; i++) {
       for (let j = 0; j < width; j++) {
-        let threeByThree = zeroes(3, 3);
+        let filter = zeroes(5, 5);
 
-        for (let x = 0; x < 3; x++) {
-          for (let y = 0; y < 3; y++) {
-            threeByThree[x][y] = zero[i + x][j + y];
+        for (let x = 0; x < 5; x++) {
+          for (let y = 0; y < 5; y++) {
+            filter[x][y] = zero[i + x][j + y];
           }
         }
 
-        filteredCache[i][j] = dotAdd(threeByThree);
+        filteredCache[i][j] = dotAdd(filter);
       }
     }
     return filteredCache;
